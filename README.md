@@ -21,4 +21,10 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
+## installation process isosgroup
+
+commands to run
+
+php artisan storage:link
+php artisan migrate
  
