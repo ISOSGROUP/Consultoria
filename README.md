@@ -26,5 +26,6 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 commands to run
 
 php artisan storage:link
+
 php artisan migrate
  
