@@ -51,7 +51,20 @@ class RoleController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
     
+        $Archivos[0] = "Archivos_Compartidos";
+        $folders_id = DB::table('folders')->whereNotIn('folders.name', $Archivos)->get("folders.id");
+
+        foreach($folders_id as $key => $value) {
+
+            DB::table('folder_permissions')->insert([
+                'folder_id'=> $value->id,
+                'role_id'=> $role->id]);
+
+        }
+
         if($request->has('values')){
+
+
 
             $r = $request->all();
             $r = $r['values'];
@@ -91,6 +104,9 @@ class RoleController extends Controller
                  
 
             }
+
+            
+
         }
 
         return redirect()->route('roles.index')
