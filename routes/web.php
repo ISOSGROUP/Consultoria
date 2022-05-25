@@ -44,3 +44,4 @@ Route::group(['middleware' => ['auth']], function() {
 Route::resource('tests', App\Http\Controllers\testController::class);
 Route::get('/query/{folder_name}', [App\Http\Controllers\RoleController::class, 'getPermissions']);
 
+Route::get('/foda', [App\Http\Controllers\FodaController::class, 'index'])->name('foda.index');

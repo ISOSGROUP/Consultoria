@@ -138,6 +138,10 @@ class ComposerStaticInitf5669c21a38b259b631a2eeedefa9932
             'Laravel\\Sanctum\\' => 16,
             'Laravel\\Sail\\' => 13,
         ),
+        'J' => 
+        array (
+            'JasonGuru\\LaravelMakeRepository\\' => 32,
+        ),
         'I' => 
         array (
             'Intervention\\Image\\' => 19,
@@ -434,6 +438,10 @@ class ComposerStaticInitf5669c21a38b259b631a2eeedefa9932
         array (
             0 => __DIR__ . '/..' . '/laravel/sail/src',
         ),
+        'JasonGuru\\LaravelMakeRepository\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src',
+        ),
         'Intervention\\Image\\' => 
         array (
             0 => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image',
@@ -585,6 +593,7 @@ class ComposerStaticInitf5669c21a38b259b631a2eeedefa9932
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\FodaController' => __DIR__ . '/../..' . '/app/Http/Controllers/FodaController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductController.php',
         'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoleController.php',
@@ -603,6 +612,7 @@ class ComposerStaticInitf5669c21a38b259b631a2eeedefa9932
         'App\\Http\\Requests\\CreatetestRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CreatetestRequest.php',
         'App\\Http\\Requests\\UpdateUserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateUserRequest.php',
         'App\\Http\\Requests\\UpdatetestRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdatetestRequest.php',
+        'App\\Models\\Foda' => __DIR__ . '/../..' . '/app/Models/Foda.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\test' => __DIR__ . '/../..' . '/app/Models/test.php',
@@ -2951,6 +2961,11 @@ class ComposerStaticInitf5669c21a38b259b631a2eeedefa9932
         'Intervention\\Image\\Point' => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image/Point.php',
         'Intervention\\Image\\Response' => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image/Response.php',
         'Intervention\\Image\\Size' => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image/Size.php',
+        'JasonGuru\\LaravelMakeRepository\\Exceptions\\GeneralException' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/exceptions/GeneralException.php',
+        'JasonGuru\\LaravelMakeRepository\\MakeRepository' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/MakeRepository.php',
+        'JasonGuru\\LaravelMakeRepository\\RepositoryServiceProvider' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/RepositoryServiceProvider.php',
+        'JasonGuru\\LaravelMakeRepository\\Repository\\BaseRepository' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/repository/BaseRepository.php',
+        'JasonGuru\\LaravelMakeRepository\\Repository\\RepositoryContract' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/repository/RepositoryContract.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Laracasts\\Flash\\Flash' => __DIR__ . '/..' . '/laracasts/flash/src/Laracasts/Flash/Flash.php',
         'Laracasts\\Flash\\FlashNotifier' => __DIR__ . '/..' . '/laracasts/flash/src/Laracasts/Flash/FlashNotifier.php',

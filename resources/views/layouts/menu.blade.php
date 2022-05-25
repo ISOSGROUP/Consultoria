@@ -27,7 +27,7 @@
  
 <li class="nav-item {{ Request::is('roles*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('filemanager.index') }}">
-                    <i class="nav-icon fa fa-archive"></i>
+                    <i class="nav-icon fa fa-folder-o"></i>
                     <span>shared files</span>
                 </a>
 </li>
@@ -36,12 +36,15 @@
   <a class="nav-link nav-dropdown-toggle" href="#">
     <i class="nav-icon fa fa-bars"></i>Contexto</a>
   <ul class="nav-dropdown-items">
-            <li class="nav-item ">
-                <a class="nav-link" href="#">
-                    <i class="nav-icon"></i>
-                    <span>foda</span>
-                </a>
+
+            <li class="nav-item {{ Request::is('foda*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('foda.index') }}">
+                                <i class="nav-icon fa fa-bookmark"></i>
+                                <span>foda</span>
+                            </a>
             </li>
+
+            
 
             <li class="nav-item ">
                 <a class="nav-link" href="#">
