@@ -131,7 +131,7 @@
                                 $ss = ["without_starting"=>"sin iniciar","in_process"=>"en proceso","executed"=>"ejecutado","cancelled"=>"cancelado"];
                             @endphp
 
-                            <label for="status" class="col-xs-2 control-label"> presupuesto
+                            <label for="status" class="col-xs-2 control-label"> estado
                             </label>
                             <select name="status" id="status" class="form-control" onchange="getSelectValue(this)">
                                 @foreach($ss as $key => $value)
@@ -199,7 +199,7 @@ $(document).ready(function() {
             //console.log("value: "+weaknesses_children[index].children); 
             if (opportunities_children.length > index) {
 
-                ( ((weaknesses_children[index].children[0].id != "w") && (opportunities_children[index].children[0].id != "w")) ? onloado_weak_strategies("oppor_weak_strategies",weaknesses_children[index].children[0].id,opportunities_children[index].children[0].id):alert(false));       
+                ( ((weaknesses_children[index].children[0].id != "w") && (opportunities_children[index].children[0].id != "w")) ? onloado_weak_strategies("oppor_weak_strategies",weaknesses_children[index].children[0].id,opportunities_children[index].children[0].id):"");       
             }
 
         })
@@ -211,7 +211,7 @@ $(document).ready(function() {
 
             //alert("key: "+index);
             if (opportunities_children.length > index) {
-                ( ((strengths_children[index].children[0].id != "w") && (opportunities_children[index].children[0].id != "w")) ? onloado_weak_strategies("oppor_strength_strategies",strengths_children[index].children[0].id,opportunities_children[index].children[0].id):alert(false));       
+                ( ((strengths_children[index].children[0].id != "w") && (opportunities_children[index].children[0].id != "w")) ? onloado_weak_strategies("oppor_strength_strategies",strengths_children[index].children[0].id,opportunities_children[index].children[0].id):"");       
             }
 
                 
@@ -226,7 +226,7 @@ $(document).ready(function() {
         threats_children.map((element, index) => { 
 
             if (strengths_children.length > index) {
-                ( ((threats_children[index].children[0].id != "w") && (strengths_children[index].children[0].id != "w")) ? onloado_weak_strategies("threats_strength_strategies",threats_children[index].children[0].id,strengths_children[index].children[0].id):alert(false));       
+                ( ((threats_children[index].children[0].id != "w") && (strengths_children[index].children[0].id != "w")) ? onloado_weak_strategies("threats_strength_strategies",threats_children[index].children[0].id,strengths_children[index].children[0].id):"");       
 
             }
 
@@ -236,7 +236,7 @@ $(document).ready(function() {
         var threats_children = Array.prototype.slice.call(document.getElementById("threats").children);
         threats_children.map((element, index) => { 
             if (weaknesses_children.length > index) {
-                ( ((threats_children[index].children[0].id != "w") && (weaknesses_children[index].children[0].id != "w")) ? onloado_weak_strategies("threats_weak_strategies",threats_children[index].children[0].id,weaknesses_children[index].children[0].id):alert(false));       
+                ( ((threats_children[index].children[0].id != "w") && (weaknesses_children[index].children[0].id != "w")) ? onloado_weak_strategies("threats_weak_strategies",threats_children[index].children[0].id,weaknesses_children[index].children[0].id):"");       
 
             }
 
@@ -246,11 +246,38 @@ $(document).ready(function() {
 
     }
     
-   async function Generate(data){
+   async function Generate(data,data_1,data_2){
 
-                    await data.forEach(value => {
+                    var  length = data.length;
+                    await data.forEach((value,i) => {
                         var div = $("<div class='input-group mb-3' />");
-                        div.html(GenerateTextbox(value.name, value.description, value.foda_details_id));  
+                        //div.html(GenerateTextbox(value.name, value.description, value.foda_details_id));  
+
+                        //console.log(i);
+                        var isRemove = false;
+
+                        if ( (i >= data_1.length) || (i >= data_1.length))  {
+ 
+                            isRemove = true;
+                            div.html(GenerateTextbox(value.name, value.description, value.foda_details_id,isRemove));  
+
+
+                        }else{
+                            
+
+                            if( length == (i+1) ){
+
+                                isRemove = true;
+                                div.html(GenerateTextbox(value.name, value.description, value.foda_details_id,isRemove));  
+
+                            }else{
+
+                                div.html(GenerateTextbox(value.name, value.description, value.foda_details_id,""));  
+                            }
+                            //div.html(GenerateTextbox(value.name, value.description, value.foda_details_id,isRemove));  
+
+                        }
+
                         $('#'+value.name).append(div); 
                     });
    }
@@ -265,12 +292,18 @@ $(document).ready(function() {
             for (const key of Object.keys(res)) {
                 //console.log("key: "+key);  
                 //console.log("value: "+res[key]); 
-                ((key == "weaknesses")? Generate(res[key]) :"");
-                ((key == "opportunities")? Generate(res[key]) :"");
-                ((key == "threats")? Generate(res[key]) :"");
-                ((key == "strengths")? Generate(res[key]) :"");
+
+                //((key == "weaknesses")? Generate(res[key]) :"");
+                //((key == "opportunities")? Generate(res[key]) :"");
+                //((key == "threats")? Generate(res[key]) :"");
+                //((key == "strengths")? Generate(res[key]) :"");
 
             }
+
+            Generate(res["weaknesses"],res["opportunities"],res["threats"]);
+            Generate(res["strengths"],res["opportunities"],res["threats"]);
+            Generate(res["opportunities"],res["strengths"],res["weaknesses"]);
+            Generate(res["threats"],res["strengths"],res["weaknesses"]);
 
             generateTexbox()
         }
@@ -280,7 +313,7 @@ $(document).ready(function() {
         var attr = $(this).attr("test");
         //alert(attr);
         var div = $("<div class='input-group mb-3' />");  
-        div.html(GenerateTextbox(attr,"","w"));  
+        div.html(GenerateTextbox(attr,"","w",false));  
         $('#'+attr).append(div);  
     });
       
@@ -301,7 +334,9 @@ $(document).ready(function() {
             }
         });
 
-        $(this).closest("div").parent().remove();  
+        $(this).closest("div").parent().remove(); 
+        location.reload();
+ 
     });
 
     $("body").on("click", ".save", function () {  
@@ -318,39 +353,88 @@ $(document).ready(function() {
             dataType: 'json',  
             success: function(res) {
                 children.attr("id",res)
+                location.reload();
+
             }
         });
-
 
     });
       
 });
 
-    function GenerateTextbox(foda_field,description,id) {  
+    function GenerateTextbox(foda_field,description,id,isRemove) {  
 
+        if(isRemove){
+
+            return  '<input type="text" style="border-radius:10px;"value="'+description+'" id="'+id+'" class="form-control" placeholder=""    >'+
+                '<div class="input-group-prepend">'+
+                    '<a class="pull-right save"  value='+foda_field+' style="padding-left:20px"> <i class="fa fa-save fa-lg"> </i></a>'+
+                    '<a class="pull-right remove" value='+foda_field+' style="padding-left:20px"> <i class="fa fa fa-trash fa-lg"> </i></a>'+
+
+                '</div>'
+
+        }else{
+
+            return  '<input type="text" style="border-radius:10px;"value="'+description+'" id="'+id+'" class="form-control" placeholder=""    >'+
+                '<div class="input-group-prepend">'+
+                    '<a class="pull-right save"  value='+foda_field+' style="padding-left:20px"> <i class="fa fa-save fa-lg"> </i></a>'+
+                '</div>'
+
+        }
+        /*
         return  '<input type="text" style="border-radius:10px;"value="'+description+'" id="'+id+'" class="form-control" placeholder=""    >'+
                 '<div class="input-group-prepend">'+
                     '<a class="pull-right save"  value='+foda_field+' style="padding-left:20px"> <i class="fa fa-save fa-lg"> </i></a>'+
                     '<a class="pull-right remove" value='+foda_field+' style="padding-left:20px"> <i class="fa fa fa-trash fa-lg"> </i></a>'+
 
                 '</div>'
+                */
         
     }
+    
 
     function onloado_weak_strategies(id,weaknesses_id,opportunities_id){
 
-        
-        var div = $("<div class='input-group mb-3' />");  
-        div.html(GenerateTextbox2(weaknesses_id,opportunities_id));  
-        $('#'+id).append(div);  
+        $.ajax({
+
+            url: "/getFoda/"+opportunities_id+"/"+weaknesses_id,
+            type: 'GET',
+            dataType: 'json',  
+            success: function(res) {
+
+                console.log(res);
+
+                if(res != null){
+                    var data =  res[0].strategy;
+                    console.log(data);
+
+                    var div = $("<div class='input-group mb-3' />");  
+                    div.html(GenerateTextbox2(weaknesses_id,opportunities_id,data));  
+                    $('#'+id).append(div); 
+
+                }else{
+
+                    var div = $("<div class='input-group mb-3' />");  
+                    div.html(GenerateTextbox2(weaknesses_id,opportunities_id,""));  
+                    $('#'+id).append(div); 
+                }
+            }
+        });
+
+
+
+        //var div = $("<div class='input-group mb-3' />");  
+        //div.html(GenerateTextbox2(weaknesses_id,opportunities_id));  
+        //$('#'+id).append(div);  
     }
-    function GenerateTextbox2(weaknesses_id,opportunities_id) {  
+
+    function GenerateTextbox2(weaknesses_id,opportunities_id,data) {  
 
 
-        return  '<input type="text" style="border-radius:10px;    class="form-control" placeholder=""    >'+
+        return  '<input type="text" style="border-radius:10px;" value="'+data+'" class="form-control" placeholder=""    >'+
                 '<div class="input-group-prepend">'+
                     '<a class="pull-right edit" data-id-1="'+opportunities_id+'" data-id-2="'+weaknesses_id+'"    style="padding-left:20px"> <i class="fa fa-edit fa-lg"> </i></a>'+
-                    '<a class="pull-right remove"   style="padding-left:20px"> <i class="fa fa fa-trash fa-lg"> </i></a>'+
+                    //'<a class="pull-right remove"   style="padding-left:20px"> <i class="fa fa fa-trash fa-lg"> </i></a>'+
                 '</div>'
 
     }   
@@ -393,8 +477,6 @@ $(document).ready(function() {
                         document.getElementById("budget").value = "";
                         document.getElementById("status").value = "without_starting";
                         document.getElementById("description").value = "";
-                        //document.getElementById("data-1").value = "";
-                        //document.getElementById("data-2").value = "";
 
                         document.getElementById("data-1").value = data_id_1;
                         document.getElementById("data-2").value = data_id_2;
@@ -413,8 +495,6 @@ $(document).ready(function() {
 
             var obj = [];
 
-            //alert(document.getElementById("data-1").value);
-            //alert(document.getElementById("data-2").value);
 
             obj[0] = document.getElementById("data-1").value;
             obj[1] = document.getElementById("data-2").value;
@@ -430,16 +510,21 @@ $(document).ready(function() {
                 type: 'GET',
                 dataType: 'json',  
                 success: function(res) {
-                    //alert(res);                     
+                    console.log("res: "+res);                     
+                },
+                complete: function (data) {
+                    //console.log("complete: "+data); 
+                    location.reload();                    
                 }
-                });
-
+            });
+            
         });
 
         var close_model = document.getElementById("close_modelcustom");
 
         close_model.addEventListener("click", function() {
             this.parentElement.parentElement.parentElement.classList.remove(isVisible);
+            location.reload();
         });
 
         document.addEventListener("click", e => {
@@ -496,6 +581,7 @@ $(document).ready(function() {
         padding:10px;
         background-color:rgba(186, 186, 186, 0.74);
         color:rgba(7, 11, 19, 1);
+        overflow-y: auto;
     }
     
     .weaknesses {
@@ -504,6 +590,8 @@ $(document).ready(function() {
         padding:10px;
         background-color:rgba(186, 186, 186, 0.74);
         color:rgba(7, 11, 19, 1);
+        overflow-y: auto;
+
     }
 
     .opportunities {
@@ -512,6 +600,8 @@ $(document).ready(function() {
         padding:10px;
         background-color:rgba(186, 186, 186, 0.74);
         color:rgba(7, 11, 19, 1);
+        overflow-y: auto;
+
 
     }
 
@@ -521,6 +611,8 @@ $(document).ready(function() {
         padding:10px;
         background-color:rgba(186, 186, 186, 0.74);
         color:rgba(7, 11, 19, 1);
+        overflow-y: auto;
+
     }
 
     .oppor_weak_strategies {
@@ -529,6 +621,8 @@ $(document).ready(function() {
         padding:10px;
         background-color:rgba(186, 186, 186, 0.74);
         color:rgba(7, 11, 19, 1);
+        overflow-y: auto;
+
     }
 
     .threats {
@@ -537,6 +631,8 @@ $(document).ready(function() {
         padding:10px;
         background-color:rgba(186, 186, 186, 0.74);
         color:rgba(7, 11, 19, 1);
+        overflow-y: auto;
+
     }
 
     .threats_strength_strategies {
@@ -545,6 +641,8 @@ $(document).ready(function() {
         padding:10px;
         background-color:rgba(186, 186, 186, 0.74);
         color:rgba(7, 11, 19, 1);
+        overflow-y: auto;
+
     }
 
     .threats_weak_strategies {
@@ -553,6 +651,8 @@ $(document).ready(function() {
         padding:10px;
         background-color:rgba(186, 186, 186, 0.74);
         color:rgba(7, 11, 19, 1);
+        overflow-y: auto;
+
     }
 
     

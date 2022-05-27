@@ -24,6 +24,14 @@ class FodaController extends Controller
         return view('foda.index')->with('foda', $foda);
     }
 
+    public function getFieldFodaStrategy(Request $request , $id_1 , $id_2){
+
+        $foda = $this->fodaRepository->all();
+
+        return view('foda.index')->with('foda', $foda);
+    }
+
+
     public function savefodaStrategies(Request $request,$obj){
 
 
@@ -48,7 +56,7 @@ class FodaController extends Controller
                 'description'=> $obj[6]]);
 
                 
-            return $obj ="update";
+            return $obj = "update";
 
         } else {
 
@@ -63,40 +71,10 @@ class FodaController extends Controller
                 'description' => $obj[6]]);
                 
 
-                return $obj ="insert";
-            }
-
-/* 
-        if(($obj[0] != "w") && ($obj[1] != "w")){
-
-            
-            DB::table('foda_strategies')
-            ->where('foda_detail_1',$obj[0])
-            ->where('foda_detail_2',$obj[1])
-            ->update([
-                'strategy'=> $obj[2],
-                'responsible'=> $obj[3],
-                'budget'=> $obj[4],
-                'status'=> $obj[5],
-                'description'=> $obj[6]]);
-                
-                $obj ="update";
-        }else{
-            $obj ="insert";
-
-             DB::table('foda_details')->insert(
-                [
-                'foda_detail_1'=> $obj[0],
-                'foda_detail_2'=> $obj[1],
-                'strategy'=> $obj[2],
-                'responsible'=> $obj[3],
-                'budget'=> $obj[4],
-                'status'=> $obj[5],
-                'description'=> $obj[6]]); 
-
-               
+                return $obj = "insert";
         }
-         */
+
+ 
     }
 
     public function getFodaStrategies(Request $request,$detail_id_1,$detail_id_2){
