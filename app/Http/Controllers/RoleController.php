@@ -30,13 +30,12 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create(){
         $permissions = Permission::get();
-       // dd($permission[0]->name);
-       $folders = DB::table('folders')
+        $folders = DB::table('folders')
                     ->select('folders.name')->get();
 
-       //dd($folders);
         return view('roles.create', compact('permissions','folders'));
     }
 
@@ -71,7 +70,6 @@ class RoleController extends Controller
             foreach($r as $key => $value) {
 
                 $pieces = explode(" ", $key);
-                //$Permission = Permission::where('name',$pieces[0])->update([$pieces[1]=> 1]);
 
                 $folder_id = DB::table('folders')->where('name', $pieces[0])->get("folders.id");
 
@@ -92,14 +90,7 @@ class RoleController extends Controller
                     DB::table('folder_permissions')->insert([
                         'folder_id'=> $folder_id[0]->id,
                         'role_id'=> $role->id,
-                        $pieces[1]=> 1,
-                        //'view_files'=> 0,
-                        //'upload_files'=> 0,
-                        //'download_files'=> 0,
-                        //'create_folders'=> 0,
-                        //'delete_files'=> 0,
-                        //'rename_files'=> 0
-                        ]); 
+                        $pieces[1]=> 1,]); 
                 }
                  
 

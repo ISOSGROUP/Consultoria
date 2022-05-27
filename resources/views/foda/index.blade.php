@@ -133,15 +133,10 @@
 
                             <label for="status" class="col-xs-2 control-label"> estado
                             </label>
-                            <select name="status" id="status" class="form-control" onchange="getSelectValue(this)">
+                            <select name="status" id="status" class="form-control">
                                 @foreach($ss as $key => $value)
 
-                                    @if($key == "in_process")
-                                    @else
-
-                                    @endif
                                     <option value="{{ $key }}">{{ $value }}</option>
-
 
                                 @endforeach
 
@@ -178,12 +173,6 @@
  
 <script type="text/javascript">  
 
-function getSelectValue(obj){
-
-    var element = obj.options[obj.selectedIndex].getAttribute('value');
-    //alert("test"+element);
-
-}
 $(document).ready(function() {
 
 
@@ -195,8 +184,6 @@ $(document).ready(function() {
         var opportunities_children = Array.prototype.slice.call(document.getElementById("opportunities").children);
         weaknesses_children.map((element, index) => { 
 
-            //alert("key: "+index);  
-            //console.log("value: "+weaknesses_children[index].children); 
             if (opportunities_children.length > index) {
 
                 ( ((weaknesses_children[index].children[0].id != "w") && (opportunities_children[index].children[0].id != "w")) ? onloado_weak_strategies("oppor_weak_strategies",weaknesses_children[index].children[0].id,opportunities_children[index].children[0].id):"");       
@@ -209,12 +196,9 @@ $(document).ready(function() {
         var opportunities_children = Array.prototype.slice.call(document.getElementById("opportunities").children);
         strengths_children.map((element, index) => { 
 
-            //alert("key: "+index);
             if (opportunities_children.length > index) {
                 ( ((strengths_children[index].children[0].id != "w") && (opportunities_children[index].children[0].id != "w")) ? onloado_weak_strategies("oppor_strength_strategies",strengths_children[index].children[0].id,opportunities_children[index].children[0].id):"");       
             }
-
-                
         })
 
 
@@ -250,13 +234,11 @@ $(document).ready(function() {
 
                     var  length = data.length;
                     await data.forEach((value,i) => {
-                        var div = $("<div class='input-group mb-3' />");
-                        //div.html(GenerateTextbox(value.name, value.description, value.foda_details_id));  
 
-                        //console.log(i);
+                        var div = $("<div class='input-group mb-3' />");
                         var isRemove = false;
 
-                        if ( (i >= data_1.length) || (i >= data_1.length))  {
+                        if ( (i > data_1.length) || (i > data_1.length))  {
  
                             isRemove = true;
                             div.html(GenerateTextbox(value.name, value.description, value.foda_details_id,isRemove));  
@@ -274,8 +256,6 @@ $(document).ready(function() {
 
                                 div.html(GenerateTextbox(value.name, value.description, value.foda_details_id,""));  
                             }
-                            //div.html(GenerateTextbox(value.name, value.description, value.foda_details_id,isRemove));  
-
                         }
 
                         $('#'+value.name).append(div); 
@@ -289,7 +269,7 @@ $(document).ready(function() {
         dataType: 'json',  
         success: function(res) {
 
-            for (const key of Object.keys(res)) {
+            //for (const key of Object.keys(res)) {
                 //console.log("key: "+key);  
                 //console.log("value: "+res[key]); 
 
@@ -298,7 +278,7 @@ $(document).ready(function() {
                 //((key == "threats")? Generate(res[key]) :"");
                 //((key == "strengths")? Generate(res[key]) :"");
 
-            }
+            //}
 
             Generate(res["weaknesses"],res["opportunities"],res["threats"]);
             Generate(res["strengths"],res["opportunities"],res["threats"]);
@@ -311,7 +291,6 @@ $(document).ready(function() {
 
     $(".CreateTextbox").bind("click", function () {  
         var attr = $(this).attr("test");
-        //alert(attr);
         var div = $("<div class='input-group mb-3' />");  
         div.html(GenerateTextbox(attr,"","w",false));  
         $('#'+attr).append(div);  
@@ -431,10 +410,9 @@ $(document).ready(function() {
     function GenerateTextbox2(weaknesses_id,opportunities_id,data) {  
 
 
-        return  '<input type="text" style="border-radius:10px;" value="'+data+'" class="form-control" placeholder=""    >'+
+        return  '<input type="text" readonly="readonly" style="border-radius:10px;" value="'+data+'" class="form-control" placeholder=""    >'+
                 '<div class="input-group-prepend">'+
                     '<a class="pull-right edit" data-id-1="'+opportunities_id+'" data-id-2="'+weaknesses_id+'"    style="padding-left:20px"> <i class="fa fa-edit fa-lg"> </i></a>'+
-                    //'<a class="pull-right remove"   style="padding-left:20px"> <i class="fa fa fa-trash fa-lg"> </i></a>'+
                 '</div>'
 
     }   

@@ -31,7 +31,6 @@ class FodaController extends Controller
         return view('foda.index')->with('foda', $foda);
     }
 
-
     public function savefodaStrategies(Request $request,$obj){
 
 
@@ -46,14 +45,14 @@ class FodaController extends Controller
         if(count($foda) > 0) {
 
             DB::table('foda_strategies')
-            ->where('foda_detail_1',$obj[0])
-            ->where('foda_detail_2',$obj[1])
-            ->update([
-                'strategy'=> $obj[2],
-                'responsible'=> $obj[3],
-                'budget'=> $obj[4],
-                'status'=> $obj[5],
-                'description'=> $obj[6]]);
+                ->where('foda_detail_1',$obj[0])
+                ->where('foda_detail_2',$obj[1])
+                ->update([
+                    'strategy'=> $obj[2],
+                    'responsible'=> $obj[3],
+                    'budget'=> $obj[4],
+                    'status'=> $obj[5],
+                    'description'=> $obj[6]]);
 
                 
             return $obj = "update";
@@ -62,13 +61,14 @@ class FodaController extends Controller
 
             DB::table('foda_strategies')->insert(
                 [
-                'foda_detail_1' => $obj[0],
-                'foda_detail_2' => $obj[1],
-                'strategy' => $obj[2],
-                'responsible' => $obj[3],
-                'budget' => $obj[4],
-                'status'=> $obj[5],
-                'description' => $obj[6]]);
+                    'foda_detail_1' => $obj[0],
+                    'foda_detail_2' => $obj[1],
+                    'strategy' => $obj[2],
+                    'responsible' => $obj[3],
+                    'budget' => $obj[4],
+                    'status'=> $obj[5],
+                    'description' => $obj[6]
+                ]);
                 
 
                 return $obj = "insert";
@@ -139,7 +139,6 @@ class FodaController extends Controller
 
     public function save(Request $request, $name, $id ,$input){
 
-        //$foda = $this->fodaRepository->all();
 
         try{
 
@@ -148,7 +147,6 @@ class FodaController extends Controller
              
             $result = DB::table('foda_details')
                     ->where('foda_id', $foda[0]->id)
-                    //->where('description', $input)->get("foda_details.id");
                     ->where('id', $id)->get("foda_details.id");
 
 
@@ -156,17 +154,13 @@ class FodaController extends Controller
             if(count($result) > 0) {
                 
                 DB::table('foda_details')
-                ->where('foda_id',$foda[0]->id)
-                ->where('id',$result[0]->id)
-                ->update(['description'=> $input]);
+                    ->where('foda_id',$foda[0]->id)
+                    ->where('id',$result[0]->id)
+                    ->update(['description'=> $input]);
 
                 return $result[0]->id;
 
             } else {
-
-               // $folder_id = DB::table('folders')->insertGetId(
-                  //  ['name'=>"Archivos_Compartidos"]
-                //);
 
                 $foda_id = DB::table('foda_details')->insertGetId(['foda_id'=> $foda[0]->id,'description'=> $input]); 
 
