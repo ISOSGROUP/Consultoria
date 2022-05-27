@@ -16,14 +16,15 @@ class CreateFodaStrategies extends Migration
         Schema::create('foda_strategies', function (Blueprint $table) {
 
             $table->id();
-            $table->unsignedBigInteger('foda_id_1')->nullable();
-            $table->unsignedBigInteger('foda_id_2')->nullable();
-            $table->text('description');
-            $table->text('responsible');
-            $table->text('status');
-            $table->foreign('foda_id_1')->references('id')->on('foda')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('foda_id_2')->references('id')->on('foda')->onUpdate('cascade')->onDelete('cascade');
-
+            $table->unsignedBigInteger('foda_detail_1')->nullable();
+            $table->unsignedBigInteger('foda_detail_2')->nullable();
+            $table->text('strategy')->nullable();
+            $table->text('responsible')->nullable();
+            $table->text('budget')->nullable();
+            $table->enum('status',['without_starting','in_process','executed','cancelled'])->default('without_starting');
+            $table->text('description')->nullable();
+            $table->foreign('foda_detail_1')->references('id')->on('foda_details')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('foda_detail_2')->references('id')->on('foda_details')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

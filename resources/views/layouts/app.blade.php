@@ -80,4 +80,6 @@
 
 @stack('scripts')
 
+
+
 </html>

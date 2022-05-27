@@ -45,3 +45,11 @@ Route::resource('tests', App\Http\Controllers\testController::class);
 Route::get('/query/{folder_name}', [App\Http\Controllers\RoleController::class, 'getPermissions']);
 
 Route::get('/foda', [App\Http\Controllers\FodaController::class, 'index'])->name('foda.index');
+Route::get('/save_foda/{name}/{id}/{input}', [App\Http\Controllers\FodaController::class, 'save']);
+Route::get('/delete_foda/{name}/{id}', [App\Http\Controllers\FodaController::class, 'delete']);
+Route::get('/allFoda', [App\Http\Controllers\FodaController::class, 'getFoda']);
+Route::get('/getFoda/{detail_id_1}/{detail_id_2}', [App\Http\Controllers\FodaController::class, 'getFodaStrategies']);
+Route::get('/savefodaStrategies/{obj}', [App\Http\Controllers\FodaController::class, 'savefodaStrategies']);
+
+
+

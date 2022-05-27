@@ -15,10 +15,7 @@ class CreateFoda extends Migration
     {
         Schema::create('foda', function (Blueprint $table) {
             $table->id();
-            $table->boolean('opportunities')->default(false);
-            $table->boolean('threats')->default(false);
-            $table->boolean('strengths')->default(false);
-            $table->boolean('weaknesses')->default(false);
+            $table->text('name')->nullable();
             $table->timestamps();
         });
     }

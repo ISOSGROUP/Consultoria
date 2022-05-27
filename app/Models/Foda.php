@@ -11,10 +11,7 @@ class Foda extends Model
     public $table = 'foda';
 
     protected $fillable = [
-        'threats',
-        'strengths',
-        'opportunities',
-        'weaknesses'
+        'name',
     ];
 
 }

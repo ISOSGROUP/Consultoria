@@ -37,16 +37,7 @@ class CreateAdminSeeder extends Seeder
   
         $listPermisos[0] = ['name' => 'Gestión-usuarios','guard_name' => 'web','type' => 'm'];
         $listPermisos[1] = ['name' => 'Gestión-roles','guard_name' => 'web','type' => 'm'];
-        /*
-        $listPermisos[2] = ['name' => 'Archivos_Compartidos',
-                            'guard_name' => 'web',
-                            'type' => 'dir',
-                            'upload_files' => 0,
-                            'download_files' => 0,
-                            'create_folders' => 0,
-                            'rename_files' => 0,
-                            'delete_files' => 0];
-*/
+        
 
         foreach($listPermisos as $permission){
             $p = Permission::create($permission);
