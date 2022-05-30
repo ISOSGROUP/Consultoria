@@ -176,8 +176,14 @@
 $(document).ready(function() {
 
 
+    const myArray = {};
+    myArray.weaknesses = "debilidades";
+    myArray.opportunities = "oportunidades";
+    myArray.strengths = "fortalezas";
+    myArray.threats = "amenazas";
 
-    
+    console.log(myArray["threats"]);
+
    function generateTexbox(data){
 
         var weaknesses_children = Array.prototype.slice.call(document.getElementById("weaknesses").children);
@@ -241,7 +247,7 @@ $(document).ready(function() {
                         if ( (i > data_1.length) || (i > data_1.length))  {
  
                             isRemove = true;
-                            div.html(GenerateTextbox(value.name, value.description, value.foda_details_id,isRemove));  
+                            div.html(GenerateTextbox(value.name, value.description, value.foda_details_id,isRemove, myArray[value.name].charAt(0).toUpperCase(),(i+1) ));  
 
 
                         }else{
@@ -250,11 +256,11 @@ $(document).ready(function() {
                             if( length == (i+1) ){
 
                                 isRemove = true;
-                                div.html(GenerateTextbox(value.name, value.description, value.foda_details_id,isRemove));  
+                                div.html(GenerateTextbox(value.name, value.description, value.foda_details_id, isRemove,myArray[value.name].charAt(0).toUpperCase(),(i+1) ));  
 
                             }else{
 
-                                div.html(GenerateTextbox(value.name, value.description, value.foda_details_id,""));  
+                                div.html(GenerateTextbox(value.name, value.description, value.foda_details_id,"", myArray[value.name].charAt(0).toUpperCase(),(i+1) ));  
                             }
                         }
 
@@ -292,7 +298,7 @@ $(document).ready(function() {
     $(".CreateTextbox").bind("click", function () {  
         var attr = $(this).attr("test");
         var div = $("<div class='input-group mb-3' />");  
-        div.html(GenerateTextbox(attr,"","w",false));  
+        div.html(GenerateTextbox(attr,"","w",false,"test",""));  
         $('#'+attr).append(div);  
     });
       
@@ -341,20 +347,22 @@ $(document).ready(function() {
       
 });
 
-    function GenerateTextbox(foda_field,description,id,isRemove) {  
+    function GenerateTextbox(foda_field,description,id,isRemove,row_id,row_number) {  
 
         if(isRemove){
 
-            return  '<input type="text" style="border-radius:10px;"value="'+description+'" id="'+id+'" class="form-control" placeholder=""    >'+
+            return  '<a> <i class="" style="padding-right:10px;padding-top:5px" >'+row_id+row_number+'</i></a>'+
+                    '<input type="text" style="border-radius:10px;"value="'+description+'" id="'+id+'" class="form-control" placeholder=""    >'+
                 '<div class="input-group-prepend">'+
                     '<a class="pull-right save"  value='+foda_field+' style="padding-left:20px"> <i class="fa fa-save fa-lg"> </i></a>'+
                     '<a class="pull-right remove" value='+foda_field+' style="padding-left:20px"> <i class="fa fa fa-trash fa-lg"> </i></a>'+
 
-                '</div>'
+                '</div>';
 
         }else{
 
-            return  '<input type="text" style="border-radius:10px;"value="'+description+'" id="'+id+'" class="form-control" placeholder=""    >'+
+            return  '<a> <i class="" style="padding-right:10px;padding-top:5px" >'+row_id+row_number+'</i></a>'+
+                    '<input type="text" style="border-radius:10px;"value="'+description+'" id="'+id+'" class="form-control" placeholder=""    >'+
                 '<div class="input-group-prepend">'+
                     '<a class="pull-right save"  value='+foda_field+' style="padding-left:20px"> <i class="fa fa-save fa-lg"> </i></a>'+
                 '</div>'
