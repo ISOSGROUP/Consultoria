@@ -52,6 +52,8 @@ class CreateAdminSeeder extends Seeder
         $folder_id = DB::table('folders')->insertGetId(
             ['name'=>"Archivos_Compartidos"]
         );
+        DB::table('foda_users')->insert(['name'=>"ed"]);
+
         DB::table('folder_permissions')->insert([
             'folder_id'=> $folder_id,
             'role_id'=> $Admin->id,
