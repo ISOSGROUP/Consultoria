@@ -38,18 +38,26 @@ Route::group(['middleware' => ['auth']], function() {
     });
     Route::get('/filemanager', [App\Http\Controllers\UserController::class, 'filemanagerIndex'])->name('filemanager.index');
 
+
+    Route::resource('tests', App\Http\Controllers\testController::class);
+    Route::get('/query/{folder_name}', [App\Http\Controllers\RoleController::class, 'getPermissions']);
+
+    Route::get('/foda', [App\Http\Controllers\FodaController::class, 'index'])->name('foda.index');
+    Route::get('/save_foda/{name}/{id}/{input}', [App\Http\Controllers\FodaController::class, 'save']);
+    Route::delete('/foda/{name}/{id}', [App\Http\Controllers\FodaController::class, 'deleteFodaDetail']);
+    Route::get('/allFoda', [App\Http\Controllers\FodaController::class, 'getFoda']);
+    Route::get('/getFoda/{value_1}/{value_2}/{id}', [App\Http\Controllers\FodaController::class, 'getFodaStrategies']);
+
+    Route::get('/savefodaStrategies', [App\Http\Controllers\FodaController::class, 'savefodaStrategies']);
+    Route::delete('/foda_strategies_details/{id}', [App\Http\Controllers\FodaController::class, 'deletefodaStrategiesDetails']);
+
+    Route::post('/fodaUser', [App\Http\Controllers\FodaController::class, 'saveFodaUser'])->name('userFoda.save');;
+    Route::get('/fodaUser', [App\Http\Controllers\FodaController::class, 'getFodaUser'])->name('userFoda.get');;
+
+
+
+
 });
-
-
-Route::resource('tests', App\Http\Controllers\testController::class);
-Route::get('/query/{folder_name}', [App\Http\Controllers\RoleController::class, 'getPermissions']);
-
-Route::get('/foda', [App\Http\Controllers\FodaController::class, 'index'])->name('foda.index');
-Route::get('/save_foda/{name}/{id}/{input}', [App\Http\Controllers\FodaController::class, 'save']);
-Route::get('/delete_foda/{name}/{id}', [App\Http\Controllers\FodaController::class, 'delete']);
-Route::get('/allFoda', [App\Http\Controllers\FodaController::class, 'getFoda']);
-Route::get('/getFoda/{detail_id_1}/{detail_id_2}', [App\Http\Controllers\FodaController::class, 'getFodaStrategies']);
-Route::get('/savefodaStrategies/{obj}', [App\Http\Controllers\FodaController::class, 'savefodaStrategies']);
 
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\FodaRepository;
 use DB;
+use App\Models\Foda;
 
 class FodaController extends Controller
 {
@@ -22,6 +23,8 @@ class FodaController extends Controller
         $foda = $this->fodaRepository->all();
 
         return view('foda.index')->with('foda', $foda);
+       // return view('layouts.test')->with('foda', $foda);
+
     }
 
     public function getFieldFodaStrategy(Request $request , $id_1 , $id_2){
@@ -31,75 +34,186 @@ class FodaController extends Controller
         return view('foda.index')->with('foda', $foda);
     }
 
-    public function savefodaStrategies(Request $request,$obj){
+    public function insertFodaStrategiesDetails($value_1,$value_2){
+
+        foreach($value_2 as $v) {
+
+            DB::table('foda_strategies_details')->insert(
+                [
+                    'foda_strategies_id'=> $value_1,
+                    'foda_details_id' => $v
+                ]);
+
+        }
 
 
-        $obj = explode(',', $obj);
+    }
+    public function getFodaUser(Request $request){
 
-        $foda = DB::table('foda_strategies')
+        $fodaUser = DB::table('foda_users')
+                    ->where('id', 1)
+                    ->select('foda_users.id','foda_users.name','foda_users.date')
+                    ->get();
+        return $fodaUser;
+    }
+
+    public function saveFodaUser(Request $request){
+
+        $value = $request->all();
+
+        DB::table('foda_users')
+        ->where('id',$value["id"])
+        ->update([
+            'name'=> $value["user"],
+            'date'=> $value["date"]
+        ]);
+        return view('foda.index');
+    }
+
+    public function savefodaStrategies(Request $request){
+
+
+        $json = $request->all();
+
+        //$obj = explode(',', $obj);
+
+        /*$foda = DB::table('foda_strategies')
                     ->where('foda_detail_1',$obj[0])
                     ->where('foda_detail_2',$obj[1])
                     ->select('foda_strategies.id','foda_strategies.strategy','foda_strategies.responsible','foda_strategies.budget','foda_strategies.status','foda_strategies.description')
                     ->get();
+                    */
+        //$obj[0] = Foda::where("name",$json[0])->pluck("id")->all();
+        //$obj[1] = Foda::where("name",$obj[1])->pluck("id")->all();
+
+        $json["value"][0] = Foda::where("name",$json["value"][0])->pluck("id")->all();
+        $json["value"][1] = Foda::where("name",$json["value"][1])->pluck("id")->all();
+
+
+
+
+
+        DB::table('foda_strategies_details')->where('foda_strategies_id', '=', $json["value"][8])->delete();
+
+        $foda = DB::table('foda_strategies')
+                ->where('id', $json["value"][8])
+                ->select('foda_strategies.id','foda_strategies.strategy','foda_strategies.responsible','foda_strategies.budget','foda_strategies.status','foda_strategies.description')
+                ->get();
+
 
         if(count($foda) > 0) {
 
+           
             DB::table('foda_strategies')
-                ->where('foda_detail_1',$obj[0])
-                ->where('foda_detail_2',$obj[1])
+                ->where('id',$json["value"][8])
                 ->update([
-                    'strategy'=> $obj[2],
-                    'responsible'=> $obj[3],
-                    'budget'=> $obj[4],
-                    'status'=> $obj[5],
-                    'description'=> $obj[6]]);
+                    'strategy'=> $json["value"][2],
+                    'responsible'=> $json["value"][3],
+                    'budget'=> $json["value"][4],
+                    'status'=> $json["value"][5],
+                    'description'=> $json["value"][6],
+                    'linked_strategy'=> $json["value"][7]
+                ]);
 
-                
-            return $obj = "update";
+            $value = ((count($json["value"]) > 9)? $json["value"][9]: []);
+            $this->insertFodaStrategiesDetails($json["value"][8],$value);
+
+            return  "update";
+
 
         } else {
 
-            DB::table('foda_strategies')->insert(
-                [
-                    'foda_detail_1' => $obj[0],
-                    'foda_detail_2' => $obj[1],
-                    'strategy' => $obj[2],
-                    'responsible' => $obj[3],
-                    'budget' => $obj[4],
-                    'status'=> $obj[5],
-                    'description' => $obj[6]
-                ]);
-                
 
-                return $obj = "insert";
+            $id = DB::table('foda_strategies')->insertGetId(
+                [
+                    'foda_id_1' => $json["value"][0][0],
+                    'foda_id_2' => $json["value"][1][0],
+                    'strategy' => $json["value"][2],
+                    'responsible' => $json["value"][3],
+                    'budget' => $json["value"][4],
+                    'status'=> $json["value"][5],
+                    'description' => $json["value"][6],
+                    'linked_strategy'=> $json["value"][7]
+
+                ]);
+
+                $value = ((count($json["value"]) > 9)? $json["value"][9]: []);
+
+                $this->insertFodaStrategiesDetails($id, $value);
+
+                return "insert";
         }
 
  
     }
 
-    public function getFodaStrategies(Request $request,$detail_id_1,$detail_id_2){
+    public function getFodaStrategies(Request $request,$value_1,$value_2,$id){
 
-        $foda = DB::table('foda_strategies')
-                    ->where('foda_strategies.foda_detail_1', '=', $detail_id_1)
-                    ->where('foda_strategies.foda_detail_2', '=', $detail_id_2)
-                    ->select('foda_strategies.id','foda_strategies.strategy','foda_strategies.responsible','foda_strategies.budget','foda_strategies.status','foda_strategies.description')
+
+        if($id != "w"){
+
+            $result = DB::table('foda_strategies')
+                    ->where('foda_strategies.id', '=', $id)
+                    ->select('foda_strategies.id','foda_strategies.strategy','foda_strategies.responsible','foda_strategies.budget','foda_strategies.status','foda_strategies.description','foda_strategies.linked_strategy')
+                    ->get();
+            
+
+           
+
+
+        }else{
+
+
+            $value_1 = DB::table('foda')->where('foda.name', '=', $value_1)->pluck('foda.id')->all();
+            $value_2 = DB::table('foda')->where('foda.name', '=', $value_2)->pluck('foda.id')->all();
+
+            $r1 = (count($value_1) > 0) ? $value_1[0] : "";
+            $r2 = (count($value_2) > 0) ? $value_2[0] : "";
+
+            $result = DB::table('foda_strategies')
+                    ->where('foda_strategies.foda_id_1', '=',$r1)
+                    ->where('foda_strategies.foda_id_2', '=', $r2)
+                    ->select('foda_strategies.id','foda_strategies.strategy','foda_strategies.responsible','foda_strategies.budget','foda_strategies.status','foda_strategies.description','foda_strategies.linked_strategy')
                     ->get();
 
-        if(count($foda) > 0) {
-            return $foda;
+             
+            
+        }
+
+        if(count($result) > 0) {
+
+            $allData;
+            foreach($result as $key => $value) {
+
+                $allData[$key][0] = $value;
+                $allData[$key][1] = DB::table('foda_strategies_details')
+                                        ->where('foda_strategies_details.foda_strategies_id', '=', $value->id)
+                                        ->pluck('foda_strategies_details.foda_details_id')
+                                        ->all();
+            }
+
+            return $allData;
 
         } else {
 
             return null;
         }
+
     }
 
-    public function delete(Request $request, $name, $id){
+    public function deleteFodaDetail(Request $request, $name, $id){
 
         DB::table('foda_details')->where('id', '=', $id)->delete();
         return true;
     }
 
+    public function deletefodaStrategiesDetails(Request $request, $id){
+
+        DB::table('foda_strategies_details')->where('foda_strategies_id', '=', $id)->delete();
+        DB::table('foda_strategies')->where('id', '=', $id)->delete();
+
+        return true;
+    }
     public function getFoda(Request $request){
 
         $allFoda;
