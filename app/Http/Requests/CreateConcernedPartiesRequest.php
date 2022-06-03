@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\test;
+use App\Models\ConcernedParties;
 
-class UpdatetestRequest extends FormRequest
+class CreateConcernedPartiesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,6 @@ class UpdatetestRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = test::$rules;
-        
-        return $rules;
+        return ConcernedParties::$rules;
     }
 }

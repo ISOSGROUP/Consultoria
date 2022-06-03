@@ -46,12 +46,14 @@
 
             
 
-            <li class="nav-item ">
-                <a class="nav-link" href="#">
-                    <i class="nav-icon"></i>
+             
+            <li class="nav-item {{ Request::is('ConcernedParties*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('ConcernedParties.index') }}">
+                    <i class="nav-icon fa fa-file-text"></i>
                     <span>Matriz de partes interesadas</span>
                 </a>
-            </li> 
+            </li>
+
   </ul>
 </li>
 

@@ -58,6 +58,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 
 });
+Route::resource('ConcernedParties', App\Http\Controllers\ConcernedPartiesController::class);
 
 
 
