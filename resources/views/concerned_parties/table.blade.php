@@ -13,9 +13,9 @@
         @foreach($concernedParties as $concernedParties)
             <tr>
                 <td>{{ (($concernedParties->type == "internal")?"interno":"externo") }}</td>
-            <td>{{ $concernedParties->concerned_parties }}</td>
-            <td>{{ $concernedParties->needs }}</td>
-            <td>{{ $concernedParties->Expectations }}</td>
+            <td class="cell">{{ $concernedParties->concerned_parties }}</td>
+            <td class="cell">{{ $concernedParties->needs }}</td>
+            <td class="cell">{{ $concernedParties->Expectations }}</td>
                 <td>
                     {!! Form::open(['route' => ['ConcernedParties.destroy', $concernedParties->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
@@ -30,3 +30,11 @@
         </tbody>
     </table>
 </div>
+
+<style>
+.cell {
+  max-width: 5px; 
+  white-space : nowrap;
+  overflow : hidden;
+}
+</style>
