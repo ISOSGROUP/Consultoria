@@ -11,7 +11,7 @@
 <!-- Concerned Parties Field -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('concerned_parties', 'Partes interesadas:') !!}
-    {!! Form::textarea('concerned_parties', null, ['class' => 'form-control']) !!}
+    {!! Form::text('concerned_parties', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Needs Field -->
