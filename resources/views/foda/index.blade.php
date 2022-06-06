@@ -15,13 +15,13 @@
              <div class="box">
 
                 <div class="form-group test" >
-                    <label for="strengths" class="col-xs-2 control-label"> foda
+                    <label for="strengths" class="col-xs-2 control-label">
                     </label>
                 </div>
 
                 <div class="form-group strengths" >
                     <label for="strengths" class="col-xs-2 control-label label-strengths"> Fortalezas
-                        <a class="pull-right" style="padding-left:20px"> <i class="fa fa-plus-square fa-lg createFodaTextBox" test="strengths"  > </i></a>
+                        <a class="pull-right" style=" color:#0882cd; padding-left:20px"> <i class="fa fa-plus-square fa-lg createFodaTextBox" test="strengths"  > </i></a>
                     </label>
                         <div class="form" id="strengths">
                         </div>
@@ -29,7 +29,7 @@
 
                 <div class="form-group weaknesses" >
                     <label for="weaknesses" class="col-xs-2 control-label"> debilidades
-                        <a class="pull-right" style="padding-left:20px"> <i class="fa fa-plus-square fa-lg createFodaTextBox"  test="weaknesses" > </i></a>
+                        <a class="pull-right" style=" color:#0882cd; padding-left:20px"> <i class="fa fa-plus-square fa-lg createFodaTextBox"  test="weaknesses" > </i></a>
                     </label>
                         <div class="form weaktest" id="weaknesses">
                         </div>
@@ -37,7 +37,7 @@
 
                 <div class="form-group opportunities" >
                     <label for="opportunities" class="col-xs-2 control-label"> oportunidades
-                        <a class="pull-center" style="padding-right:20"> <i class="fa fa-plus-square fa-lg createFodaTextBox" test="opportunities"  > </i></a>
+                        <a class="pull-center" style="color:#0882cd; padding-right:20"> <i class="fa fa-plus-square fa-lg createFodaTextBox" test="opportunities"  > </i></a>
                     </label>
                         <div class="form" id="opportunities">
                         <!--
@@ -59,7 +59,7 @@
 
                 <div class="form-group oppor_strength_strategies" >
                     <label for="oppor_strength_strategies" class="col-xs-2 control-label"> strategias
-                    <a class="pull-right" style="padding-left:20px"> <i class="fa fa-plus-square fa-lg createStrategyTextBox" test="opportunities_strengths"  > </i></a>
+                    <a class="pull-right" style="color:#0882cd;padding-left:20px"> <i class="fa fa-plus-square fa-lg createStrategyTextBox" test="opportunities_strengths"  > </i></a>
                     </label>
                         <div class="form" id="opportunities_strengths">
                         </div>
@@ -67,7 +67,7 @@
 
                 <div class="form-group oppor_weak_strategies" >
                     <label for="oppor_weak_strategies" class="col-xs-2 control-label"> strategias
-                       <a class="pull-right" style="padding-left:20px"> <i class="fa fa-plus-square fa-lg createStrategyTextBox" test="opportunities_weaknesses"  > </i></a>
+                       <a class="pull-right" style="color:#0882cd;padding-left:20px"> <i class="fa fa-plus-square fa-lg createStrategyTextBox" test="opportunities_weaknesses"  > </i></a>
                     </label>
                     <div class="form" id="opportunities_weaknesses">
                     </div>
@@ -75,7 +75,7 @@
 
                 <div class="form-group threats" >
                     <label for="opportunities" class="col-xs-2 control-label"> amenazas
-                        <a class="pull-right" style="padding-left:20px"> <i class="fa fa-plus-square fa-lg createFodaTextBox" test="threats" > </i></a>
+                        <a class="pull-right" style="color:#0882cd;padding-left:20px"> <i class="fa fa-plus-square fa-lg createFodaTextBox" test="threats" > </i></a>
                     </label>
                         <div class="form" id="threats">
                         </div>
@@ -83,7 +83,7 @@
 
                 <div class="form-group threats_strength_strategies" >
                     <label for="threats_strength_strategies" class="col-xs-2 control-label"> strategias
-                    <a class="pull-right" style="padding-left:20px"> <i class="fa fa-plus-square fa-lg createStrategyTextBox" test="threats_strengths"  > </i></a>
+                    <a class="pull-right" style="color:#0882cd;padding-left:20px"> <i class="fa fa-plus-square fa-lg createStrategyTextBox" test="threats_strengths"  > </i></a>
 
                     </label>
                         <div class="form" id="threats_strengths">
@@ -92,7 +92,7 @@
 
                 <div class="form-group threats_weak_strategies" >
                     <label for="threats_weak_strategies" class="col-xs-2 control-label"> strategias
-                        <a class="pull-right" style="padding-left:20px"> <i class="fa fa-plus-square fa-lg createStrategyTextBox" test="threats_weaknesses"  > </i></a>
+                        <a class="pull-right" style="color:#0882cd  ;padding-left:20px"> <i class="fa fa-plus-square fa-lg createStrategyTextBox" test="threats_weaknesses"  > </i></a>
                     </label>
                         <div class="form" id="threats_weaknesses">
                         </div>
@@ -256,9 +256,9 @@
 
 <script>
    jQuery(document).ready(function($) {
-        $('#datepicker').datepicker({
-            dateFormat: "yy-mm-dd"
-        });
+       // $('#datepicker').datepicker({
+         //   dateFormat: "yy-mm-dd"
+        //});
     });
      
 </script>
@@ -482,14 +482,14 @@ $(document).ready(function() {
             return  ' <i class="" style="padding-right:10px; padding-top:5px;" >'+first_character+row_number+'</i>'+
                     '<input type="text" style="border-radius:10px;" value="'+description+'" id="'+id+'" row-identifier="'+first_character+row_number+'" class="form-control" placeholder=""    >'+
                 '<div class="input-group-prepend">'+
-                    '<a class="pull-right save"  value='+foda_field+' style="padding-left:15px;padding-top:10px;"> <i class="fa fa-save fa-lg"> </i></a>'+
-                    '<a class="pull-right removeFodaTextBox" value='+foda_field+' style="padding-left:15px;padding-top:10px;"> <i class="fa fa fa-trash fa-lg"> </i></a>'+
+                    '<a class="pull-right save"  value='+foda_field+' style="color:#147811;padding-left:15px;padding-top:10px;"> <i class="fa fa-save fa-lg"> </i></a>'+
+                    '<a class="pull-right removeFodaTextBox" value='+foda_field+' style="color:#db6955 ;padding-left:15px;padding-top:10px;"> <i class="fa fa fa-trash fa-lg"> </i></a>'+
                 '</div>';
         }else{
             return  '<i class="" style="padding-right:10px; padding-top:5px" >'+first_character+row_number+'</i>'+
                     '<input type="text" style="border-radius:10px;" value="'+description+'" id="'+id+'" row-identifier="'+first_character+row_number+'" class="form-control" placeholder=""    >'+
                 '<div class="input-group-prepend">'+
-                    '<a class="pull-right save"  value='+foda_field+' style="padding-left:15px; padding-top:10px;"> <i class="fa fa-save fa-lg"> </i></a>'+
+                    '<a class="pull-right save"  value='+foda_field+' style="color:#147811;padding-left:15px; padding-top:10px;"> <i class="fa fa-save fa-lg"> </i></a>'+
                 '</div>'
         }
         
@@ -527,8 +527,8 @@ $(document).ready(function() {
     function generateStrategyRow(value_1,value_2,data,id,value_3) {  
         return  '<input type="text" readonly="readonly" style="border-radius:10px;" value="'+((data != null)? data:"")+'" class="form-control" placeholder=""    >'+
                 '<div class="input-group-prepend">'+
-                    '<a class="pull-right edit" data-1="'+value_1+'" data-2="'+value_2+'" id="'+id+'" is-new-field="'+value_3+'"  style="padding-left:15px;padding-top:10px;"> <i class="fa fa-edit fa-lg"> </i></a>'+
-                    '<a class="pull-right removeStrategyTextBox" id="'+id+'"  style="padding-left:15px;padding-top:9px;"> <i class="fa fa fa-trash fa-lg"> </i></a>'+
+                    '<a class="pull-right edit" data-1="'+value_1+'" data-2="'+value_2+'" id="'+id+'" is-new-field="'+value_3+'"  style="color: #3685e9 ;padding-left:15px;padding-top:10px;"> <i class="fa fa-edit fa-lg"> </i></a>'+
+                    '<a class="pull-right removeStrategyTextBox" id="'+id+'"  style="color: #db6955;padding-left:15px;padding-top:9px;"> <i class="fa fa fa-trash fa-lg"> </i></a>'+
                 '</div>'
     }
     function addRow(element_1,element_2,checkboxList){ 
@@ -732,7 +732,7 @@ $(document).ready(function() {
     .test {
         width: 300px;
         height: 250px;
-        border: 1px solid #c3c3c3;
+        /*border: 1px solid #c3c3c3; */
         align-items: center;
         justify-content: center;
         display: flex;
@@ -741,7 +741,7 @@ $(document).ready(function() {
         width: 300px;
         height: 250px;
         padding:10px;
-        background-color:rgba(186, 186, 186, 0.74);
+        background-color:rgba(247, 247, 247, 0.46);
         color:rgba(7, 11, 19, 1);
         overflow-y: auto;
     }
@@ -750,7 +750,7 @@ $(document).ready(function() {
         width: 300px;
         height: 250px;
         padding:10px;
-        background-color:rgba(186, 186, 186, 0.74);
+        background-color:rgba(247, 247, 247, 0.46);
         color:rgba(7, 11, 19, 1);
         overflow-y: auto;
     }
@@ -758,7 +758,7 @@ $(document).ready(function() {
         width: 300px;
         height: 250px;
         padding:10px;
-        background-color:rgba(186, 186, 186, 0.74);
+        background-color:rgba(247, 247, 247, 0.46);
         color:rgba(7, 11, 19, 1);
         overflow-y: auto;
     }
@@ -766,7 +766,7 @@ $(document).ready(function() {
         width: 300px;
         height: 250px;
         padding:10px;
-        background-color:rgba(186, 186, 186, 0.74);
+        background-color:rgba(247, 247, 247, 0.46);
         color:rgba(7, 11, 19, 1);
         overflow-y: auto;
     }
@@ -774,7 +774,7 @@ $(document).ready(function() {
         width: 300px;
         height: 250px;
         padding:10px;
-        background-color:rgba(186, 186, 186, 0.74);
+        background-color:rgba(247, 247, 247, 0.46);
         color:rgba(7, 11, 19, 1);
         overflow-y: auto;
     }
@@ -782,7 +782,7 @@ $(document).ready(function() {
         width: 300px;
         height: 250px;
         padding:10px;
-        background-color:rgba(186, 186, 186, 0.74);
+        background-color:rgba(247, 247, 247, 0.46);
         color:rgba(7, 11, 19, 1);
         overflow-y: auto;
     }
@@ -790,7 +790,7 @@ $(document).ready(function() {
         width: 300px;
         height: 250px;
         padding:10px;
-        background-color:rgba(186, 186, 186, 0.74);
+        background-color:rgba(247, 247, 247, 0.46);
         color:rgba(7, 11, 19, 1);
         overflow-y: auto;
     }
@@ -798,7 +798,7 @@ $(document).ready(function() {
         width: 300px;
         height: 250px;
         padding:10px;
-        background-color:rgba(186, 186, 186, 0.74);
+        background-color:rgba(247, 247, 247, 0.46);
         color:rgba(7, 11, 19, 1);
         overflow-y: auto;
     }
@@ -806,7 +806,7 @@ $(document).ready(function() {
         width: 400px;
         height: 300px;
         padding:20px;
-        background-color:rgba(186, 186, 186, 0.74);
+        background-color:rgba(247, 247, 247, 0.46);
         color:rgba(7, 11, 19, 1);
         
         position: relative;

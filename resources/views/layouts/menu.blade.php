@@ -40,13 +40,9 @@
             <li class="nav-item {{ Request::is('foda*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('foda.index') }}">
                                 <i class="nav-icon fa fa-bookmark"></i>
-                                <span>foda</span>
+                                <span>Foda</span>
                             </a>
             </li>
-
-            
-
-             
             <li class="nav-item {{ Request::is('ConcernedParties*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('ConcernedParties.index') }}">
                     <i class="nav-icon fa fa-file-text"></i>
