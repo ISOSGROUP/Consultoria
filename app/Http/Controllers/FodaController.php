@@ -22,7 +22,12 @@ class FodaController extends Controller
 
         $foda = $this->fodaRepository->all();
 
-        return view('foda.index')->with('foda', $foda);
+
+        $users = DB::table('users')
+                    ->select('users.id','users.name')
+                    ->get();
+
+        return view('foda.index')->with('foda', $foda)->with('users', $users);
        // return view('layouts.test')->with('foda', $foda);
 
     }
@@ -67,7 +72,8 @@ class FodaController extends Controller
             'name'=> $value["user"],
             'date'=> $value["date"]
         ]);
-        return view('foda.index');
+        return redirect(route('foda.index'));
+
     }
 
     public function savefodaStrategies(Request $request){

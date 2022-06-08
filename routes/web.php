@@ -55,7 +55,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/fodaUser', [App\Http\Controllers\FodaController::class, 'getFodaUser'])->name('userFoda.get');;
 
     Route::resource('ConcernedParties', App\Http\Controllers\ConcernedPartiesController::class);
+    Route::resource('riesgos', App\Http\Controllers\RiesgosController::class);
+
+    Route::post('/RisksChance', [App\Http\Controllers\RiesgosController::class, 'saveUserRisksChance'])->name('userRisksChance.save');;
+
+
+
 });
+
+
 
 
 

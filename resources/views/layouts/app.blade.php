@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>{{config('app.name')}}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('risks_chance.css') }}" />
+
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 4.1.1 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
@@ -82,6 +84,48 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script> -->
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<script>
+    $(function () {
+
+        if ( $('#datetimepicker1').is('[readonly]') ) { 
+            //alert("true");
+        }else{
+
+
+            jQuery('#datetimepicker1').datetimepicker({
+            timepicker: false
+            
+            });
+
+        }
+
+
+        if ( $('#datepicker').is('[readonly]') ) { 
+            //alert("true");
+        }else{
+
+
+            jQuery('#datepicker').datetimepicker({
+            timepicker: false
+            
+            });
+
+        }
+        
+
+        
+    });
+</script>
+
+
+
+
 
 @stack('scripts')
 

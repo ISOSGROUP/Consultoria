@@ -37,7 +37,9 @@ class CreateAdminSeeder extends Seeder
   
         $listPermisos[0] = ['name' => 'Gestión-usuarios','guard_name' => 'web','type' => 'm'];
         $listPermisos[1] = ['name' => 'Gestión-roles','guard_name' => 'web','type' => 'm'];
-        
+        $listPermisos[2] = ['name' => 'cambiar fecha en apartado partes interesadas','guard_name' => 'web','type' => 'm'];
+        $listPermisos[3] = ['name' => 'cambiar fecha en apartado riesgo-oportunidad','guard_name' => 'web','type' => 'm'];
+
 
         foreach($listPermisos as $permission){
             $p = Permission::create($permission);
@@ -52,7 +54,8 @@ class CreateAdminSeeder extends Seeder
         $folder_id = DB::table('folders')->insertGetId(
             ['name'=>"Archivos_Compartidos"]
         );
-        DB::table('foda_users')->insert(['name'=>"ed"]);
+        DB::table('foda_users')->insert(['name'=>"test_user_1"]);
+        DB::table('foda_users')->insert(['name'=>"test_user_2"]);
 
         DB::table('folder_permissions')->insert([
             'folder_id'=> $folder_id,

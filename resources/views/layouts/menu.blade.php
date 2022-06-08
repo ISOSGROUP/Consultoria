@@ -45,12 +45,19 @@
             </li>
             <li class="nav-item {{ Request::is('ConcernedParties*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('ConcernedParties.index') }}">
-                    <i class="nav-icon fa fa-file-text"></i>
-                    <span>Matriz de partes interesadas</span>
+                    <i class="nav-icon fa fa-table"></i>
+                    <span>Partes Interesadas</span>
                 </a>
             </li>
 
   </ul>
+</li>
+
+<li class="nav-item {{ Request::is('riesgos*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('riesgos.index') }}">
+        <i class="nav-icon fa fa-table"></i>
+        <span>Riesgos</span>
+    </a>
 </li>
 
 <li class="nav-item nav-dropdown " >
@@ -82,20 +89,6 @@
                     <span>Politicas</span>
                 </a>
             </li> 
-  </ul>
-</li>
-
-
-<li class="nav-item nav-dropdown  " >
-  <a class="nav-link nav-dropdown-toggle" href="#">
-    <i class="nav-icon fa fa-bars"></i>Riesgos</a>
-  <ul class="nav-dropdown-items">
-            <li class="nav-item ">
-                <a class="nav-link" href="#">
-                    <i class="nav-icon"></i>
-                    <span>Matriz de Riesgos</span>
-                </a>
-            </li>
   </ul>
 </li>
 

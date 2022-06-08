@@ -114,25 +114,55 @@
                     <div class="form-group">
 
                         <label>Nombre:</label>
-                        <input type="text" name="user" id="user"class="form-control" placeholder="Name">
+                      {{--   <input type="text" name="user" id="user"class="form-control" placeholder="Name"> --}}
                         <input type="text" style="display:none;"name="id" id="user_id"class="form-control" placeholder="Name">
 
+
+                        <select name="user" id="user" class="form-control">
+                                @foreach($users as $key => $value)
+
+                                        <option value="{{ $value->name }}">{{ $value->name }}</option>
+
+                                @endforeach
+                        </select>
+
+
+
                     </div>
+
+
+                    {{--
+                        
+                        
+                    <div class="form-group">
+                        <label>fecha:</label>
+                        <input type="date"  readonly="readonly" name="date" id="datepicker" class="form-control">
+                    </div>
+
+                    --}}
+
 
                     <div class="form-group">
-
                         <label>fecha:</label>
-                        <input type="date" name="date" id="datepicker" class="form-control">
-
+                        <div class='input-group' >
+                            <input  type='text'  readonly name="date"  class="form-control" id='datepicker' />
+                        </div>
                     </div>
+
 
          
+                    @can('cambiar fecha en apartado partes interesadas')
+
+                        <script>
+                            document.getElementById("datepicker").removeAttribute("readonly");;
+                        </script>
+
+                    @endcan
+
 
 
                     <div class="form-group">
-
                         <button class="btn btn-success btn-submit">actualizar</button>
-
                     </div>
                 </form>
 
@@ -256,8 +286,8 @@
 
 <script>
    jQuery(document).ready(function($) {
-       // $('#datepicker').datepicker({
-         //   dateFormat: "yy-mm-dd"
+        //$('#datepicker').datepicker({
+          //  dateFormat: "yy-mm-dd"
         //});
     });
      
