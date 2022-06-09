@@ -394,10 +394,10 @@ $(document).ready(function() {
                 url: "/getFoda/"+ listFodaStrategies[index][0] +"/"+ listFodaStrategies[index][1]+"/"+$id,
                 type: 'GET',
                 success: function(res) {
-                    //console.log("key: "+index);
+                    console.log("res: "+res);
                     //console.log("value: "+res[index]);
-                    console.log(res[0]);
-                    if(res[0] != null){
+                    //console.log(res[0]);
+                    if(res != "false"){
                         Object.keys(res).forEach(key => {
                             //console.log(key); 
                             //console.log(res[key]); 
@@ -614,12 +614,21 @@ $(document).ready(function() {
                 data_1 = "w";
                 data_2 = "w";
             }
+            ///alert(value_1);
+
             $.ajax({
                 url: "/getFoda/"+data_1+"/"+data_2+"/"+id,
                 type: 'GET',
                 dataType: 'json',  
                 success: function(res) {
-                    if(res != null){
+
+
+                    console.log(res);
+                    //console.log("con data");
+
+                    if(res != false){
+                       // console.log("con data");
+
                         document.getElementById("strategy").value = res[0][0].strategy;
                         document.getElementById("responsible").value = res[0][0].responsible;
                         document.getElementById("budget").value = res[0][0].budget;
@@ -632,6 +641,7 @@ $(document).ready(function() {
                         
                         var opportunities_children = Array.prototype.slice.call(document.getElementById(value_1).children);
                         var strengths_children = Array.prototype.slice.call(document.getElementById(value_2).children);
+
                        ((opportunities_children.length > strengths_children.length)? (opportunities_children.map((element, index) => { (typeof strengths_children[index] != 'undefined') ? addRow(opportunities_children[index].children[1],strengths_children[index].children[1],res[0][1]):addRow(opportunities_children[index].children[1],null,res[0][1])})) : strengths_children.map((element, index) => { (typeof opportunities_children[index] != 'undefined') ? addRow(opportunities_children[index].children[1],strengths_children[index].children[1],res[0][1]):addRow(null,strengths_children [index].children[1],res[0][1])}))
                        
                        /*
@@ -672,7 +682,7 @@ $(document).ready(function() {
                         document.getElementById("data-2").value = value_2;
                     }
                    
-                }
+                } 
             });
         });
         var save = document.getElementById("save-foda-details");
@@ -694,6 +704,7 @@ $(document).ready(function() {
             
  
             var json_arr = {};
+            //alert(document.getElementById("data-1").value);
             json_arr[0] = document.getElementById("data-1").value;
             json_arr[1] = document.getElementById("data-2").value;
             json_arr[2] = document.getElementById("strategy").value;
@@ -716,7 +727,7 @@ $(document).ready(function() {
                 },
                 complete: function (data) {
                     //console.log("complete: "+data); 
-                    location.reload();                    
+                    //location.reload();                    
                 }
             });
             

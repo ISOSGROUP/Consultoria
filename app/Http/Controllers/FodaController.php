@@ -92,6 +92,8 @@ class FodaController extends Controller
         //$obj[0] = Foda::where("name",$json[0])->pluck("id")->all();
         //$obj[1] = Foda::where("name",$obj[1])->pluck("id")->all();
 
+        //return $json;
+
         $json["value"][0] = Foda::where("name",$json["value"][0])->pluck("id")->all();
         $json["value"][1] = Foda::where("name",$json["value"][1])->pluck("id")->all();
 
@@ -128,7 +130,6 @@ class FodaController extends Controller
 
 
         } else {
-
 
             $id = DB::table('foda_strategies')->insertGetId(
                 [
@@ -200,9 +201,10 @@ class FodaController extends Controller
 
             return $allData;
 
+
         } else {
 
-            return null;
+            return "false";
         }
 
     }
