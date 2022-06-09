@@ -77,7 +77,7 @@
         background-color: #459fc6;
         color: #ffffff;
         max-width: 350px;
-        height: 100px;
+        height: 80px;
         text-align:center;
         line-height: 20px;
 

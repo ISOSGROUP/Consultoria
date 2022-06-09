@@ -151,7 +151,7 @@
 
 
          
-                    @can('cambiar fecha en apartado partes interesadas')
+                    @can('cambiar fecha en apartado foda')
 
                         <script>
                             document.getElementById("datepicker").removeAttribute("readonly");;

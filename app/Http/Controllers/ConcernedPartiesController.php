@@ -9,6 +9,8 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use DB;
+
 
 class ConcernedPartiesController extends AppBaseController
 {
@@ -31,8 +33,21 @@ class ConcernedPartiesController extends AppBaseController
     {
         $concernedParties = $this->concernedPartiesRepository->all();
 
-        return view('concerned_parties.index')
-            ->with('concernedParties', $concernedParties);
+
+        $user = DB::table('foda_users')
+                    ->where('id', 3)
+                    ->select('foda_users.id','foda_users.name','foda_users.date')
+                    ->get();
+
+        $users = DB::table('users')
+                    ->select('users.id','users.name')
+                    ->get();
+
+
+        //return view('concerned_parties.index')
+          //  ->with('concernedParties', $concernedParties);
+            return view('concerned_parties.index', compact('concernedParties', 'user','users'));
+
     }
 
     /**
@@ -61,6 +76,20 @@ class ConcernedPartiesController extends AppBaseController
         Flash::success('registro guardado con éxito.');
 
         return redirect(route('ConcernedParties.index'));
+    }
+
+    public function saveUserConcernedParties(Request $request){
+
+        $value = $request->all();
+
+        DB::table('foda_users')
+        ->where('id',$value["id"])
+        ->update([
+            'name'=> $value["user"],
+            'date'=> $value["date"]
+        ]);
+        return redirect(route('ConcernedParties.index'));
+
     }
 
     /**
