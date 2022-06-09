@@ -84,7 +84,7 @@
     }
     #Expectations[title]:hover:after {
 
-        content: "aquello que la parte interesado puede esperar pero que la organización no está obligada a cumplir";
+        content: "aquello que la parte interesada puede esperar pero que la organización no está obligada a cumplir";
         position: absolute;
         border-radius:5px;
         padding: 6px;
