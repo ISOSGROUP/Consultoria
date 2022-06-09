@@ -6,6 +6,8 @@
         <th>Partes interesadas</th>
         <th>Necesidades</th>
         <th>Expectativas</th>
+        <th>formas de cumplimiento</th>
+
                 <th colspan="3">Action</th>
             </tr>
         </thead>
@@ -16,6 +18,8 @@
             <td class="cell">{{ $concernedParties->concerned_parties }}</td>
             <td class="cell">{{ $concernedParties->needs }}</td>
             <td class="cell">{{ $concernedParties->Expectations }}</td>
+            <td class="cell">{{ $concernedParties->form_of_fulfillment }}</td>
+
                 <td>
                     {!! Form::open(['route' => ['ConcernedParties.destroy', $concernedParties->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

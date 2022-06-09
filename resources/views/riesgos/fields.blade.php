@@ -92,7 +92,7 @@
 <!-- Execution Time Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('execution_time', 'Tiempo de ejecución:') !!}
-    {!! Form::date('execution_time',$execution_time, ['class' => 'form-control','data-date-format'=>"DD MMMM YYYY"]) !!}
+    {!! Form::text('execution_time',$execution_time, ['class' => 'form-control','id'=>"execution_time"]) !!}
     
 </div>
 

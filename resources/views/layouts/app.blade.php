@@ -117,7 +117,10 @@
             });
 
         }
-        
+        jQuery('#execution_time').datetimepicker({
+            timepicker: false
+            
+            });
 
         
     });
