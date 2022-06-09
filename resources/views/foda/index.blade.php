@@ -727,7 +727,7 @@ $(document).ready(function() {
                 },
                 complete: function (data) {
                     //console.log("complete: "+data); 
-                    //location.reload();                    
+                    location.reload();                    
                 }
             });
             
