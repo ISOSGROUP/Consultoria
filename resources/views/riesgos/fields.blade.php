@@ -142,13 +142,16 @@
         name="is_effective" value="NO" {{ ($is_effective == "NO") ? 'checked' : '' }}>
         <label for="is_effective_2">NO</label>
     </div>
+
+    <br>
+
+    {!! Form::label('Expectations', 'Comentario eficacia:') !!}
+    {!! Form::textarea('comment_on_effectiveness', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group col-sm-12 col-lg-12">
-    <br>
-    <br>
-    {!! Form::label('Expectations', 'Comentario eficacia:') !!}
-    {!! Form::textarea('comment_on_effectiveness', null, ['class' => 'form-control']) !!}
+  <!--  {!! Form::label('Expectations', 'Comentario eficacia:') !!} -->
+  <!--  {!! Form::textarea('comment_on_effectiveness', null, ['class' => 'form-control']) !!} -->
 </div>
 
 <!-- Submit Field -->
