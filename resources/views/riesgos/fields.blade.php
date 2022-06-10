@@ -145,6 +145,8 @@
 </div>
 
 <div class="form-group col-sm-12 col-lg-12">
+    <br>
+    <br>
     {!! Form::label('Expectations', 'Comentario eficacia:') !!}
     {!! Form::textarea('comment_on_effectiveness', null, ['class' => 'form-control']) !!}
 </div>
@@ -242,7 +244,7 @@
                         htmlLabelInput = '<label class="label-table">'+
                                         '<input type="checkbox"  ischecked="'+((checkboxList.includes(parseInt(json_arr[i].id))) ? json_arr[i].id :"false")+'"'+
                                         'name="foda_reference['+json_arr[i].id+']"'+
-                                        'class="customCheckBox"> '+myArray[json_arr[i].name].charAt(0).toUpperCase()+(1)+
+                                        'class="customCheckBox"> '+myArray[json_arr[i].name].charAt(0).toUpperCase()+(index +1)+
                                         '</label>';
 
                         var cell = row.insertCell(i);
@@ -316,7 +318,7 @@
       background-color: #459fc6;
       color: #ffffff;
       max-width: 350px;
-      height: 300px;
+      height: 90px;
       text-align:center;
       line-height: 20px;
 
