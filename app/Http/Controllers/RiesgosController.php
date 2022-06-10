@@ -246,8 +246,13 @@ class RiesgosController extends AppBaseController
         $risk_chance_radio = $riesgos->risk_chance_radio;
         $is_effective = $riesgos->is_effective;
         $execution_time = $riesgos->execution_time;
+
+        $users = DB::table('users')
+                    ->select('users.id','users.name')
+                    ->get();
+
         //dd($riesgos->risk_chance_radio);
-        return view('riesgos.edit', compact('filledArray', 'allFoda','largest','foda_reference','riesgos','risk_chance_radio','is_effective','execution_time'));
+        return view('riesgos.edit', compact('filledArray', 'allFoda','largest','foda_reference','riesgos','risk_chance_radio','is_effective','execution_time','users'));
 
     }
 
@@ -264,8 +269,10 @@ class RiesgosController extends AppBaseController
         $riesgos = $this->riesgosRepository->find($id);
 
         $input = $request->all();
-
         $input["foda_reference"] = (($request->has('foda_reference')? serialize(array_keys($input["foda_reference"])) : $riesgos->foda_reference = "")); //;
+        //$input["interested_part"] = (($request->has('interested_part')? serialize(array_keys($input["interested_part"])) : $riesgos->foda_reference = "")); //;
+
+        dd($input);
 
         if (empty($riesgos)) {
             Flash::error('Riesgos not found');

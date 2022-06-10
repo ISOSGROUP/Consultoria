@@ -30,15 +30,33 @@
 
 <!-- Probability Field -->
 <div class="form-group col-sm-6">
+    
     {!! Form::label('probability', 'Probabilidad:') !!}
+    <i class="fa fa-info-circle fa-lg tool-tip" style="color: #eb3526 " id="info_probability" ></i>
     {!! Form::select('probability', $probability, null, ['class' => 'form-control','empty'=>'Seleccionar','autocomplete'=>'off','id'=>'probability']) !!}
+
+
+    
+    <div class="form-group">
+        <table id="mytable" class="mytable">
+        </table>
+    </div>
+
 </div>
 
 <!-- Probability Field -->
 <div class="form-group col-sm-6">
 
     {!! Form::label('impact', 'Impacto:') !!}
+    <i class="fa fa-info-circle fa-lg tool-tip" style="color: #eb3526 " id="info_impact" ></i>
+
     {!! Form::select('impact', $impact, null, ['class' => 'form-control','empty'=>'Seleccionar','autocomplete'=>'off','id'=>'impact']) !!}
+
+
+    <div class="form-group">
+        <table id="impact-table" class="mytable">
+        </table>
+    </div>
 </div>
 
 <!-- Risk Level Field -->
@@ -50,7 +68,26 @@
 <!-- Interested Part Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('interested_part', 'Partes Interesadas:') !!}
-    {!! Form::select('interested_part', $filledArray, null, ['class' => 'form-control','empty'=>'Seleccionar','autocomplete'=>'off']) !!}
+    <!-- {!! Form::select('interested_part', $filledArray, null, ['class' => 'form-control','empty'=>'Seleccionar','autocomplete'=>'off']) !!} -->
+     {!! Form::select('interested_part', $filledArray, null, ['class' => 'form-control','empty'=>'Seleccionar','autocomplete'=>'off','multiple'=>'multiple','id'=>'interested_part']) !!} 
+     <!-- {!! Form::text('interested_part', null, ['class' => 'form-control','id'=>'interested_part',"style"=>"display:none"]) !!} -->
+    
+
+
+     <!--
+      <select multiple name="interested_part[]" style="width:500px" class="" id="interested_part">
+        
+        @foreach($filledArray as $key => $value)
+            <option value="{{ $value }}">{{ $value }}</option>
+        @endforeach 
+
+    </select> 
+
+-->
+
+
+ 
+
 
 </div>
 
@@ -117,13 +154,19 @@
 <!-- Responsible For Monitoring Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('responsible_for_monitoring', 'Responsable de Seguimiento:') !!}
-    {!! Form::text('responsible_for_monitoring', null, ['class' => 'form-control']) !!}
+    <!-- {!! Form::text('responsible_for_monitoring', null, ['class' => 'form-control']) !!} -->
+
+   
+
+
 </div>
 
 <!-- Execution Time Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('tracking_status', 'Estado de seguimiento:') !!}
     {!! Form::select('tracking_status',$tracking_status, null, ['class' => 'form-control','id'=>'tracking_status']) !!}
+
+    
 </div>
 
 
@@ -131,7 +174,7 @@
 
 <div class="form-group col-sm-6">
     {!! Form::label('Es_eficaz', 'Es eficaz:') !!}
-    <i class="fa fa-info-circle fa-lg tool-tip" style="color: #eb3526 " id="message" ></i>
+    <i class="fa fa-info-circle fa-lg tool-tip" style="color: #eb3526 " id="info_is_effective" ></i>
 
     <div>
         <input type="radio" id="is_effective_1"
@@ -147,6 +190,10 @@
 
     {!! Form::label('Expectations', 'Comentario eficacia:') !!}
     {!! Form::textarea('comment_on_effectiveness', null, ['class' => 'form-control']) !!}
+    
+
+
+
 </div>
 
 <div class="form-group col-sm-12 col-lg-12">
@@ -160,14 +207,19 @@
     <a href="{{ route('riesgos.index') }}" class="btn btn-secondary">Cancelar</a>
 </div>
 
+
+
+<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.css" rel="stylesheet" /> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.js"></script> -->
+
 <script type="text/javascript">
 
     
     $(document).ready(function() {
         
 
-        $("#customform").submit(function(){
 
+        $("#customform").submit(function(){
 
            /* 
 
@@ -263,9 +315,9 @@
 
 
          var data = [
-                        ["INPORTANTE (3),#e5db0f", "INPORTANTE (6),#f41b0a","ALTA (9),#f14b3d  "],
-                        ["BAJA (2), #17bd1a", "INPORTANTE (4),#e5db0f","INPORTANTE (6),#e5db0f"],
-                        ["BAJA (1),#17bd1a", "BAJA (2),#17bd1a","INPORTANTE (3),#e5db0f"]
+                        ["IMPORTANTE (3),#e5db0f", "IMPORTANTE (6),#f41b0a","ALTA (9),#f14b3d  "],
+                        ["BAJA (2), #17bd1a", "IMPORTANTE (4),#e5db0f","IMPORTANTE (6),#e5db0f"],
+                        ["BAJA (1),#17bd1a", "BAJA (2),#17bd1a","IMPORTANTE (3),#e5db0f"]
                     ];
                      
          
@@ -304,14 +356,153 @@
         });
             */
 
-        $(".tool-tip").attr('title', '');
+        $("#info_is_effective").attr('title', '');
+        //$("#info_probability").attr('title', '');
+        //$('#mytable').append("");
+        //$("#info_probability").hover(function() {
+         //});
+
+
+         $("#info_probability").on({
+
+            mouseenter: function () {
+
+               var thead = "";
+               var tbody = "";
+               thead += '<thead>'+
+                            '<tr>'+
+                                '<th>Nivel</th>'+
+                                '<th>Descripción riesgo</th>'+
+                                '<th>Descripción oportunidad</th>'+
+                            '</tr>'+
+                        '</thead>';
+
+                $('#mytable').append(thead);
+
+                 
+                    tbody += '<tr>'+
+                                '<td>' + 'Alto '+ '</td>'+
+                                '<td>' + 'El riesgo es altamente probable por la cantidad de veces que en el pasado han ocurrido '+ '</td>'+
+                                '<td>' + 'La intervención es altamente probable por su pertinencia, disponibilidad de recursos y aceptabilidad '+ '</td>'+
+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td>' + 'Medio '+ '</td>'+
+                                '<td>' + 'El riesgo es probable. Se han presentado algunas veces en el pasado '+ '</td>'+
+                                '<td>' + 'La intervención es probable, si bien presenta algunas dificultades por la disponibilidad de recursos y/o aceptabilidad'+ '</td>'+
+
+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td>' + 'Bajo '+ '</td>'+
+                                '<td>' + 'El riesgo es poco probable . Se han presentado pocos o casi ninguna vez en el pasado '+ '</td>'+
+                                '<td>' + 'La intervención es poco probable con dificultades para llevarla a cabo '+ '</td>'+
+
+
+                            '</tr>';
+
+                $('#mytable').append(tbody);
+
+
+
+            },
+            mouseleave: function () {
+                $("#mytable").empty(); //this one what worked in my case
+            }
+        });
+
+
+
+        $("#info_impact").on({
+
+            mouseenter: function () {
+
+            var thead = "";
+            var tbody = "";
+            thead += '<thead>'+
+                            '<tr>'+
+                                '<th>Nivel</th>'+
+                                '<th>Descripción riesgo</th>'+
+                                '<th>Descripción oportunidad</th>'+
+                            '</tr>'+
+                        '</thead>';
+
+                $('#impact-table').append(thead);
+
+                
+                    tbody += '<tr>'+
+                                '<td>' + 'Alto '+ '</td>'+
+                                '<td>' + 'Impacto muy relevante para la estrategia de la organización, y resultados previstos del SIG. Introduce daños muy significativos '+ '</td>'+
+                                '<td>' + 'Impacto muy relevante para la estrategia de la organización, y resultados previstos del SIG. Introduce mejoras muy significativas '+ '</td>'+
+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td>' + 'Medio '+ '</td>'+
+                                '<td>' + 'Impacto medio para la estrategia de la organización, y resultados previstos del SIG. Introduce algunos daños y perjuicios para la empresa'+ '</td>'+
+                                '<td>' + 'Impacto medio para la estrategia de la organización, y resultados previstos del SIG. Introduce algunas mejoras'+ '</td>'+
+
+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td>' + 'Bajo '+ '</td>'+
+                                '<td>' + 'Impacto bajo para la estrategia de la organización, y resultados previstos del SIG. No introduce riesgos importantes '+ '</td>'+
+                                '<td>' + 'Impacto bajo para la estrategia de la organización, y resultados previstos del SIG. No introduce mejoras importantes '+ '</td>'+
+
+
+                            '</tr>';
+
+                $('#impact-table').append(tbody);
+
+
+
+            },
+            mouseleave: function () {
+                $("#impact-table").empty(); //this one what worked in my case
+            }
+            });
+
+
+
+
+         
+
+
+
         
     });
+
+
+    //$('#interested_part').select2().select2('val', ['1', '3','isos'])
+
+    /*
+        var s2 = $("#selectEvents").select2({
+            placeholder: "Choose event type",
+            tags: true
+        });
+        
+        var vals = ["ss", "i","w","a"];
+
+        vals.forEach(function(e){
+            //alert("test1"+s2.find('option:contains(' + e + ')').length);
+
+            if(!s2.find('option:contains(' + e + ')').length) {
+                s2.append($('<option>').text(e));
+                //alert("test1");
+
+            }else{
+                //alert("test2");
+            }
+        });
+
+        //s2.val(vals).trigger("change");
+*/
+
+
 </script>
 <style>
 
    
-    .tool-tip[title]:hover:after {
+    #info_is_effective[title]:hover:after {
 
       content: "se considerará eficaz si el riesgo no se ha materializado o si la oportunidad se ha aprovechado al máximo";
       position: absolute;
@@ -326,5 +517,46 @@
       line-height: 20px;
 
     }
+
+     
+
+   
+    .mytable {
+        border-collapse: collapse;
+        margin: 10px 0;
+        font-size: 0.8em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .mytable thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+
+    .mytable th,
+    .mytable td {
+        padding: 12px 15px;
+    }
+
+    .mytable tbody tr {
+        border-bottom: 1px solid #dddddd;
+
+    }
+
+    .mytable tbody tr {
+        background-color: #f3f3f3;
+    }
+
+    .mytable tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+
+
+
+
+    
 
 </style>

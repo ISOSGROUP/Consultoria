@@ -18,7 +18,7 @@
                               <strong>Editar</strong>
                           </div>
                           <div class="card-body">
-                              {!! Form::model($riesgos, ['route' => ['riesgos.update', $riesgos->id], 'method' => 'patch']) !!}
+                              {!! Form::model($riesgos, ['route' => ['riesgos.update', $riesgos->id], 'method' => 'patch','id'=>'customform']) !!}
 
                               @include('riesgos.fields')
 
