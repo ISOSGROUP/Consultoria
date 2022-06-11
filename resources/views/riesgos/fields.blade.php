@@ -81,7 +81,7 @@
             <option value="{{ $value }}">{{ $value }}</option>
         @endforeach 
 
-    </select> 
+     </select> 
 
 
 
@@ -117,7 +117,17 @@
 <!-- Responsible Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('responsible', 'Responsable:') !!}
-    {!! Form::text('responsible', null, ['class' => 'form-control']) !!}
+   <!--  {!! Form::text('responsible', null, ['class' => 'form-control']) !!} -->
+
+    <select multiple name="responsible[]" style="width:500px" class="" id="responsible">
+        
+        @foreach($users as $key => $value)
+            <option value="{{ $value->name }}">{{ $value->name }}</option>
+        @endforeach 
+
+     </select> 
+
+
 </div>
 
 <!-- Resources Field -->
@@ -155,6 +165,14 @@
 <div class="form-group col-sm-6">
     {!! Form::label('responsible_for_monitoring', 'Responsable de Seguimiento:') !!}
     <!-- {!! Form::text('responsible_for_monitoring', null, ['class' => 'form-control']) !!} -->
+
+    <select multiple name="responsible_for_monitoring[]" style="width:500px" class="" id="responsible_for_monitoring">
+        
+        @foreach($users as $key => $value)
+            <option value="{{ $value->name }}">{{ $value->name }}</option>
+        @endforeach 
+
+    </select>
 
    
 
@@ -208,9 +226,9 @@
 </div>
 
 
-<link rel="stylesheet" type="text/css" href="{{ url('select2.css') }}" />
+<!-- <link rel="stylesheet" type="text/css" href="{{ url('select2.css') }}" /> -->
 
- <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.css" rel="stylesheet" />  -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.css" rel="stylesheet" />  
  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.js"></script> 
 
  
@@ -474,8 +492,20 @@
         
     });
 
-    $('#interested_part').select2().select2('val', ['1', '3','isos'])
- 
+    var interested_part = '<?php echo $interested_part; ?>';
+    var interested_part = ((interested_part != "")?JSON.parse(interested_part):[]);
+
+    var responsible = '<?php echo $responsible; ?>';
+    var responsible = ((responsible != "")?JSON.parse(responsible):[]);
+
+    var responsible_for_monitoring = '<?php echo $responsible_for_monitoring; ?>';
+    var responsible_for_monitoring = ((responsible_for_monitoring != "")?JSON.parse(responsible_for_monitoring):[]);
+
+    $('#interested_part').select2().select2('val',interested_part)
+    $('#responsible').select2().select2('val',responsible)
+    $('#responsible_for_monitoring').select2().select2('val',responsible_for_monitoring)
+
+
 
     
     /*
@@ -559,5 +589,7 @@
     }
 
 
-
+    .select2-container-multi .select2-choices {
+        min-height: 100px;
+    }
 </style>

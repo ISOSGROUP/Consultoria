@@ -113,6 +113,14 @@ class RiesgosController extends AppBaseController
         $risk_chance_radio = [];
         $is_effective = [];
         $execution_time = "";
+        $interested_part = "";
+        $responsible = "";
+        $responsible_for_monitoring = "";
+
+        $users = DB::table('users')
+        ->select('users.id','users.name')
+        ->get();
+
                             /*DB::table('riesgos')
                         ->join('risks_opportunities_foda', 'risks_opportunities_foda.risks_opportunities_id', '=', 'riesgos.id')
                         ->join('foda_details', 'foda_details.id', '=', 'risks_opportunities_foda.foda_details_id')
@@ -121,7 +129,7 @@ class RiesgosController extends AppBaseController
                         ->get();
                             */
 
-        return view('riesgos.create', compact('filledArray', 'allFoda','largest','foda_reference','risk_chance_radio','is_effective','execution_time'));
+        return view('riesgos.create', compact('filledArray', 'allFoda','largest','foda_reference','risk_chance_radio','is_effective','execution_time','interested_part','responsible','users','responsible_for_monitoring'));
     }
 
     /**
@@ -136,6 +144,9 @@ class RiesgosController extends AppBaseController
         $input = $request->all();
 
         $input["foda_reference"] = (($request->has('foda_reference')? serialize(array_keys($input["foda_reference"])) : $riesgos["foda_reference"] = "")); //;
+        $input["interested_part"] = (($request->has('interested_part')? serialize($input["interested_part"]) : $riesgos["interested_part"] = "")); //;
+        $input["responsible"] = (($request->has('responsible')? serialize($input["responsible"]) : $riesgos["responsible"] = "")); //;
+        $input["responsible_for_monitoring"] = (($request->has('responsible_for_monitoring')? serialize($input["responsible_for_monitoring"]) : $riesgos["responsible_for_monitoring"] = "")); //;
 
         $riesgos = $this->riesgosRepository->create($input);
 
@@ -190,6 +201,10 @@ class RiesgosController extends AppBaseController
     {
         $riesgos = $this->riesgosRepository->find($id);
         $foda_reference =  json_encode(unserialize($riesgos->foda_reference));
+        $interested_part =  json_encode(unserialize($riesgos->interested_part));
+        $responsible =  json_encode(unserialize($riesgos->responsible));
+        $responsible_for_monitoring =  json_encode(unserialize($riesgos->responsible_for_monitoring));
+
 
         $concernedParties = ConcernedParties::get();
         $filledArray[0] = "";
@@ -252,7 +267,7 @@ class RiesgosController extends AppBaseController
                     ->get();
 
         //dd($riesgos->risk_chance_radio);
-        return view('riesgos.edit', compact('filledArray', 'allFoda','largest','foda_reference','riesgos','risk_chance_radio','is_effective','execution_time','users'));
+        return view('riesgos.edit', compact('filledArray', 'allFoda','largest','foda_reference','riesgos','risk_chance_radio','is_effective','execution_time','users','interested_part','responsible','responsible_for_monitoring'));
 
     }
 
@@ -270,9 +285,10 @@ class RiesgosController extends AppBaseController
 
         $input = $request->all();
         $input["foda_reference"] = (($request->has('foda_reference')? serialize(array_keys($input["foda_reference"])) : $riesgos->foda_reference = "")); //;
-        //$input["interested_part"] = (($request->has('interested_part')? serialize(array_keys($input["interested_part"])) : $riesgos->foda_reference = "")); //;
+        $input["interested_part"] = (($request->has('interested_part')? serialize($input["interested_part"]) : $riesgos->interested_part = "")); //;
+        $input["responsible"] = (($request->has('responsible')? serialize($input["responsible"]) : $riesgos->responsible = "")); //;
+        $input["responsible_for_monitoring"] = (($request->has('responsible_for_monitoring')? serialize($input["responsible_for_monitoring"]) : $riesgos->responsible_for_monitoring = "")); //;
 
-        dd($input);
 
         if (empty($riesgos)) {
             Flash::error('Riesgos not found');
@@ -281,7 +297,6 @@ class RiesgosController extends AppBaseController
         }
 
         $riesgos = $this->riesgosRepository->update($input, $id);
-       // dd($riesgos);
 
         Flash::success('registro actualizado con éxito.');
 
