@@ -69,13 +69,13 @@
 <div class="form-group col-sm-6">
     {!! Form::label('interested_part', 'Partes Interesadas:') !!}
     <!-- {!! Form::select('interested_part', $filledArray, null, ['class' => 'form-control','empty'=>'Seleccionar','autocomplete'=>'off']) !!} -->
-     {!! Form::select('interested_part', $filledArray, null, ['class' => 'form-control','empty'=>'Seleccionar','autocomplete'=>'off','multiple'=>'multiple','id'=>'interested_part']) !!} 
+     <!-- {!! Form::select('interested_part', $filledArray, null, ['class' => 'form-control','empty'=>'Seleccionar','autocomplete'=>'off','multiple'=>'multiple','id'=>'interested_part']) !!}  -->
      <!-- {!! Form::text('interested_part', null, ['class' => 'form-control','id'=>'interested_part',"style"=>"display:none"]) !!} -->
     
 
 
-     <!--
-      <select multiple name="interested_part[]" style="width:500px" class="" id="interested_part">
+     
+      <select class="www" multiple name="interested_part[]" style="height:600px;width:500px" class="" id="interested_part">
         
         @foreach($filledArray as $key => $value)
             <option value="{{ $value }}">{{ $value }}</option>
@@ -83,7 +83,7 @@
 
     </select> 
 
--->
+
 
 
  
@@ -208,9 +208,12 @@
 </div>
 
 
+<link rel="stylesheet" type="text/css" href="{{ url('select2.css') }}" />
 
-<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.css" rel="stylesheet" /> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.js"></script> -->
+ <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.css" rel="stylesheet" />  -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.js"></script> 
+
+ 
 
 <script type="text/javascript">
 
@@ -471,9 +474,10 @@
         
     });
 
+    $('#interested_part').select2().select2('val', ['1', '3','isos'])
+ 
 
-    //$('#interested_part').select2().select2('val', ['1', '3','isos'])
-
+    
     /*
         var s2 = $("#selectEvents").select2({
             placeholder: "Choose event type",
@@ -555,8 +559,28 @@
     }
 
 
+ 
+
+    .select2-selection__rendered {
+    line-height: 31px !important;
+}
+.select2-container .select2-selection--single {
+    height: 35px !important;
+}
+.select2-selection__arrow {
+    height: 34px !important;
+}
+
+ 
+
+ 
+.www-container .www-choice {
+    display: block!important;
+    height: 36px!important;
+    white-space: nowrap!important;
+    line-height: 26px!important;
+}
 
 
-    
 
 </style>
