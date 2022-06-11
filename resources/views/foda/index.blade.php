@@ -912,17 +912,22 @@ $(document).ready(function() {
     .modal-dialog {
         position: relative;
         max-width: 800px;
-        max-height: 80vh;
+       /*  max-height: 80vh; */
         border-radius: 5px;
         background: var(--white);
-        overflow: auto;
+        /* overflow: auto; */
         cursor: default;
     }
     .modal-dialog > * {
         padding: 1rem;
+        overflow-y: auto;
+        height: 500px;
+
     }
     .modal-header {
         background: var(--lightgray);
+        height: 75px;
+
     }
     .modal-header {
         display: flex;

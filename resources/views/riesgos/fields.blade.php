@@ -75,7 +75,7 @@
 
 
      
-      <select class="www" multiple name="interested_part[]" style="height:600px;width:500px" class="" id="interested_part">
+      <select class="www" multiple name="interested_part[]" style="width:500px" class="" id="interested_part">
         
         @foreach($filledArray as $key => $value)
             <option value="{{ $value }}">{{ $value }}</option>
@@ -557,29 +557,6 @@
     .mytable tbody tr:last-of-type {
         border-bottom: 2px solid #009879;
     }
-
-
- 
-
-    .select2-selection__rendered {
-    line-height: 31px !important;
-}
-.select2-container .select2-selection--single {
-    height: 35px !important;
-}
-.select2-selection__arrow {
-    height: 34px !important;
-}
-
- 
-
- 
-.www-container .www-choice {
-    display: block!important;
-    height: 36px!important;
-    white-space: nowrap!important;
-    line-height: 26px!important;
-}
 
 
 
