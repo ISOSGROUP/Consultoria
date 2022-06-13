@@ -58,8 +58,7 @@ $(document).ready(function () {
     
   });
 
-  $("#add-folder").hide()
-  $("#upload").hide()
+ 
 
   actions.reverse().forEach(function (action) {
     $('#nav-buttons > ul').prepend(
@@ -73,10 +72,8 @@ $(document).ready(function () {
     );
   });
 
-  $("[data-action=trash]").hide() 
-  $("[data-action=download]").hide() 
-  $("[data-action=rename]").hide() 
-  
+
+
   sortings.forEach(function (sort) {
     $('#nav-buttons .dropdown-menu').append(
       $('<a>').addClass('dropdown-item').attr('data-sortby', sort.by)
@@ -176,6 +173,9 @@ $(document).on('click', '[data-action]', function() {
 
 function check_permissions(){
 
+  $("#add-folder").hide()
+  $("#upload").hide()
+
   var folder_name = $("#working_dir").val().substring($("#working_dir").val().lastIndexOf('/') + 1);
 
   if(folder_name == "shares"){
@@ -262,6 +262,13 @@ function toggleSelected (e) {
   }
   
   */
+
+
+  $("[data-action=trash]").hide() 
+  $("[data-action=download]").hide() 
+  $("[data-action=rename]").hide() 
+
+  
     
     var folder_name = $("#working_dir").val().substring($("#working_dir").val().lastIndexOf('/') + 1);
 
@@ -275,7 +282,9 @@ function toggleSelected (e) {
         dataType: 'json',  
         success: function(res) {
           
-          (( res[0].rename_files == 1) ? document.querySelector("[data-action='rename']").style.display = 'block' : document.querySelector("[data-action='rename']").style.display = 'none' )
+         // (( res[0].rename_files == 1) ? document.querySelector("[data-action='rename']").style.display = 'block' : document.querySelector("[data-action='rename']").style.display = 'none' )
+          (( res[0].rename_files == 1) ? $("[data-action=rename]").show() : $("[data-action=rename]").hide() )
+
           (( res[0].delete_files == 1) ? $("[data-action=trash]").show() : $("[data-action=trash]").hide() )
         }
       });
