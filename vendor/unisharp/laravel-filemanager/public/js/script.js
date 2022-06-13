@@ -38,6 +38,9 @@ $(document).ready(function () {
 
  
 
+
+
+
   $('#fab').fab({
 
     buttons: [
@@ -55,6 +58,9 @@ $(document).ready(function () {
     
   });
 
+  $("#add-folder").hide()
+  $("#upload").hide()
+
   actions.reverse().forEach(function (action) {
     $('#nav-buttons > ul').prepend(
       $('<li>').addClass('nav-item').append(
@@ -67,6 +73,10 @@ $(document).ready(function () {
     );
   });
 
+  $("[data-action=trash]").hide() 
+  $("[data-action=download]").hide() 
+  $("[data-action=rename]").hide() 
+  
   sortings.forEach(function (sort) {
     $('#nav-buttons .dropdown-menu').append(
       $('<a>').addClass('dropdown-item').attr('data-sortby', sort.by)
