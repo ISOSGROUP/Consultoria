@@ -59,10 +59,13 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::post('/RisksChance', [App\Http\Controllers\RiesgosController::class, 'saveUserRisksChance'])->name('userRisksChance.save');;
     Route::post('/userConcernedParties', [App\Http\Controllers\ConcernedPartiesController::class, 'saveUserConcernedParties'])->name('userConcernedParties.save');;
-
-
+    Route::resource('controlOfQualityObjectives', App\Http\Controllers\ControlOfQualityObjectivesController::class);
 
 });
+
+
+
+
 
 
 

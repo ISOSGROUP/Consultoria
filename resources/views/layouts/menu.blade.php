@@ -60,6 +60,13 @@
     </a>
 </li>
 
+<li class="nav-item {{ Request::is('controlOfQualityObjectives*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('controlOfQualityObjectives.index') }}">
+        <i class="nav-icon fa fa-table"></i>
+        <span>Control de objetivos</span>
+    </a>
+</li>
+
 <li class="nav-item nav-dropdown " >
   <a class="nav-link nav-dropdown-toggle" href="#">
     <i class="nav-icon fa fa-bars"></i>Procesos</a>
@@ -143,6 +150,8 @@
 </li>
 
  
+
+
 
 
 
