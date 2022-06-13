@@ -223,7 +223,14 @@
 
                             <label for="responsible" class="col-xs-2 control-label"> responsable
                             </label>
-                            <input type="text" id="responsible" class="form-control" placeholder=""/>
+
+                            <select  name="responsible" class="form-control" id="responsible">
+                                @foreach($users as $key => $value)
+                                    <option value="{{ $value->name }}">{{ $value->name }}</option>
+                                @endforeach 
+                            </select>
+
+                           <!-- <input type="text" id="responsible" class="form-control" placeholder=""/> -->
 
                             <label for="budget" class="col-xs-2 control-label"> presupuesto
                             </label>
@@ -275,8 +282,15 @@
 
 @endsection
 
-<script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.css" rel="stylesheet" />  
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.js"></script> 
+
+ 
+
+
+
+<script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script> 
 <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet"> -->
@@ -284,12 +298,15 @@
 
 
 
-<script>
-   jQuery(document).ready(function($) {
+<script type="text/javascript">
+
+//$('#responsible_for_monitoring').select2().select2('val',["w","s"])
+
+   //jQuery(document).ready(function($) {
         //$('#datepicker').datepicker({
           //  dateFormat: "yy-mm-dd"
         //});
-    });
+   // });
      
 </script>
 
@@ -297,6 +314,8 @@
  
 
 <script type="text/javascript">  
+
+
 $(document).ready(function() {
    
     $.ajax({
