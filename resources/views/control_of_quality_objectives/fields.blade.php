@@ -106,11 +106,11 @@
 <script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
 
 
-<link  href="{{ url('select2.css') }}" rel="stylesheet" />
+<!-- <link  href="{{ url('select2.css') }}" rel="stylesheet" />-->
 <script src="{{ url('select2.js') }}"></script> 
 
 
-<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.css" rel="stylesheet" />   -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.css" rel="stylesheet" />   
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.js"></script>  -->
 
 
