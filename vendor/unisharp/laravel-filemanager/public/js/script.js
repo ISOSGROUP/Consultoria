@@ -5,6 +5,10 @@ var multi_selection_enabled = false;
 var selected = [];
 var items = [];
 
+
+var permissions = document.getElementById("folders_permissions").value;
+var permissions = JSON.parse(permissions);
+
 $.fn.fab = function (options) {
   var menu = this;
   menu.addClass('fab-wrapper');
@@ -37,6 +41,8 @@ $.fn.fab = function (options) {
 $(document).ready(function () {
 
  
+  
+
 
 
 
@@ -176,12 +182,28 @@ function check_permissions(){
   $("#add-folder").hide()
   $("#upload").hide()
 
+
+  
   var folder_name = $("#working_dir").val().substring($("#working_dir").val().lastIndexOf('/') + 1);
 
   if(folder_name == "shares"){
     folder_name = "Archivos_Compartidos";
   }
-    //alert(folder_name);
+
+
+  for(var key in permissions) {
+
+      if(permissions[key].name == folder_name){
+
+        (( permissions[key].upload_files == 1) ? $("#upload").show() : $("#upload").hide() )
+        (( permissions[key].create_folders == 1) ? $("#add-folder").show() : $("#add-folder").hide() )
+
+      }  
+  }
+
+/*
+ 
+
   $.ajax({
 
     url: "/query/"+folder_name,
@@ -203,6 +225,10 @@ function check_permissions(){
       (( res[0].create_folders == 1) ? $("#add-folder").show() : $("#add-folder").hide() )
     }
   });
+
+
+
+*/
 
 }
 
@@ -268,13 +294,43 @@ function toggleSelected (e) {
   $("[data-action=download]").hide() 
   $("[data-action=rename]").hide() 
 
-  
+
     
     var folder_name = $("#working_dir").val().substring($("#working_dir").val().lastIndexOf('/') + 1);
 
     if(folder_name == "shares"){
       folder_name = "Archivos_Compartidos";
     }
+
+
+    for(var key in permissions) {
+
+      if(permissions[key].name == folder_name){
+        (( permissions[key].rename_files == 1) ? $("[data-action=rename]").show() : $("[data-action=rename]").hide() )
+      }  
+    }
+
+    for(var key in permissions) {
+
+      if(permissions[key].name == folder_name){
+        (( permissions[key].delete_files == 1) ? $("[data-action=trash]").show() : $("[data-action=trash]").hide() )
+      }  
+    }
+    for(var key in permissions) {
+
+      if(permissions[key].name == folder_name){
+        (( permissions[key].download_files == 1) ? $("[data-action=download]").show() : $("[data-action=download]").hide() )
+      }  
+    }
+
+
+
+
+
+
+
+
+    /*
       $.ajax({
 
         url: "/query/"+folder_name,
@@ -300,7 +356,7 @@ function toggleSelected (e) {
         }
       });
     
-    
+    */
      
 
     if (!multi_selection_enabled) {

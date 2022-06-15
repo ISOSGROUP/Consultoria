@@ -4,6 +4,8 @@ namespace UniSharp\LaravelFilemanager\Controllers;
 
 use UniSharp\LaravelFilemanager\Lfm;
 use UniSharp\LaravelFilemanager\LfmPath;
+use Auth;
+use DB;
 
 class LfmController extends Controller
 {
@@ -36,7 +38,20 @@ class LfmController extends Controller
     public function show()
     {
       //  dd("test2");
-        return view('laravel-filemanager::index')->withHelper($this->helper);
+
+
+      $permissions = DB::table('model_has_roles')
+                    ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+                    ->join('folder_permissions', 'folder_permissions.role_id', '=', 'roles.id')
+                    ->join('folders', 'folders.id', '=', 'folder_permissions.folder_id')
+                    ->where('model_has_roles.model_id', '=', auth()->user()->id)
+                    //->where( 'folders.name', '=', $folder_name )
+                    ->select('folders.name','folder_permissions.upload_files','folder_permissions.download_files','folder_permissions.create_folders','folder_permissions.delete_files','folder_permissions.rename_files')
+                    ->get();
+
+       // dd($permissions);
+       //$permissions = "rrr";
+        return view('laravel-filemanager::index')->with('permissions', $permissions)->withHelper($this->helper);
     }
 
     /**

@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use DB;
 
 class ControlOfQualityObjectivesController extends AppBaseController
 {
@@ -40,9 +41,17 @@ class ControlOfQualityObjectivesController extends AppBaseController
      *
      * @return Response
      */
-    public function create()
-    {
-        return view('control_of_quality_objectives.create');
+    public function create(){
+        $users = DB::table('users')
+        ->select('users.id','users.name')
+        ->get();
+
+        $responsible = "";
+        $responsible_for_providing_data = "";
+
+        //return view('control_of_quality_objectives.create');
+        return view('control_of_quality_objectives.create', compact('users','responsible','responsible_for_providing_data'));
+
     }
 
     /**
@@ -55,6 +64,11 @@ class ControlOfQualityObjectivesController extends AppBaseController
     public function store(CreateControlOfQualityObjectivesRequest $request)
     {
         $input = $request->all();
+
+
+        $input["responsible"] = (($request->has('responsible')? serialize($input["responsible"]) : $riesgos["responsible"] = "")); //;
+        $input["responsible_for_providing_data"] = (($request->has('responsible_for_providing_data')? serialize($input["responsible_for_providing_data"]) : $riesgos["responsible_for_providing_data"] = "")); //;
+
 
         $controlOfQualityObjectives = $this->controlOfQualityObjectivesRepository->create($input);
 
@@ -93,6 +107,8 @@ class ControlOfQualityObjectivesController extends AppBaseController
     public function edit($id)
     {
         $controlOfQualityObjectives = $this->controlOfQualityObjectivesRepository->find($id);
+        $responsible =  json_encode(unserialize($controlOfQualityObjectives->responsible));
+        $responsible_for_providing_data =  json_encode(unserialize($controlOfQualityObjectives->responsible_for_providing_data));
 
         if (empty($controlOfQualityObjectives)) {
             Flash::error('Control Of Quality Objectives not found');
@@ -100,7 +116,14 @@ class ControlOfQualityObjectivesController extends AppBaseController
             return redirect(route('controlOfQualityObjectives.index'));
         }
 
-        return view('control_of_quality_objectives.edit')->with('controlOfQualityObjectives', $controlOfQualityObjectives);
+        $users = DB::table('users')
+        ->select('users.id','users.name')
+        ->get();
+
+        //return view('control_of_quality_objectives.edit')->with('controlOfQualityObjectives', $controlOfQualityObjectives);
+
+        return view('control_of_quality_objectives.edit', compact('users','controlOfQualityObjectives','responsible','responsible_for_providing_data'));
+
     }
 
     /**
@@ -115,13 +138,18 @@ class ControlOfQualityObjectivesController extends AppBaseController
     {
         $controlOfQualityObjectives = $this->controlOfQualityObjectivesRepository->find($id);
 
+        $input = $request->all();
+
+        $input["responsible"] = (($request->has('responsible')? serialize($input["responsible"]) : $controlOfQualityObjectives->responsible = "")); //;
+        $input["responsible_for_providing_data"] = (($request->has('responsible_for_providing_data')? serialize($input["responsible_for_providing_data"]) : $controlOfQualityObjectives->responsible_for_providing_data = "")); //;
+
         if (empty($controlOfQualityObjectives)) {
             Flash::error('Control Of Quality Objectives not found');
 
             return redirect(route('controlOfQualityObjectives.index'));
         }
 
-        $controlOfQualityObjectives = $this->controlOfQualityObjectivesRepository->update($request->all(), $id);
+        $controlOfQualityObjectives = $this->controlOfQualityObjectivesRepository->update($input, $id);
 
         Flash::success('Control Of Quality Objectives updated successfully.');
 

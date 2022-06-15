@@ -43,7 +43,18 @@
 <!-- Responsible For Providing Data Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('responsible_for_providing_data', 'Responsable de brindar datos:') !!}
-    {!! Form::text('responsible_for_providing_data', null, ['class' => 'form-control']) !!}
+    <!-- {!! Form::text('responsible_for_providing_data', null, ['class' => 'form-control']) !!} -->
+
+
+    <select multiple name="responsible_for_providing_data[]" style="width:500px" class="" id="responsible_for_providing_data">
+        
+        @foreach($users as $key => $value)
+            <option value="{{ $value->name }}">{{ $value->name }}</option>
+        @endforeach 
+
+     </select> 
+
+
 </div>
 
 <!-- Activities Field -->
@@ -61,7 +72,17 @@
 <!-- Responsible Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('responsible', 'Responsable:') !!}
-    {!! Form::text('responsible', null, ['class' => 'form-control']) !!}
+    <!-- {!! Form::text('responsible', null, ['class' => 'form-control']) !!} -->
+
+    <select multiple name="responsible[]" style="width:500px" class="" id="responsible">
+        
+        @foreach($users as $key => $value)
+            <option value="{{ $value->name }}">{{ $value->name }}</option>
+        @endforeach 
+
+     </select> 
+
+
 </div>
 
 <!-- Plazo Field -->
@@ -81,3 +102,40 @@
     {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
     <a href="{{ route('controlOfQualityObjectives.index') }}" class="btn btn-secondary">Cancelar</a>
 </div>
+
+<script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
+
+
+<link  href="{{ url('select2.css') }}" rel="stylesheet" />
+<script src="{{ url('select2.js') }}"></script> 
+
+
+<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.css" rel="stylesheet" />   -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.js"></script>  -->
+
+
+ <script type="text/javascript">
+
+    
+$(document).ready(function() {
+
+
+})
+   
+    var responsible = '<?php echo $responsible; ?>';
+    var responsible = ((responsible != "")?JSON.parse(responsible):[]);
+
+
+    var responsible_for_providing_data = '<?php echo $responsible_for_providing_data; ?>';
+    var responsible_for_providing_data = ((responsible_for_providing_data != "")?JSON.parse(responsible_for_providing_data):[]);
+
+    $('#responsible').select2().select2('val',responsible)
+    $('#responsible_for_providing_data').select2().select2('val',responsible_for_providing_data)
+
+</script>
+
+<style>
+    .select2-container-multi .select2-choices {
+        min-height: 100px;
+    }
+</style>

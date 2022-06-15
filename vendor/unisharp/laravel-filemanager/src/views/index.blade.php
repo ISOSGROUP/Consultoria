@@ -5,6 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
+
+  <input type="text" style="display:none;" id="folders_permissions" value="{{ $permissions }}">
+
   <!-- Chrome, Firefox OS and Opera -->
   <meta name="theme-color" content="#333844">
   <!-- Windows Phone -->
