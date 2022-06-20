@@ -1,6 +1,6 @@
 @php
     $measurement_frequency = ["1"=>"Mensual","2"=>"Bimestral","3"=>"Trimestral","6"=>"Semestral","12"=>"Anual"];
-    $formula = ["1"=>"(N eventos ejecutados * 100) / N eventos programados "];
+    $formula = ["1"=>"(N eventos ejecutados * 100) / N eventos programados ","2"=>"Conteo de N eventos"];
 
 @endphp
 
@@ -26,16 +26,16 @@
 </div>
 
 <!-- Formula Field -->
-<div class="form-group col-lg-3">
+<div class="form-group col-lg-5">
     {!! Form::label('formula', 'Formula:') !!}
-    {!! Form::select('formula',$formula, null, ['class' => 'form-control']) !!}
+    {!! Form::select('formula', $formula, null, ['class' => 'form-control','id'=>'formula']) !!}
 </div>
 
 <!-- Measurement Frequency Field -->
 <div class="form-group col-sm-3">
     {!! Form::label('measurement_frequency', 'Frecuencia de medición:') !!}
     <br>
-    {!! Form::select('measurement_frequency', $measurement_frequency,null, ['class' => 'form-control','empty'=>'Seleccionar']) !!}
+    {!! Form::select('measurement_frequency', $measurement_frequency,null, ['class' => 'form-control','empty'=>'Seleccionar','id'=>'measurement_frequency']) !!}
 
     {!! Form::text('month_list', null, ['class' => 'form-control','style'=>'display:none']) !!}
 
@@ -43,6 +43,8 @@
 
 <div class="form-group custom-table">
     <table class="table table-striped" id="dataTable" >
+
+    {{-- 
         <thead>
             <th id="Mes" scope="col" width="1%">Mes</th>
             <th id="Incluir" scope="col" width="1%">Incluir</th>
@@ -56,12 +58,9 @@
                 name="values[Enero]"
                 class='rrr checkbox'
 
-
                 {{ ($month_list["Enero"][0] == true) 
                                                     ? 'checked'
-                                                    : '' }}
-
-                >
+                                                    : '' }}>
             </td>
             <td>
                 <input type="Number" 
@@ -356,6 +355,8 @@
 
         </tr>
 
+        --}}
+
 
     </table>
 
@@ -453,6 +454,76 @@
     
 $(document).ready(function() {
 
+    var thead = "";
+    var tbody = "";
+    var formula = $('#formula').val();
+    var measurement_frequency = $('#measurement_frequency').val();
+    var meses = "";
+    //var 
+   // alert(measurement_frequency);
+   var n = 3; //tweak this to add more items per line
+   var MONTHS = ["Enero", "Febrero", "Marzo", "April", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+   var MONTHS2 = '[{"1":"Enero"}, {"2":"Febrero"}, {"2":"Marzo"}, {"2":"April"}, {"2":"Mayo"}, {"2":"Junio"}, {"2":"Julio"}, {"2":"Agosto"}, {"2":"Setiembre"}, {"2":"Octubre"}, {"2":"Noviembre"}, {"2":"Diciembre"}]';
+
+   var result = new Array(Math.ceil(MONTHS.length / n)).fill().map(_ => MONTHS.splice(0, n))
+  var result2 =  result.push(MONTHS.splice(0, Math.ceil(MONTHS.length / 3)));
+
+
+    var index2 = 0; 
+    var arrayOfArrays = [];
+    for (var i=0; i < MONTHS.length; i++) {
+
+        meses += MONTHS[i];
+        index2 ++;
+        if(index2 == formula){
+            index2 = 0;
+
+        }
+         arrayOfArrays.push(bigarray.slice(i,i+size));
+    }
+
+
+    MONTHS.map((value,index) => {
+
+
+        
+       // alert(index)
+    
+    } );
+
+    thead += '<thead>'+
+                '<tr>'+
+                    '<th>Mes</th>'+
+                    '<th>Events</th>'+
+                   ((formula == 1)? '<th>Events realizados</th>':"")
+                '</tr>'+
+            '</thead>';
+    $('#dataTable').append(thead);
+
+                 
+                    tbody += '<tr>'+
+                                '<td>' + 'Alto '+ '</td>'+
+                                '<td>' + 'El riesgo es altamente probable por la cantidad de veces que en el pasado han ocurrido '+ '</td>'+
+                                '<td>' + 'La intervención es altamente probable por su pertinencia, disponibilidad de recursos y aceptabilidad '+ '</td>'+
+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td>' + 'Medio '+ '</td>'+
+                                '<td>' + 'El riesgo es probable. Se han presentado algunas veces en el pasado '+ '</td>'+
+                                '<td>' + 'La intervención es probable, si bien presenta algunas dificultades por la disponibilidad de recursos y/o aceptabilidad'+ '</td>'+
+
+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td>' + 'Bajo '+ '</td>'+
+                                '<td>' + 'El riesgo es poco probable . Se han presentado pocos o casi ninguna vez en el pasado '+ '</td>'+
+                                '<td>' + 'La intervención es poco probable con dificultades para llevarla a cabo '+ '</td>'+
+
+
+                            '</tr>';
+
+    $('#dataTable').append(tbody);
+
 
     $("tr.item").each(function() {
 
@@ -498,12 +569,10 @@ $(document).ready(function() {
         //}
 
     });
-    $('input[type=Number]').keydown(function() { 
-
-        return false;
+    //$('input[type=Number]').keydown(function() { 
+        //return false;
         //alert('Changed!')
-
-    });
+    //});
 
     
     $(".rrr").change(function() {

@@ -46,10 +46,6 @@
 
     </div>
 
-
-           
-
-
             <div class="form-group form-implementer-risks-chance">
                 <form action="{{route('userRisksChance.save')}}" method="post">
                     @csrf

@@ -306,7 +306,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
             }
         }
 
-        // dd($list);
+        //dd($list);
 
         if (empty($controlOfQualityObjectives)) {
             Flash::error('Control Of Quality Objectives not found');
@@ -343,6 +343,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $previous_key = "";
 
         //dd($month_list);
+        /*
         foreach ($month_list as $key => $value) {
 
             if($value[0] == 1){
@@ -387,7 +388,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
                 $flat = 0;
             }
         }
-
+*/
         $monthList[1] = ["Ene"];
         $monthList[2] = ["Feb"];
         $monthList[3] = ["Mar"];
@@ -403,11 +404,12 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
         $mytime = Carbon::now();
 
+        //dd($monthList[$mytime->toArray()["month"]][0]);
         $percent_complete = 0;
         foreach ($list["meses"] as $key => $value) {
 
 
-            if (str_contains($value, $monthList[$mytime->toArray()["month"]][0])) {
+            if (str_contains($value, $monthList[$mytime->toArray()["month"]][0] )) {
 
                 $percent_complete = $list["events"][$key];
 
@@ -418,6 +420,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
         $controlOfQualityObjectives->status_to_date = $percent_complete.'%';
 
+        //dd($list);
         if (empty($controlOfQualityObjectives)) {
             Flash::error('Control Of Quality Objectives not found');
 
