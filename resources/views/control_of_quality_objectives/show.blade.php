@@ -8,7 +8,7 @@
                 <div class="card-header ">
                     <div class="row">
                         <div class="col-sm-6 text-left">
-                            <h5 class="card-category">ÍNDICE DE CUMPLIMIENTO DE CAPACITACIONES</h5>
+                            <h5 class="card-category">{{ $controlOfQualityObjectives->indicator}}</h5>
                         </div>
                         <div class="col-sm-6">
                             <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
@@ -25,11 +25,19 @@
                     </div>
                 </div>
                 <div class="card-body">
+
                     <div class="chart-area">
                         <canvas id="canvas"></canvas>
                     </div>
                     
+                    <div class="chart-area">
+                        <canvas id="canvas2"></canvas>
+                    </div>
+
                 </div>
+
+
+                 
             </div>
         </div>
     </div>
@@ -76,6 +84,8 @@
                  </div>
           </div>
     </div>--}}
+
+
 @endsection
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
@@ -138,18 +148,18 @@ $(document).ready(function() {
 
         var options2 =  {
                 responsive: true,
-                title:{
-                display:true,
-                text:'test'
+                    title:{
+                    display:true,
+                    text:'test'
                 },
                 tooltips: {
-                mode: 'index',
-                intersect: false,
+                    mode: 'index',
+                    intersect: false,
                 },
-            hover: {
-                mode: 'nearest',
-                intersect: true
-                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                    },
                 scales: {
                 xAxes: [{
                     display: true,
@@ -162,6 +172,10 @@ $(document).ready(function() {
                     display: true,
                     scaleLabel: {
                     display: true,
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100
                     },
                 }]
                 }
@@ -181,12 +195,16 @@ $(document).ready(function() {
         return (Math.random() > 0.5 ? 1.0 : 1.0) * Math.round(Math.random() * 100);
         };
 
-        var number_of_scheduled_trainings = 6;
-        var number_of_workouts_done = 3;
-        var line1 = [ (number_of_workouts_done * 100)/number_of_scheduled_trainings, randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()];
+        //var number_of_scheduled_trainings = 6;
+        //var number_of_workouts_done = 3;
+        
+        //var line1 = [ (number_of_workouts_done * 100)/number_of_scheduled_trainings, randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()];
+        var line1 = '<?php echo json_encode($list["events"]); ?>';
+        line1 = JSON.parse(line1);
+        //var MONTHS = ["Enero", "Febrero", "Marzo", "April", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+        var MONTHS = '<?php echo json_encode($list["meses"]); ?>';
+        MONTHS = JSON.parse(MONTHS);
 
-
-        var MONTHS = ["Enero", "Febrero", "Marzo", "April", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
         var config = {
         type: 'bar',
         data: {
@@ -194,7 +212,8 @@ $(document).ready(function() {
             datasets: [{
                         label: "My First dataset",
                         backgroundColor: window.chartColors.blue,
-                        borderColor: window.chartColors.blue,
+                        borderColor: window.chartColors.green,
+                        hoverBackgroundColor: ["#669911", "#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911"],
                         data: line1,
                         fill: false,
                         } 
@@ -205,5 +224,73 @@ $(document).ready(function() {
 
         var ctx = document.getElementById("canvas").getContext("2d");
         var myLine = new Chart(ctx, config);
+
+
+
+
+
+
+
+
+
+        var options3 =  {
+                responsive: true,
+                    title:{
+                    display:true,
+                    text:'test'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                    },
+                scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                    display: true,
+                    padding: -8
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                    display: true,
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100
+                    },
+                }]
+                }
+            }
+
+
+        var line1 = [100];
+        //var MONTHS = ["Enero", "Febrero", "Marzo", "April", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+        var MONTHS = ["100 - 80 ", "20", "30", "April", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+
+        var config = {
+        type: 'horizontalBar',
+        data: {
+            labels: MONTHS,
+            datasets: [{
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        data: line1,
+                        fill: false,
+                        } 
+                    ]
+        },
+            options:options3
+        };
+
+        var ctx = document.getElementById("canvas2").getContext("2d");
+        var myLine = new Chart(ctx, config);
+
+
     });
  </script>
