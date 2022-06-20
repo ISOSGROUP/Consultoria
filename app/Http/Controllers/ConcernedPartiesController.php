@@ -20,6 +20,10 @@ class ConcernedPartiesController extends AppBaseController
     public function __construct(ConcernedPartiesRepository $concernedPartiesRepo)
     {
         $this->concernedPartiesRepository = $concernedPartiesRepo;
+
+        $this->middleware('permission:user-list|Partes intesadas', ['only' => ['index']]);
+        $this->middleware('permission:Partes intesadas', ['only' => ['show','create','edit','store','destroy']]);
+
     }
 
     /**

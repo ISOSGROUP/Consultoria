@@ -36,8 +36,21 @@ class ControlOfQualityObjectivesController extends AppBaseController
     {
         $controlOfQualityObjectives = $this->controlOfQualityObjectivesRepository->all();
 
-        return view('control_of_quality_objectives.index')
-            ->with('controlOfQualityObjectives', $controlOfQualityObjectives);
+        $user = DB::table('foda_users')
+                    ->where('id', 3)
+                    ->select('foda_users.id','foda_users.name','foda_users.date')
+                    ->get();
+
+        $users = DB::table('users')
+                    ->select('users.id','users.name')
+                    ->get();
+
+        $filledArray;
+        foreach($users as $key => $value) {
+            $filledArray[$value->name] = $value->name;
+        }
+        return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
+
     }
 
     /**
@@ -118,7 +131,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
             }
         }
 
-        $input["month_list"] = (($request->has('values')? serialize($monthList) : $controlOfQualityObjectives->month_list = "")); //;
+        $input["month_list"] = (($request->has('values') ? serialize($monthList) : "")); //;
         $input["responsible"] = (($request->has('responsible')? serialize($input["responsible"]) : $riesgos["responsible"] = "")); //;
         $input["responsible_for_providing_data"] = (($request->has('responsible_for_providing_data')? serialize($input["responsible_for_providing_data"]) : $riesgos["responsible_for_providing_data"] = "")); //;
 
@@ -129,6 +142,20 @@ class ControlOfQualityObjectivesController extends AppBaseController
         Flash::success('Control Of Quality Objectives saved successfully.');
 
         return redirect(route('controlOfQualityObjectives.index'));
+    }
+
+    public function saveUserControlOfQualityObjectives(Request $request){
+
+        $value = $request->all();
+
+        DB::table('foda_users')
+        ->where('id',$value["id"])
+        ->update([
+            'name'=> $value["user"],
+            'date'=> $value["date"]
+        ]);
+        return redirect(route('controlOfQualityObjectives.index'));
+
     }
 
     /**
@@ -315,6 +342,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $flat2 = false;
         $previous_key = "";
 
+        //dd($month_list);
         foreach ($month_list as $key => $value) {
 
             if($value[0] == 1){

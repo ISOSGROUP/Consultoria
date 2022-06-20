@@ -37,18 +37,27 @@
     <i class="nav-icon fa fa-bars"></i>Contexto</a>
   <ul class="nav-dropdown-items">
 
-            <li class="nav-item {{ Request::is('foda*') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('foda.index') }}">
-                                <i class="nav-icon fa fa-bookmark"></i>
-                                <span>Foda</span>
-                            </a>
-            </li>
-            <li class="nav-item {{ Request::is('ConcernedParties*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('ConcernedParties.index') }}">
-                    <i class="nav-icon fa fa-table"></i>
-                    <span>Partes Interesadas</span>
-                </a>
-            </li>
+
+            @can('Foda')
+                <li class="nav-item {{ Request::is('foda*') ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('foda.index') }}">
+                                    <i class="nav-icon fa fa-bookmark"></i>
+                                    <span>Foda</span>
+                                </a>
+                </li>
+            @endcan
+
+            
+
+            @can('Partes intesadas')
+                <li class="nav-item {{ Request::is('ConcernedParties*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('ConcernedParties.index') }}">
+                        <i class="nav-icon fa fa-table"></i>
+                        <span>Partes Interesadas</span>
+                    </a>
+                </li>
+            @endcan
+
 
   </ul>
 </li>

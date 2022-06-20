@@ -37,9 +37,12 @@ class CreateAdminSeeder extends Seeder
   
         $listPermisos[0] = ['name' => 'Gestión-usuarios','guard_name' => 'web','type' => 'm'];
         $listPermisos[1] = ['name' => 'Gestión-roles','guard_name' => 'web','type' => 'm'];
-        $listPermisos[2] = ['name' => 'cambiar fecha en apartado foda','guard_name' => 'web','type' => 'm'];
-        $listPermisos[3] = ['name' => 'cambiar fecha en apartado partes interesadas','guard_name' => 'web','type' => 'm'];
-        $listPermisos[4] = ['name' => 'cambiar fecha en apartado riesgo-oportunidad','guard_name' => 'web','type' => 'm'];
+        $listPermisos[2] = ['name' => 'Partes intesadas','guard_name' => 'web','type' => 'm'];
+        $listPermisos[3] = ['name' => 'Foda','guard_name' => 'web','type' => 'm'];
+        $listPermisos[4] = ['name' => 'cambiar fecha en apartado foda','guard_name' => 'web','type' => 'm'];
+        $listPermisos[5] = ['name' => 'cambiar fecha en apartado partes interesadas','guard_name' => 'web','type' => 'm'];
+        $listPermisos[6] = ['name' => 'cambiar fecha en apartado riesgo-oportunidad','guard_name' => 'web','type' => 'm'];
+        $listPermisos[7] = ['name' => 'cambiar fecha en apartado control-objetivos','guard_name' => 'web','type' => 'm'];
 
 
         foreach($listPermisos as $permission){
@@ -58,6 +61,7 @@ class CreateAdminSeeder extends Seeder
         DB::table('foda_users')->insert(['name'=>"test_user_1"]);
         DB::table('foda_users')->insert(['name'=>"test_user_2"]);
         DB::table('foda_users')->insert(['name'=>"test_user_3"]);
+        DB::table('foda_users')->insert(['name'=>"test_user_4"]);
 
         DB::table('folder_permissions')->insert([
             'folder_id'=> $folder_id,

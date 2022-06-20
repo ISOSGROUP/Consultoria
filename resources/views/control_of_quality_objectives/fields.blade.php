@@ -428,7 +428,7 @@
 <!-- Effectiveness Verification Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('effectiveness_verification', 'Verificación de la eficacia:') !!}
-    {!! Form::text('effectiveness_verification', null, ['class' => 'form-control']) !!}
+    {!! Form::textarea('effectiveness_verification', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Submit Field -->

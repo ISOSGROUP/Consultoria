@@ -15,6 +15,9 @@ class FodaController extends Controller
     public function __construct(FodaRepository $fodaRepo){
 
         $this->fodaRepository = $fodaRepo;
+        $this->middleware('permission:user-list|Foda', ['only' => ['index']]);
+        $this->middleware('permission:Foda', ['only' => ['show','create','edit','store','destroy']]);
+
 
     }
 
