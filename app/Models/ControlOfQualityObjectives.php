@@ -37,7 +37,6 @@ class ControlOfQualityObjectives extends Model
     protected $dates = ['deleted_at'];
 
 
-
     public $fillable = [
         'quality_politics',
         'objectives',
@@ -45,6 +44,10 @@ class ControlOfQualityObjectives extends Model
         'formula',
         'measurement_frequency',
         'month_list',
+        'bueno',
+        'regular_1',
+        'regular_2',
+        'malo',
         'goals',
         'status_to_date',
         'responsible_for_providing_data',

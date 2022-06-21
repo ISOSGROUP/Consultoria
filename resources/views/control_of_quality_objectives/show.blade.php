@@ -8,7 +8,7 @@
                 <div class="card-header ">
                     <div class="row">
                         <div class="col-sm-6 text-left">
-                            <h5 class="card-category">{{ $controlOfQualityObjectives->indicator}}</h5>
+                            <h5 class="card-category"></h5>
                         </div>
                         <div class="col-sm-6">
                             <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
@@ -202,21 +202,40 @@ $(document).ready(function() {
         //var line1 = [ (number_of_workouts_done * 100)/number_of_scheduled_trainings, randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()];
         var line1 = '<?php echo json_encode($list["events"]); ?>';
         line1 = JSON.parse(line1);
+
+        
         //var MONTHS = ["Enero", "Febrero", "Marzo", "April", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
         var MONTHS = '<?php echo json_encode($list["meses"]); ?>';
         MONTHS = JSON.parse(MONTHS);
+
+        var goals = '<?php echo json_encode($list["goals"]); ?>';
+        goals = JSON.parse(goals);
+
+        var good = '<?php echo json_encode($list["good"]); ?>';
+        good = JSON.parse(good);
+
+        var regular = '<?php echo json_encode($list["regular"]); ?>';
+        regular = JSON.parse(regular);
+
+        var bad = '<?php echo json_encode($list["bad"]); ?>';
+        bad = JSON.parse(bad);
 
         var config = {
         type: 'bar',
         data: {
             labels: MONTHS,
             datasets: [{
-                        label: indicator,
-                        backgroundColor: window.chartColors.blue,
-                        borderColor: window.chartColors.green,
-                        hoverBackgroundColor: ["#669911", "#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911"],
-                        data: line1,
-                        fill: false,
+                            label: indicator,
+                            backgroundColor: window.chartColors.blue,
+                            borderColor: window.chartColors.green,
+                            hoverBackgroundColor: ["#669911", "#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911"],
+                            data: line1,
+                            fill: false,
+                        },  {
+
+                            label: "Meta",
+                            backgroundColor: "green",
+                            data: goals
                         } 
                     ]
         },
@@ -271,19 +290,30 @@ $(document).ready(function() {
 
 
         var line1 = [100];
-        //var MONTHS = ["Enero", "Febrero", "Marzo", "April", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
-        var MONTHS = ["100 - 80 ", "20", "30", "April", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
 
         var config = {
-        type: 'horizontalBar',
+        type: 'bar',
         data: {
             labels: MONTHS,
-            datasets: [{
-                        backgroundColor: window.chartColors.blue,
-                        borderColor: window.chartColors.blue,
-                        data: line1,
-                        fill: false,
-                        } 
+            datasets: [
+                        {
+                            type: 'line',
+                            label: "malo",
+                            backgroundColor: "#e84747  ",
+                            data: bad
+                        },
+                        {
+                            type: 'line',
+                            label: "regular",
+                            backgroundColor: "#efea5c",
+                            data: regular
+                        },
+                        {
+                            type: 'line',
+                            label: "bueno",
+                            backgroundColor: "#5fe14b",
+                            data: good
+                        }  
                     ]
         },
             options:options3

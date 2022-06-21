@@ -1,5 +1,5 @@
 @php
-    $measurement_frequency = ["1"=>"Mensual","2"=>"Bimestral","3"=>"Trimestral","6"=>"Semestral","12"=>"Anual"];
+    $measurement_frequency = ["1"=>"Mensual","2"=>"Bimestral","3"=>"Trimestral","4"=>"cuatrimestre","6"=>"Semestral","12"=>"Anual"];
     $formula = ["1"=>"(N eventos ejecutados * 100) / N eventos programados ","2"=>"Conteo de N eventos"];
 
 @endphp
@@ -20,10 +20,62 @@
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('indicator', 'Indicador:') !!}
     {!! Form::text('indicator', null, ['class' => 'form-control']) !!}
-    {!! Form::label('indicatorw', 'Bueno:') !!}
-    {!! Form::Number('indicatorw', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
+
+
+  
+    
+
+   <!--  {!! Form::Number('indicatorw', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!} -->
 
 </div>
+
+
+<div class="parent">
+     <div id="area" class="area"></div>
+     <div class="area cover"></div>
+</div>
+
+
+<div class="">
+
+    <div  class="form-inline">
+        <label > &nbsp;&nbsp; Cambios de rango &nbsp;</label>
+        <i class="fa fa-info-circle fa-lg tool-tip" style="color: #eb3526 " id="info_rango" ></i>
+    </div>
+
+
+    <div class="form-inline col-sm-12">
+            <div class="form-group">
+                <label >Bueno >= &nbsp; </label>
+                <!-- <input type="Number" name="bueno"style="width:100px;" class="form-control"> -->
+                {!! Form::Number('bueno', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
+            </div>
+    </div>
+
+    <div class="form-inline col-sm-12">
+            <div class="form-group">
+                <label >Regular &nbsp;&nbsp;&nbsp;</label>
+                {!! Form::Number('regular_1', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
+
+                <label >&nbsp; > x > &nbsp;</label>
+                {!! Form::Number('regular_2', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
+
+
+            </div>
+    </div>
+
+    <div class="form-inline col-sm-12">
+            <div class="form-group">
+                <label >Malo <= &nbsp; &nbsp;</label>
+                {!! Form::Number('malo', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
+
+            </div>
+    </div>
+
+
+</div>
+
+<br>
 
 <!-- Formula Field -->
 <div class="form-group col-lg-5">
@@ -365,8 +417,8 @@
 
 <!-- Goals Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('goals', 'Metas:') !!}
-    {!! Form::text('goals', null, ['class' => 'form-control']) !!}
+    {!! Form::label('goals', 'Meta:') !!}
+    {!! Form::Number('goals', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
 </div>
 
 <!-- Status To Date Field -->
@@ -454,6 +506,7 @@
     
 $(document).ready(function() {
 
+    $("#info_rango").attr('title', '');
 
     //for (var key in month_list) {
        
@@ -471,7 +524,7 @@ $(document).ready(function() {
         var formula = $('#formula').val();
         var measurement_frequency = $('#measurement_frequency').val();
         var meses = "";
-        var MONTHS = ["Enero", "Febrero", "Marzo", "April", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+        var MONTHS = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
         var flat = 0; 
         var month_list = [];
 
@@ -743,4 +796,37 @@ $(document).ready(function() {
         padding:10px;
         overflow-y: auto;
     }
+
+    #info_rango[title]:hover:after {
+
+        content: "el rango se indenficara en la grafica con lo siguiente: bueno -> verde; regular -> amarillo; malo -> rojo;";
+        position: absolute;
+        border-radius:5px;
+        padding: 6px;
+        display: block;
+        background-color: #459fc6;
+        color: #ffffff;
+        max-width: 350px;
+        height: 100px;
+        text-align:center;
+        line-height: 20px; 
+        z-index: 2;
+
+    }
+
+    .parent{
+        
+        position: relative;
+       
+    }
+    .cover{
+
+        position: absolute;
+        display: block;
+        z-index: 999;
+        top: 5px;
+        left: 130px;
+
+    }
+
 </style>

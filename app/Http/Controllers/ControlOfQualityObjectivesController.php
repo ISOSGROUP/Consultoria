@@ -165,13 +165,13 @@ class ControlOfQualityObjectivesController extends AppBaseController
      *
      * @return Response
      */
-    public function formula($value,$data_1,$data_2){
+    public function formula($id,$data_1,$data_2){
 
         $value2 = "";
-        (($value == 1) ? (($data_1 != 0)? $value2 = round(($data_2 *100)/$data_1, 0): $value2 = 0): 0); 
-        (($value == 2) ? (($data_1 != 0)? $value2 = round(($data_2 *100)/$data_1, 0): $value2 = 0): 0); 
-        (($value == 3) ? (($data_1 != 0)? $value2 = round(($data_2 *100)/$data_1, 0): $value2 = 0): 0); 
-        (($value == 4) ? (($data_1 != 0)? $value2 = round(($data_2 *100)/$data_1, 0): $value2 = 0): 0); 
+        (($id == 1) ? (($data_1 != 0)? $value2 = round(($data_2 *100)/$data_1, 0): $value2 = 0): 0); 
+        (($id == 2) ? (($data_1 == 0)? $value2 = 100: $value2 = 0): 0); 
+        (($id == 3) ? (($data_1 != 0)? $value2 = round(($data_2 *100)/$data_1, 0): $value2 = 0): 0); 
+        (($id == 4) ? (($data_1 != 0)? $value2 = round(($data_2 *100)/$data_1, 0): $value2 = 0): 0); 
 
 
         return $value2;
@@ -206,8 +206,6 @@ class ControlOfQualityObjectivesController extends AppBaseController
         //}
         //dd($controlOfQualityObjectives->measurement_frequency);
 
-        //dd($month_list);
-
        
         $flat = 0;
         $grouped_months = "";
@@ -215,10 +213,30 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $data_2 = 0;
         $list["meses"] = [];
         $list["events"] = [];
+        $list["goal"] = [];
+        $list["good"] = [];
+        $list["regular"] = [];
+        $list["bad"] = [];
+
+
         $i = 0;
         $flat2 = false;
         $previous_key = "";
 
+
+        //dd($controlOfQualityObjectives->bueno);
+        foreach ($month_list as $key => $value) {
+
+            $list["meses"][$i] = $key;
+            $list["events"][$i] = $this->formula($controlOfQualityObjectives->formula,$value[0],$value[1]) ;
+            $list["goals"][$i] = $controlOfQualityObjectives->goals;
+            $list["good"][$i] = 100;
+            $list["regular"][$i] = $controlOfQualityObjectives->regular_1;
+            $list["bad"][$i] = $controlOfQualityObjectives->malo;
+            $i += 1;
+        }
+
+        /*
         foreach ($month_list as $key => $value) {
 
             if($value[0] == 1){
@@ -233,24 +251,22 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
                 //$value = $this->formula($controlOfQualityObjectives->formula,$data_1,$data_2);
 
-                /*
                 //(($previous_key != $key && array_key_exists($previous_key, $month_list) ) ?  (($month_list[$previous_key][0] == 1)? $list = $this->addMeses($list,$grouped_months,$i,$data_1,$data_2,$flat,$value):"") :"");
+                //if($previous_key != $key && array_key_exists($previous_key, $month_list)){
 
-                if($previous_key != $key && array_key_exists($previous_key, $month_list)){
+                    //if($month_list[$previous_key][0] == 1){
 
-                    if($month_list[$previous_key][0] == 1){
+                        //$list["meses"][$i] = ltrim($grouped_months, '-'); 
+                        //$list["events"][$i] = $value;
+                        //$i += 1;
+                        //$grouped_months = "";
+                        //$data_1 = 0;
+                        //$data_2 = 0;
+                        //$flat = 0;
 
-                        $list["meses"][$i] = ltrim($grouped_months, '-'); 
-                        $list["events"][$i] = $value;
-                        $i += 1;
-                        $grouped_months = "";
-                        $data_1 = 0;
-                        $data_2 = 0;
-                        $flat = 0;
+                //    }
+                //}
 
-                    }
-                }
-                */
                 $list["meses"][$i] = $key;
                 $list["events"][$i] = 0;
                 $i += 1;
@@ -305,7 +321,8 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
             }
         }
-
+        */
+        //dd($controlOfQualityObjectives->formula);
         //dd($list);
 
         if (empty($controlOfQualityObjectives)) {
@@ -329,6 +346,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $controlOfQualityObjectives = $this->controlOfQualityObjectivesRepository->find($id);
         $responsible =  json_encode(unserialize($controlOfQualityObjectives->responsible));
         $responsible_for_providing_data =  json_encode(unserialize($controlOfQualityObjectives->responsible_for_providing_data));
+
 
         $month_list =  unserialize($controlOfQualityObjectives->month_list);
 

@@ -22,6 +22,10 @@ class CreateControlOfQualityObjectivesTable extends Migration
             $table->text('formula')->nullable();
             $table->text('measurement_frequency')->nullable();
             $table->text('month_list')->nullable();
+            $table->text('bueno')->nullable();
+            $table->text('regular_1')->nullable();
+            $table->text('regular_2')->nullable();
+            $table->text('malo')->nullable();
             $table->text('goals')->nullable();
             $table->text('status_to_date')->nullable();
             $table->text('responsible_for_providing_data')->nullable();
