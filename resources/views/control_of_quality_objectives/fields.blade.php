@@ -445,11 +445,42 @@
 </div>
 
 <!-- Activities Field -->
-<div class="form-group col-sm-6 custom-table">
 
-    <table class="table table-striped " id="dataTable2" >
+<div class="well clearfix">
+        <a class="btn btn-primary pull-right add-record" data-added="0"><i class="glyphicon glyphicon-plus"></i> Add Row</a>
+      </div>
+      
+
+<div class="form-group col-sm-8 tbl_posts">
+
+
+    <div style="display:none;">
+        <table id="sample_table">
+        <tr id="">
+        <td><span class="sn"></span>.</td>
+        <td>test</td>
+        <td>test</td>
+        <td>test</td>
+        <td>test</td>
+        <td>test</td>
+
+        <td >
+            <div class="input-group-prepend">
+                <a class="btn btn-xs " data-id="0"> <i class="fa fa-edit fa-lg"></i></a>
+                <a class="btn btn-xs delete-record" data-id="0"> <i class="fa fa fa-trash fa-lg"></i></a>
+            </div>
+        </td>
+            
+        </tr>
+    </table>
+
+    
+    </div>
+
+    <table class="table table-striped " id="tbl_posts" >
      
         <thead>
+            <th>#</th>
             <th id="Actividades" scope="col" width="1%">Actividades</th>
             <th id="Recursos" scope="col" width="1%">Recursos</th>
             <th id="Responsable" scope="col" width="1%">Responsable</th>
@@ -459,11 +490,15 @@
 
         </thead>
 
+        <tbody id="tbl_posts_body">
+           
+        </tbody>
+
     </table>
 
 
-    {!! Form::label('activities', 'Actividades:') !!}
-    {!! Form::text('activities', null, ['class' => 'form-control']) !!}
+   <!--  {!! Form::label('activities', 'Actividades:') !!} -->
+    <!-- {!! Form::text('activities', null, ['class' => 'form-control']) !!} -->
 </div>
 
 <!-- Resources Field -->
@@ -518,6 +553,37 @@
 
 
  <script type="text/javascript">
+
+jQuery(document).delegate('a.add-record', 'click', function(e) {
+     e.preventDefault();    
+     var content = jQuery('#sample_table tr'),
+     size = jQuery('#tbl_posts >tbody >tr').length + 1,
+     element = null,    
+     element = content.clone();
+     element.attr('id', 'rec-'+size);
+     element.find('.delete-record').attr('data-id', size);
+     element.appendTo('#tbl_posts_body');
+     element.find('.sn').html(size);
+   });
+
+jQuery(document).delegate('a.delete-record', 'click', function(e) {
+     e.preventDefault();    
+     var didConfirm = confirm("Estás seguro de que quieres eliminar?");
+     if (didConfirm == true) {
+      var id = jQuery(this).attr('data-id');
+      var targetDiv = jQuery(this).attr('targetDiv');
+      jQuery('#rec-' + id).remove();
+      
+    //regnerate index number on table
+    $('#tbl_posts_body tr').each(function(index) {
+      //alert(index);
+      $(this).find('span.sn').html(index+1);
+    });
+    return true;
+  } else {
+    return false;
+  }
+});
 
     
 $(document).ready(function() {
@@ -808,6 +874,14 @@ $(document).ready(function() {
         border: 2px solid #6d6d6f;
         border-radius:10px;
         width: 500px;
+        height: 250px;
+        padding:10px;
+        overflow-y: auto;
+    }
+    .tbl_posts{
+        border: 2px solid #6d6d6f;
+        border-radius:10px;
+        width: 700px;
         height: 250px;
         padding:10px;
         overflow-y: auto;
