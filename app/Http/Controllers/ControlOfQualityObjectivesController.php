@@ -342,7 +342,6 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $flat2 = false;
         $previous_key = "";
 
-        //dd($month_list);
         /*
         foreach ($month_list as $key => $value) {
 
@@ -404,7 +403,6 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
         $mytime = Carbon::now();
 
-        //dd($monthList[$mytime->toArray()["month"]][0]);
         $percent_complete = 0;
         foreach ($list["meses"] as $key => $value) {
 
@@ -420,7 +418,8 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
         $controlOfQualityObjectives->status_to_date = $percent_complete.'%';
 
-        //dd($list);
+        //dd($sss);
+
         if (empty($controlOfQualityObjectives)) {
             Flash::error('Control Of Quality Objectives not found');
 
@@ -449,6 +448,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
         $input = $request->all();
 
+        /*
         $monthList["Enero"] = [0,0,0];
         $monthList["Febrero"] = [0,0,0];
         $monthList["Marzo"] = [0,0,0];
@@ -461,8 +461,27 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $monthList["Octubre"] = [0,0,0];
         $monthList["Noviembre"] = [0,0,0];
         $monthList["Diciembre"] = [0,0,0];
+*/
+        $monthList;
+
+        if($request->has('values')){
+
+            foreach ($input["values"] as $key => $value) {
+
+                $item = explode(',', $key);
+
+                if (array_key_exists(1, $item)) {
+
+                    (($item[1] == "data_1")? $monthList[$item[0]][0] = $value : "");
+                    (($item[1] == "data_2")? $monthList[$item[0]][1] = $value  : "");
+
+                } 
+            }
+        }
 
 
+
+        /*
         if($request->has('values')){
 
             foreach ($input["values"] as $key => $value) {
@@ -483,7 +502,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
             }
         }
-
+*/
         $input["month_list"] = (($request->has('values')? serialize($monthList) : $controlOfQualityObjectives->month_list = "")); //;
 
         $input["responsible"] = (($request->has('responsible')? serialize($input["responsible"]) : $controlOfQualityObjectives->responsible = "")); //;

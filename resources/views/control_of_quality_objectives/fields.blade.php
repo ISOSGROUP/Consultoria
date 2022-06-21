@@ -355,7 +355,7 @@
 
         </tr>
 
-        --}}
+                --}}
 
 
     </table>
@@ -454,42 +454,120 @@
     
 $(document).ready(function() {
 
+
+    //for (var key in month_list) {
+       
+        //var str_array1 = ((month_list[key] != undefined)? month_list[key].toString().split(',')[0]:"");
+        //var str_array2 = ((month_list[key] != undefined)? month_list[key].toString().split(',')[1]:"");
+
+       // alert(str_array2);
+    //}
+
+    function organizeTable(){
+
+
+        var thead = "";
+        var tbody = "";
+        var formula = $('#formula').val();
+        var measurement_frequency = $('#measurement_frequency').val();
+        var meses = "";
+        var MONTHS = ["Enero", "Febrero", "Marzo", "April", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+        var flat = 0; 
+        var month_list = [];
+
+        for (var i=0; i < MONTHS.length; i++) {
+
+            meses += " - "+MONTHS[i];
+            flat ++;
+            if(flat == measurement_frequency){
+                flat = 0;
+                meses = meses.slice(2);
+                month_list.push(meses);
+                meses = "";
+
+            }
+        }
+
+    
+
+        thead += '<thead>'+
+                    '<tr>'+
+                        '<th>Mes</th>'+
+                        '<th>Events</th>'+
+                    ((formula == 1)? '<th>Events realizados</th>':"")
+                    '</tr>'+
+                '</thead>';
+
+        $('#dataTable').append(thead);
+
+         
+        var monthlist = '<?php echo json_encode($month_list); ?>';
+        var monthlist = JSON.parse(monthlist);
+
+        month_list.map((value,index) => {
+
+            tbody += '<tr class="item">'+
+                                '<td>' + value + '</td>'+
+                                '<td>' + '<input type="Number"'+
+                                            'name="values['+value+',data_1]"'+
+                                            'class="form-control data_1"'+ 
+                                            'value="'+ ((monthlist[value] != undefined)? monthlist[value].toString().split(',')[0]:"")+'">'+
+                                '</td>'+
+
+                                ((formula == 1)? '<td>' +'<input type="Number"'+
+                                            'name="values['+value+',data_2]"'+
+                                        'class="form-control data_2"'+ 
+                                        'value="'+ ((monthlist[value] != undefined)? monthlist[value].toString().split(',')[1]:"")+'">'+
+
+                                '</td>' :"")
+                            '</tr>';
+
+        } );
+
+        $('#dataTable').append(tbody);
+
+    }
+    organizeTable();
+
+    $("#formula").change(function () {
+        $("#dataTable").empty();
+        organizeTable();
+    });
+    $("#measurement_frequency").change(function () {
+        $("#dataTable").empty();
+        organizeTable();
+    });
+
+
+    /*
     var thead = "";
     var tbody = "";
     var formula = $('#formula').val();
     var measurement_frequency = $('#measurement_frequency').val();
     var meses = "";
-    //var 
-   // alert(measurement_frequency);
-   var n = 3; //tweak this to add more items per line
+    
    var MONTHS = ["Enero", "Febrero", "Marzo", "April", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
-   var MONTHS2 = '[{"1":"Enero"}, {"2":"Febrero"}, {"2":"Marzo"}, {"2":"April"}, {"2":"Mayo"}, {"2":"Junio"}, {"2":"Julio"}, {"2":"Agosto"}, {"2":"Setiembre"}, {"2":"Octubre"}, {"2":"Noviembre"}, {"2":"Diciembre"}]';
-
-   var result = new Array(Math.ceil(MONTHS.length / n)).fill().map(_ => MONTHS.splice(0, n))
-  var result2 =  result.push(MONTHS.splice(0, Math.ceil(MONTHS.length / 3)));
 
 
-    var index2 = 0; 
-    var arrayOfArrays = [];
+    var flat = 0; 
+    var month_list = [];
+    //alert(MONTHS.length);
+    //alert(measurement_frequency);
+
     for (var i=0; i < MONTHS.length; i++) {
 
-        meses += MONTHS[i];
-        index2 ++;
-        if(index2 == formula){
-            index2 = 0;
+        meses += " - "+MONTHS[i];
+        flat ++;
+        if(flat == measurement_frequency){
+            flat = 0;
+            meses = meses.slice(2);
+            month_list.push(meses);
+            meses = "";
 
         }
-         arrayOfArrays.push(bigarray.slice(i,i+size));
     }
 
-
-    MONTHS.map((value,index) => {
-
-
-        
-       // alert(index)
     
-    } );
 
     thead += '<thead>'+
                 '<tr>'+
@@ -498,10 +576,32 @@ $(document).ready(function() {
                    ((formula == 1)? '<th>Events realizados</th>':"")
                 '</tr>'+
             '</thead>';
+
     $('#dataTable').append(thead);
 
                  
-                    tbody += '<tr>'+
+
+        month_list.map((value,index) => {
+
+            tbody += '<tr class="item">'+
+                                '<td>' + value + '</td>'+
+                                '<td>' + '<input type="Number"'+
+                                            'name="values['+value+',data_1]"'+
+                                            'class="form-control data_1">'+ 
+                                '</td>'+
+
+                                ((formula == 1)? '<td>' +'<input type="Number"'+
+                                            'name="values['+value+',data_2]"'+
+                                        'class="form-control data_2">'+ 
+                                '</td>' :"")
+                            '</tr>';
+
+        } );
+
+        $('#dataTable').append(tbody);
+*/
+
+                  /*  tbody += '<tr>'+
                                 '<td>' + 'Alto '+ '</td>'+
                                 '<td>' + 'El riesgo es altamente probable por la cantidad de veces que en el pasado han ocurrido '+ '</td>'+
                                 '<td>' + 'La intervención es altamente probable por su pertinencia, disponibilidad de recursos y aceptabilidad '+ '</td>'+
@@ -521,18 +621,27 @@ $(document).ready(function() {
 
 
                             '</tr>';
+                            */
 
-    $('#dataTable').append(tbody);
+    //$('#dataTable').append(tbody);
 
 
+    $("tr.item").each(function() {
+
+        //var data_1 = $(this).find("input.Number").parent().siblings("td").children(".data-1");
+        //var data_2 = $(this).find("input.Number").parent().siblings("td").children(".data-2");
+        //data_1.attr("name","values["+nameMonth+",data_1]"); 
+
+         
+    });
+
+    /*
     $("tr.item").each(function() {
 
         var data_1 = $(this).find("input.checkbox").parent().siblings("td").children(".data-1");
         var data_2 = $(this).find("input.checkbox").parent().siblings("td").children(".data-2");
         var nameMonth = $(this).find("input.checkbox").parent().siblings(".mes").text();
         var checkbox = $(this).find("input.checkbox").is(":checked");
-
-        //console.log(checkbox);
 
         if (checkbox) {
 
@@ -549,6 +658,7 @@ $(document).ready(function() {
             data_2.removeAttr("name");
         }
     });
+    */
 
     $('input[type=Number]').on('input',function(e){
         var input = $(this);

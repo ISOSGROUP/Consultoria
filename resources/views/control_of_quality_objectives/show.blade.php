@@ -95,7 +95,8 @@
 $(document).ready(function() {
         
 
-
+    var indicator = '<?php echo $controlOfQualityObjectives->indicator; ?>';
+     
 
     gradientChartOptionsConfigurationWithTooltipPurple = {
             maintainAspectRatio: false,
@@ -210,7 +211,7 @@ $(document).ready(function() {
         data: {
             labels: MONTHS,
             datasets: [{
-                        label: "My First dataset",
+                        label: indicator,
                         backgroundColor: window.chartColors.blue,
                         borderColor: window.chartColors.green,
                         hoverBackgroundColor: ["#669911", "#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911"],
