@@ -228,14 +228,18 @@ $(document).ready(function() {
                             label: indicator,
                             backgroundColor: window.chartColors.blue,
                             borderColor: window.chartColors.green,
-                            hoverBackgroundColor: ["#669911", "#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911"],
+                            //hoverBackgroundColor: ["#669911", "#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911","#669911"],
                             data: line1,
                             fill: false,
                         },  {
+                            type: 'line',
 
                             label: "Meta",
                             backgroundColor: "green",
-                            data: goals
+                            borderColor: "green",
+
+                            data: goals,
+                            fill: false
                         } 
                     ]
         },

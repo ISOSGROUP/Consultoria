@@ -1,3 +1,6 @@
+@php
+    $measurement_frequency = ["1"=>"Mensual","2"=>"Bimestral","3"=>"Trimestral","4"=>"cuatrimestre","6"=>"Semestral","12"=>"Anual"];
+@endphp
 <div class="table-responsive-sm">
     <table class="table table-striped" id="controlOfQualityObjectives-table">
         <thead>
@@ -7,7 +10,7 @@
         <th>Indicador</th>
         <th>Formula</th>
         <th>Frecuencia de medición</th>
-        <th>Metas</th>
+        <th>Meta</th>
         <th>Estado hasta la fecha</th>
 
 
@@ -21,8 +24,8 @@
                 <td class="cell">{{ $controlOfQualityObjectives->objectives }}</td>
                 <td class="cell">{{ $controlOfQualityObjectives->indicator }}</td>
                 <td class="cell">{{ $controlOfQualityObjectives->formula }}</td>
-                <td class="cell">{{ $controlOfQualityObjectives->measurement_frequency }}</td>
-                <td class="cell">{{ $controlOfQualityObjectives->goals }}</td>
+                <td class="cell">{{ $measurement_frequency[$controlOfQualityObjectives->measurement_frequency]  }}</td>
+                <td class="cell">{{ $controlOfQualityObjectives->goals.'%' }}</td>
                 <td class="cell">{{ $controlOfQualityObjectives->status_to_date }}</td>
                 <td>
                     {!! Form::open(['route' => ['controlOfQualityObjectives.destroy', $controlOfQualityObjectives->id], 'method' => 'delete']) !!}

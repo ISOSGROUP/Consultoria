@@ -96,7 +96,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $input = $request->all();
 
 
-        $monthList["Enero"] = [0,0,0];
+        /*$monthList["Enero"] = [0,0,0];
         $monthList["Febrero"] = [0,0,0];
         $monthList["Marzo"] = [0,0,0];
         $monthList["Abril"] = [0,0,0];
@@ -108,7 +108,6 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $monthList["Octubre"] = [0,0,0];
         $monthList["Noviembre"] = [0,0,0];
         $monthList["Diciembre"] = [0,0,0];
-
 
         if($request->has('values')){
 
@@ -128,6 +127,27 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
                 }
 
+            }
+        }
+*/
+
+
+
+
+        $monthList;
+
+        if($request->has('values')){
+
+            foreach ($input["values"] as $key => $value) {
+
+                $item = explode(',', $key);
+
+                if (array_key_exists(1, $item)) {
+
+                    (($item[1] == "data_1")? $monthList[$item[0]][0] = $value : "");
+                    (($item[1] == "data_2")? $monthList[$item[0]][1] = $value  : "");
+
+                } 
             }
         }
 
@@ -190,8 +210,8 @@ class ControlOfQualityObjectivesController extends AppBaseController
         return $list;
 
     }
-    public function show($id)
-    {
+    public function show($id){
+        
         $controlOfQualityObjectives = $this->controlOfQualityObjectivesRepository->find($id);
         $month_list =  unserialize($controlOfQualityObjectives->month_list);
 
@@ -225,10 +245,14 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
 
         //dd($controlOfQualityObjectives->bueno);
+        //$list["events"][$i] = $this->formula($controlOfQualityObjectives->formula,$value[0], (array_key_exists(1, $value) ? $value[1]: ""));
+
         foreach ($month_list as $key => $value) {
 
             $list["meses"][$i] = $key;
-            $list["events"][$i] = $this->formula($controlOfQualityObjectives->formula,$value[0],$value[1]) ;
+            //$list["events"][$i] = $this->formula($controlOfQualityObjectives->formula,$value[0],$value[1]);
+            $list["events"][$i] = $this->formula($controlOfQualityObjectives->formula,$value[0], (array_key_exists(1, $value) ? $value[1]: ""));
+
             $list["goals"][$i] = $controlOfQualityObjectives->goals;
             $list["good"][$i] = 100;
             $list["regular"][$i] = $controlOfQualityObjectives->regular_1;

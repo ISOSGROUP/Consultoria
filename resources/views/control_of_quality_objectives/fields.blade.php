@@ -445,7 +445,23 @@
 </div>
 
 <!-- Activities Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-6 custom-table">
+
+    <table class="table table-striped " id="dataTable2" >
+     
+        <thead>
+            <th id="Actividades" scope="col" width="1%">Actividades</th>
+            <th id="Recursos" scope="col" width="1%">Recursos</th>
+            <th id="Responsable" scope="col" width="1%">Responsable</th>
+            <th id="Plazo" scope="col" width="1%">Plazo</th>
+            <th id="Verificacion" scope="col" width="1%">Verificacion </th>
+            <th id="Action" scope="col" width="1%">Action</th>
+
+        </thead>
+
+    </table>
+
+
     {!! Form::label('activities', 'Actividades:') !!}
     {!! Form::text('activities', null, ['class' => 'form-control']) !!}
 </div>
@@ -564,13 +580,13 @@ $(document).ready(function() {
                                 '<td>' + '<input type="Number"'+
                                             'name="values['+value+',data_1]"'+
                                             'class="form-control data_1"'+ 
-                                            'value="'+ ((monthlist[value] != undefined)? monthlist[value].toString().split(',')[0]:"")+'">'+
+                                            'value="'+ ((monthlist[value] != undefined)? monthlist[value].toString().split(',')[0]:0)+'">'+
                                 '</td>'+
 
                                 ((formula == 1)? '<td>' +'<input type="Number"'+
                                             'name="values['+value+',data_2]"'+
                                         'class="form-control data_2"'+ 
-                                        'value="'+ ((monthlist[value] != undefined)? monthlist[value].toString().split(',')[1]:"")+'">'+
+                                        'value="'+ ((monthlist[value] != undefined)? monthlist[value].toString().split(',')[1]:0)+'">'+
 
                                 '</td>' :"")
                             '</tr>';
