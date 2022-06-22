@@ -18,7 +18,7 @@
                                 <strong>Nuevo</strong>
                             </div>
                             <div class="card-body">
-                                {!! Form::open(['route' => 'controlOfQualityObjectives.store'],'id'=>'customform') !!}
+                                {!! Form::open(['route' => 'controlOfQualityObjectives.store','id'=>'customform']) !!}
 
                                    @include('control_of_quality_objectives.fields')
 

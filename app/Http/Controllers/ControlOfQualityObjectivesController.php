@@ -80,7 +80,9 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $month_list["Noviembre"] = [0,0,0];
         $month_list["Diciembre"] = [0,0,0];
 
-        return view('control_of_quality_objectives.create', compact('users','responsible','responsible_for_providing_data','month_list'));
+        $activities = "";
+
+        return view('control_of_quality_objectives.create', compact('users','responsible','responsible_for_providing_data','month_list','activities'));
 
     }
 
@@ -154,7 +156,6 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $input["month_list"] = (($request->has('values') ? serialize($monthList) : "")); //;
         $input["responsible"] = (($request->has('responsible')? serialize($input["responsible"]) : $riesgos["responsible"] = "")); //;
         $input["responsible_for_providing_data"] = (($request->has('responsible_for_providing_data')? serialize($input["responsible_for_providing_data"]) : $riesgos["responsible_for_providing_data"] = "")); //;
-
 
 
         $controlOfQualityObjectives = $this->controlOfQualityObjectivesRepository->create($input);
@@ -459,8 +460,9 @@ class ControlOfQualityObjectivesController extends AppBaseController
         
 
         $controlOfQualityObjectives->status_to_date = $percent_complete.'%';
+        $activities = $controlOfQualityObjectives->activities;
 
-        //dd($controlOfQualityObjectives);
+        //dd($sss);
 
         if (empty($controlOfQualityObjectives)) {
             Flash::error('Control Of Quality Objectives not found');
@@ -472,7 +474,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
         ->select('users.id','users.name')
         ->get();
 
-        return view('control_of_quality_objectives.edit', compact('users','controlOfQualityObjectives','responsible','responsible_for_providing_data','month_list'));
+        return view('control_of_quality_objectives.edit', compact('users','controlOfQualityObjectives','responsible','responsible_for_providing_data','month_list','activities'));
 
     }
 
@@ -549,10 +551,6 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
         $input["responsible"] = (($request->has('responsible')? serialize($input["responsible"]) : $controlOfQualityObjectives->responsible = "")); //;
         $input["responsible_for_providing_data"] = (($request->has('responsible_for_providing_data')? serialize($input["responsible_for_providing_data"]) : $controlOfQualityObjectives->responsible_for_providing_data = "")); //;
-
-
-        $input["responsible"] = (($request->has('responsible')? serialize($input["responsible"]) : $controlOfQualityObjectives->responsible = "")); //;
-
 
         if (empty($controlOfQualityObjectives)) {
             Flash::error('Control Of Quality Objectives not found');

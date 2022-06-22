@@ -36,46 +36,7 @@
 </div>
 
 
-<div class="">
 
-    <div  class="form-inline">
-        <label > &nbsp;&nbsp; Cambios de rango &nbsp;</label>
-        <i class="fa fa-info-circle fa-lg tool-tip" style="color: #eb3526 " id="info_rango" ></i>
-    </div>
-
-
-    <div class="form-inline col-sm-12">
-            <div class="form-group">
-                <label >Bueno >= &nbsp; </label>
-                <!-- <input type="Number" name="bueno"style="width:100px;" class="form-control"> -->
-                {!! Form::Number('bueno', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
-            </div>
-    </div>
-
-    <div class="form-inline col-sm-12">
-            <div class="form-group">
-                <label >Regular &nbsp;&nbsp;&nbsp;</label>
-                {!! Form::Number('regular_1', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
-
-                <label >&nbsp; > x > &nbsp;</label>
-                {!! Form::Number('regular_2', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
-
-
-            </div>
-    </div>
-
-    <div class="form-inline col-sm-12">
-            <div class="form-group">
-                <label >Malo <= &nbsp; &nbsp;</label>
-                {!! Form::Number('malo', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
-
-            </div>
-    </div>
-
-
-</div>
-
-<br>
 
 <!-- Formula Field -->
 <div class="form-group col-lg-5">
@@ -414,6 +375,47 @@
 
 </div>
 
+<div class="">
+
+    <div  class="form-inline">
+        <label > &nbsp;&nbsp; Cambios de rango &nbsp;</label>
+        <i class="fa fa-info-circle fa-lg tool-tip" style="color: #eb3526 " id="info_rango" ></i>
+    </div>
+
+
+    <div class="form-inline col-sm-12">
+            <div class="form-group">
+                <label >Bueno >= &nbsp; </label>
+                <!-- <input type="Number" name="bueno"style="width:100px;" class="form-control"> -->
+                {!! Form::Number('bueno', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
+            </div>
+    </div>
+
+    <div class="form-inline col-sm-12">
+            <div class="form-group">
+                <label >Regular &nbsp;&nbsp;&nbsp;</label>
+                {!! Form::Number('regular_1', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
+
+                <label >&nbsp; > x > &nbsp;</label>
+                {!! Form::Number('regular_2', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
+
+
+            </div>
+    </div>
+
+    <div class="form-inline col-sm-12">
+            <div class="form-group">
+                <label >Malo <= &nbsp; &nbsp;</label>
+                {!! Form::Number('malo', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
+
+            </div>
+    </div>
+
+
+</div>
+
+<br>
+
 
 <!-- Goals Field -->
 <div class="form-group col-sm-6">
@@ -450,9 +452,11 @@
 <div class="well clearfix">
         <a class="btn btn-primary pull-right add-record" data-added="0"><i class="glyphicon glyphicon-plus"></i> Add Row</a>
       </div>
+    {!! Form::label('effectiveness_verification', 'Planificación de actividades para logro de objetivos:') !!}
       
 
 <div class="form-group col-sm-12 tbl_posts">
+
 
      {!! Form::text('activities', null, ['class' => 'form-control',"readonly"=>"readonly","style"=>"display:none","id"=>"activities"]) !!}
 
@@ -461,12 +465,19 @@
     <div style="display:none;">
         <table id="sample_table">
         <tr id="" class="custom-row" style="height:2px;">
-        <td><span class="sn"></span>.</td>
-        <td class="actividades" style="max-width:30px;" contenteditable>test</td>
-        <td class="recursos" style="max-width:30px;" contenteditable>test</td>
-        <td class="responsable" style="max-width:20px;" contenteditable>test</td>
-        <td class="plazo" style="max-width:30px;" contenteditable>test</td>
-        <td class="verificacion" style="max-width:20px;min-height:30px;" contenteditable>test</td>
+        <td  style="min-width:5px;padding:5px;"><span class="sn"></span>.</td>
+        <td class="actividades" style="max-width:30px;padding:5px;" contenteditable>test</td>
+        <td class="recursos" style="max-width:30px;padding:5px;" contenteditable>test</td>
+        <td class="responsable" style="max-width:20px;padding:5px;"  >
+        
+
+ 
+          <div id="www" ></div>
+         
+    
+        </td>
+        <td class="plazo" style="max-width:30px;padding:5px;" contenteditable>test</td>
+        <td class="verificacion" style="max-width:20px;min-height:30px;padding:5px;" contenteditable>test</td>
 
         <td >
             <div class="input-group-prepend">
@@ -484,7 +495,7 @@
     <table class="table table-striped " id="tbl_posts" style="min-width:1100px;" >
      
         <thead>
-            <th>#</th>
+            <th style="max-width:5px;">#</th>
             <th id="actividades"  class="cell" style="min-width:30px;overflow-y: auto;height:40px;">Actividades</th>
             <th id="recursos"  class="cell" style="min-width:30px;">Recursos</th>
             <th id="responsable"  class="cell" style="width:25px;">Responsable</th>
@@ -504,7 +515,9 @@
    <!--  {!! Form::label('activities', 'Actividades:') !!} -->
     <!-- {!! Form::text('activities', null, ['class' => 'form-control']) !!} -->
 </div>
+<input type="text"  id="test">
 
+{{--
 <!-- Resources Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('resources', 'Recursos:') !!}
@@ -516,7 +529,7 @@
     {!! Form::label('responsible', 'Responsable:') !!}
     <!-- {!! Form::text('responsible', null, ['class' => 'form-control']) !!} -->
 
-    <select multiple name="responsible[]" style="width:500px" class="" id="responsible">
+    <select multiple name="responsiblew[]" style="width:500px" class=""  id="wresponsible">
         
         @foreach($users as $key => $value)
             <option value="{{ $value->name }}">{{ $value->name }}</option>
@@ -538,7 +551,7 @@
     {!! Form::label('effectiveness_verification', 'Verificación de la eficacia:') !!}
     {!! Form::textarea('effectiveness_verification', null, ['class' => 'form-control']) !!}
 </div>
-
+--}}
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
@@ -555,8 +568,21 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.css" rel="stylesheet" />   
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.0/select2.js"></script>  -->
 
+ 
+<script type="text/javascript">
 
- <script type="text/javascript">
+ 
+$('#www').select2({
+    width: '100%',
+    allowClear: true,
+    multiple: true,
+    maximumSelectionSize: 1,
+    placeholder: "Start typing",
+    data: [
+            { id: 1, text: "Nikhilesh"},
+            { id: 2, text: "Raju"    }
+          ]    
+    });
 
 jQuery(document).delegate('a.add-record', 'click', function(e) {
      e.preventDefault();    
@@ -576,8 +602,8 @@ jQuery(document).delegate('a.delete-record', 'click', function(e) {
      if (didConfirm == true) {
       var id = jQuery(this).attr('data-id');
       var targetDiv = jQuery(this).attr('targetDiv');
-      jQuery('#rec-' + id).remove();
-      
+      jQuery('#'+id).remove();
+
     //regnerate index number on table
     $('#tbl_posts_body tr').each(function(index) {
       //alert(index);
@@ -589,11 +615,15 @@ jQuery(document).delegate('a.delete-record', 'click', function(e) {
   }
 });
 
+
+ 
     
 $(document).ready(function() {
 
 
-     
+    
+
+
     function isNumeric(val) {
         return /^-?\d+$/.test(val);
     }
@@ -603,17 +633,18 @@ $(document).ready(function() {
 
 
         var list = {};
-        var data = {}
 
         $("tr.custom-row").each(function() {
 
             var row = $(this).prop("id");
+            var data = {}
 
             var actividades = $(this).find("td.actividades").text();
             var recursos = $(this).find("td.recursos").text();
             var responsable = $(this).find("td.responsable").text();
             var plazo = $(this).find("td.plazo").text();
             var verificacion = $(this).find("td.verificacion").text();
+
 
             data.actividades = actividades;
             data.recursos = recursos;
@@ -622,18 +653,60 @@ $(document).ready(function() {
             data.verificacion = verificacion;
 
             ((isNumeric(row) ? list[row] = data:""))
-            //list[row] = data
-            //alert(row);
-
         
         });
 
+        //$("#activities").val((JSON.parse(JSON.stringify(list))) );
         $("#activities").val(JSON.stringify(list));
-
-        console.log($("#activities").val());
 
 
         //return false;
+
+
+    });
+
+    $("tr.custom-row").each(function() {
+
+        var jsonData = '<?php echo $activities; ?>';
+        var jsonData = JSON.parse(jsonData);
+        console.log(jsonData);
+
+    
+        for(var key in jsonData) {
+
+            //alert(jsonData[key]["actividades"]);
+            var actividades = jsonData[key]["actividades"];
+            var recursos = jsonData[key]["recursos"];
+            var responsable = jsonData[key]["responsable"];
+            var plazo = jsonData[key]["plazo"];
+            var verificacion = jsonData[key]["verificacion"];
+
+            var content = jQuery('#sample_table tr');
+            var size = key;
+            var element = null;
+            element = content.clone();
+
+            
+            element.find("td.actividades").empty();
+            element.find("td.recursos").empty();
+            element.find("td.responsable").empty();
+            element.find("td.plazo").empty();
+            element.find("td.verificacion").empty();
+
+            element.find("td.actividades").append(actividades);
+            element.find("td.recursos").append(recursos);
+            element.find("td.responsable").append(responsable);
+            element.find("td.plazo").append(plazo);
+            element.find("td.verificacion").append(verificacion);
+
+            element.attr('id', size);
+            element.find('.delete-record').attr('data-id', size);
+            element.appendTo('#tbl_posts_body');
+            element.find('.sn').html(size);
+
+        }
+
+
 
 
     });
@@ -930,10 +1003,10 @@ $(document).ready(function() {
     }
     .tbl_posts{
         border: 2px solid #6d6d6f;
-        border-radius:10px;
+        border-radius:5px;
         width: 1100px;
         height: 250px;
-        padding:10px;
+        padding:5px;
         overflow-y: auto;
     }
 
