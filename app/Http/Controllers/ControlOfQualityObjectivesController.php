@@ -460,7 +460,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
         $controlOfQualityObjectives->status_to_date = $percent_complete.'%';
 
-        //dd($sss);
+        //dd($controlOfQualityObjectives);
 
         if (empty($controlOfQualityObjectives)) {
             Flash::error('Control Of Quality Objectives not found');
@@ -549,6 +549,10 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
         $input["responsible"] = (($request->has('responsible')? serialize($input["responsible"]) : $controlOfQualityObjectives->responsible = "")); //;
         $input["responsible_for_providing_data"] = (($request->has('responsible_for_providing_data')? serialize($input["responsible_for_providing_data"]) : $controlOfQualityObjectives->responsible_for_providing_data = "")); //;
+
+
+        $input["responsible"] = (($request->has('responsible')? serialize($input["responsible"]) : $controlOfQualityObjectives->responsible = "")); //;
+
 
         if (empty($controlOfQualityObjectives)) {
             Flash::error('Control Of Quality Objectives not found');

@@ -18,7 +18,7 @@
                               <strong>Editar</strong>
                           </div>
                           <div class="card-body">
-                              {!! Form::model($controlOfQualityObjectives, ['route' => ['controlOfQualityObjectives.update', $controlOfQualityObjectives->id], 'method' => 'patch']) !!}
+                              {!! Form::model($controlOfQualityObjectives, ['route' => ['controlOfQualityObjectives.update', $controlOfQualityObjectives->id], 'method' => 'patch','id'=>'customform']) !!}
 
                               @include('control_of_quality_objectives.fields')
 

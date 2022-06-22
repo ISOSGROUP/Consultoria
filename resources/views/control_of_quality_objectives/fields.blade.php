@@ -430,6 +430,7 @@
 <!-- Responsible For Providing Data Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('responsible_for_providing_data', 'Responsable de brindar datos:') !!}
+
     <!-- {!! Form::text('responsible_for_providing_data', null, ['class' => 'form-control']) !!} -->
 
 
@@ -451,22 +452,25 @@
       </div>
       
 
-<div class="form-group col-sm-8 tbl_posts">
+<div class="form-group col-sm-12 tbl_posts">
+
+     {!! Form::text('activities', null, ['class' => 'form-control',"readonly"=>"readonly","style"=>"display:none","id"=>"activities"]) !!}
+
 
 
     <div style="display:none;">
         <table id="sample_table">
-        <tr id="">
+        <tr id="" class="custom-row" style="height:2px;">
         <td><span class="sn"></span>.</td>
-        <td>test</td>
-        <td>test</td>
-        <td>test</td>
-        <td>test</td>
-        <td>test</td>
+        <td class="actividades" style="max-width:30px;" contenteditable>test</td>
+        <td class="recursos" style="max-width:30px;" contenteditable>test</td>
+        <td class="responsable" style="max-width:20px;" contenteditable>test</td>
+        <td class="plazo" style="max-width:30px;" contenteditable>test</td>
+        <td class="verificacion" style="max-width:20px;min-height:30px;" contenteditable>test</td>
 
         <td >
             <div class="input-group-prepend">
-                <a class="btn btn-xs " data-id="0"> <i class="fa fa-edit fa-lg"></i></a>
+                <!-- <a class="btn btn-xs " data-id="0"> <i class="fa fa-edit fa-lg"></i></a> -->
                 <a class="btn btn-xs delete-record" data-id="0"> <i class="fa fa fa-trash fa-lg"></i></a>
             </div>
         </td>
@@ -477,16 +481,16 @@
     
     </div>
 
-    <table class="table table-striped " id="tbl_posts" >
+    <table class="table table-striped " id="tbl_posts" style="min-width:1100px;" >
      
         <thead>
             <th>#</th>
-            <th id="Actividades" scope="col" width="1%">Actividades</th>
-            <th id="Recursos" scope="col" width="1%">Recursos</th>
-            <th id="Responsable" scope="col" width="1%">Responsable</th>
-            <th id="Plazo" scope="col" width="1%">Plazo</th>
-            <th id="Verificacion" scope="col" width="1%">Verificacion </th>
-            <th id="Action" scope="col" width="1%">Action</th>
+            <th id="actividades"  class="cell" style="min-width:30px;overflow-y: auto;height:40px;">Actividades</th>
+            <th id="recursos"  class="cell" style="min-width:30px;">Recursos</th>
+            <th id="responsable"  class="cell" style="width:25px;">Responsable</th>
+            <th id="plazo"  class="cell" style="min-width:30px;">Plazo</th>
+            <th id="verificacion"  class="cell" style="min-width:30px;">Verificacion </th>
+            <th id="action"  style="width:10px"style="min-width:30px;">Action</th>
 
         </thead>
 
@@ -560,7 +564,7 @@ jQuery(document).delegate('a.add-record', 'click', function(e) {
      size = jQuery('#tbl_posts >tbody >tr').length + 1,
      element = null,    
      element = content.clone();
-     element.attr('id', 'rec-'+size);
+     element.attr('id', size);
      element.find('.delete-record').attr('data-id', size);
      element.appendTo('#tbl_posts_body');
      element.find('.sn').html(size);
@@ -587,6 +591,52 @@ jQuery(document).delegate('a.delete-record', 'click', function(e) {
 
     
 $(document).ready(function() {
+
+
+     
+    function isNumeric(val) {
+        return /^-?\d+$/.test(val);
+    }
+
+
+    $("#customform").submit(function(){
+
+
+        var list = {};
+        var data = {}
+
+        $("tr.custom-row").each(function() {
+
+            var row = $(this).prop("id");
+
+            var actividades = $(this).find("td.actividades").text();
+            var recursos = $(this).find("td.recursos").text();
+            var responsable = $(this).find("td.responsable").text();
+            var plazo = $(this).find("td.plazo").text();
+            var verificacion = $(this).find("td.verificacion").text();
+
+            data.actividades = actividades;
+            data.recursos = recursos;
+            data.responsable = responsable;
+            data.plazo = plazo;
+            data.verificacion = verificacion;
+
+            ((isNumeric(row) ? list[row] = data:""))
+            //list[row] = data
+            //alert(row);
+
+        
+        });
+
+        $("#activities").val(JSON.stringify(list));
+
+        console.log($("#activities").val());
+
+
+        //return false;
+
+
+    });
 
     $("#info_rango").attr('title', '');
 
@@ -761,7 +811,7 @@ $(document).ready(function() {
     //$('#dataTable').append(tbody);
 
 
-    $("tr.item").each(function() {
+    $("tr.custom-row").each(function() {
 
         //var data_1 = $(this).find("input.Number").parent().siblings("td").children(".data-1");
         //var data_2 = $(this).find("input.Number").parent().siblings("td").children(".data-2");
@@ -881,7 +931,7 @@ $(document).ready(function() {
     .tbl_posts{
         border: 2px solid #6d6d6f;
         border-radius:10px;
-        width: 700px;
+        width: 1100px;
         height: 250px;
         padding:10px;
         overflow-y: auto;
@@ -904,6 +954,17 @@ $(document).ready(function() {
 
     }
 
+    .cell{
+        /* min-width: 20px; */
+
+        word-wrap: break-word;
+       /* max-width: 20px; */
+
+        /*min-height: 20px;
+        max-height: 20px; */
+
+
+    }
     .parent{
         
         position: relative;
