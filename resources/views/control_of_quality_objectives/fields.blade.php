@@ -468,9 +468,15 @@
         <td  style="max-width:1px;padding:5px;"><span class="sn"></span>.</td>
         <td class="actividades" style="max-width:30px;padding:5px;" contenteditable>test</td>
         <td class="recursos" style="max-width:30px;padding:5px;" contenteditable>test</td>
-        <td class="responsable" style="max-width:20px;padding:5px;" contenteditable >test</td>
-        <!-- <td class="plazo " style="max-width:30px;padding:5px;"contenteditable><input type="text" class="datepick" id="1"/></td> -->
-        <td class="plazo " style="max-width:30px;padding:5px;"contenteditable>test</td>
+         <td class="responsable volunteer " style="max-width:20px;padding:5px;" >
+         <!--
+            <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+                <option value="AL">Alabama</option>
+                <option value="WY">Wyoming</option>
+                </select>
+            </td>-->
+        <td class="plazo" style="max-width:30px;padding:5px;"contenteditable><input type="date" class="datepick" /></td>
+        <!-- <td class="plazo " style="max-width:30px;padding:5px;"contenteditable>test</td>-->
         <td class="verificacion" style="max-width:20px;min-height:30px;padding:5px;" contenteditable>test</td>
 
        
@@ -501,7 +507,10 @@
         </thead>
 
         <tbody id="tbl_posts_body">
-           
+             <!-- <tr>
+                <td class="volunteer" id="47">Click Me</td>
+                <td class=""></td> 
+            </tr> -->
         </tbody>
 
     </table>
@@ -510,7 +519,6 @@
    <!--  {!! Form::label('activities', 'Actividades:') !!} -->
     <!-- {!! Form::text('activities', null, ['class' => 'form-control']) !!} -->
 </div>
-<input type="text"  id="test">
 
 {{--
 <!-- Resources Field -->
@@ -566,6 +574,80 @@
  
 <script type="text/javascript">
 
+
+(function($) {
+  $(document).ready(function() {
+    var state = "";
+    $(".volunteer").on("click ","td", function(event) {
+
+        // Check if select is already loaded
+      if(!$(this).has("select").length) {
+        // Populate select element
+        $(this).html(`<select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+            <option value="AL">Alabama</option>
+            <option value="WY">Wyoming</option>
+            </select>`);      
+              
+        // Initialise select2
+        $(this).children("select").select2();
+      }
+    });
+
+
+
+    $("#tbl_posts_body").on("click", "td.responsable", function() {
+
+        if(!$(this).has("select").length) {
+            // Populate select element
+            var select = `<select style="width:104px" class="js-example-basic-multiple" name="states[]" multiple="multiple">`;
+
+            //$(this).html(`<select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+              //  <option value="AL">Alabama</option>
+                //<option value="WY">Wyoming</option>
+                //</select>`);      
+                
+           // $(this).children("select").select2();
+
+            var users = ""
+            users = '<?php echo $users; ?>';
+            users = ((users != "") ? JSON.parse(users):[]);
+
+
+            for(var key in users) {
+
+                select += `<option value="`+users[key]["name"]+`">`+users[key]["name"]+`</option>`
+
+            }   
+            select += `</select>`;
+            $(this).html(select);
+            $(this).children("select").select2();
+
+
+            var r = [1,2];
+            //$(this).children("select").select2().select2('val',["isos"])
+
+            //$(this).children("select").select2();
+
+
+           
+
+            //console.log(select);
+            //$('#responsible').select2().select2('val',responsible)
+
+
+        }
+
+
+    });
+
+
+  });
+})(jQuery)
+
+
+
+
+
 /*
  
 $('#www').select2({
@@ -591,6 +673,21 @@ jQuery(document).delegate('a.add-record', 'click', function(e) {
      element.find('.delete-record').attr('data-id', size);
      element.appendTo('#tbl_posts_body');
      element.find('.sn').html(size);
+
+/*
+     var tbody = "";
+    // tbody += '<tr>'+
+      //                          '<td class="volunteer" >' + 'Click Me '+ '</td>'+
+        //                    '</tr>';
+
+    tbody ='<tr>'+
+      '<td class="volunteer" id="47">'+'Click Me'+'</td>+'
+      '<td class=""></td>'+
+    '</tr>';
+
+     $('#tbl_posts_body').html(tbody);
+     */
+
    });
 
 jQuery(document).delegate('a.delete-record', 'click', function(e) {
@@ -619,7 +716,7 @@ $(document).ready(function() {
 
 
     
-
+    
     function isNumeric(val) {
         return /^-?\d+$/.test(val);
     }
@@ -636,11 +733,9 @@ $(document).ready(function() {
 
             var actividades = $(this).find("td.actividades").text();
             var recursos = $(this).find("td.recursos").text();
-            var responsable = $(this).find("td.responsable").text();
-            var plazo = $(this).find("td.plazo").text();
+            var responsable = $(this).find("td.responsable").find("select").val();
+            var plazo = $(this).find("td.plazo").find("input").val();
             var verificacion = $(this).find("td.verificacion").text();
-
-            //alert(actividades);
             data.actividades = actividades;
             data.recursos = recursos;
             data.responsable = responsable;
@@ -666,8 +761,21 @@ $(document).ready(function() {
 
         var jsonData = '<?php echo $activities; ?>';
         var jsonData = JSON.parse(jsonData);
+        var users = '<?php echo $users; ?>';
+        var users = JSON.parse(users);
 
         
+
+        var select = `<select class="js-example-basic-multiple" name="states[]" multiple="multiple">`;
+
+        for(var index in users) {
+
+            select += `<option value="`+users[index]["name"]+`">`+users[index]["name"]+`</option>`
+
+        }   
+
+        select += `</select>`;
+
         for(var key in jsonData) {
 
             //alert(jsonData[key]["actividades"]);
@@ -691,14 +799,40 @@ $(document).ready(function() {
 
             element.find("td.actividades").append(actividades);
             element.find("td.recursos").append(recursos);
+
+            //element.find("td.responsable").html(select);
+            //element.find("td.responsable").children("select").select2();
+            //element.find("td.responsable").children("select").select2().select2('val',["isos"])
+
+
+
+            
             element.find("td.responsable").append(responsable);
-            element.find("td.plazo").append(plazo);
+            
+
+
+            
+            element.find("td.plazo").append(`<input type="date" class="datepicks" />`);
+
+
+
+
+            element.find("td.plazo").find("input").val(plazo);//append(plazo);
             element.find("td.verificacion").append(verificacion);
 
             element.attr('id', size);
             element.find('.delete-record').attr('data-id', size);
             element.appendTo('#tbl_posts_body');
             element.find('.sn').html(size);
+
+
+
+            
+
+
+
+
+
 
         }
 
@@ -1048,5 +1182,14 @@ $(document).ready(function() {
         left: 130px;
 
     }
+
+
+
+
+
+
+
+   
+
 
 </style>

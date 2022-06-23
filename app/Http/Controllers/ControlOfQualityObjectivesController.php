@@ -97,7 +97,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
     {
         $input = $request->all();
 
-
+        //dd($input);
         /*$monthList["Enero"] = [0,0,0];
         $monthList["Febrero"] = [0,0,0];
         $monthList["Marzo"] = [0,0,0];
@@ -372,7 +372,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $responsible =  json_encode(unserialize($controlOfQualityObjectives->responsible));
         $responsible_for_providing_data =  json_encode(unserialize($controlOfQualityObjectives->responsible_for_providing_data));
 
-
+        //dd($controlOfQualityObjectives);
         $month_list =  unserialize($controlOfQualityObjectives->month_list);
 
         $flat = 0;
@@ -491,7 +491,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $controlOfQualityObjectives = $this->controlOfQualityObjectivesRepository->find($id);
 
         $input = $request->all();
-
+        //dd($input);
         /*
         $monthList["Enero"] = [0,0,0];
         $monthList["Febrero"] = [0,0,0];
