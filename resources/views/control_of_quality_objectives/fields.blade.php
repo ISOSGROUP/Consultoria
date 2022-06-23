@@ -475,7 +475,7 @@
                 <option value="WY">Wyoming</option>
                 </select>
             </td>-->
-        <td class="plazo" style="max-width:30px;padding:5px;"contenteditable><input type="date" class="datepick" /></td>
+        <td class="plazo" style="max-width:30px;padding:5px;"><input type="date" class="datepick" /></td>
         <!-- <td class="plazo " style="max-width:30px;padding:5px;"contenteditable>test</td>-->
         <td class="verificacion" style="max-width:20px;min-height:30px;padding:5px;" contenteditable>test</td>
 
@@ -520,6 +520,15 @@
     <!-- {!! Form::text('activities', null, ['class' => 'form-control']) !!} -->
 </div>
 
+
+ 
+
+ 
+
+
+
+
+
 {{--
 <!-- Resources Field -->
 <div class="form-group col-sm-6">
@@ -563,7 +572,6 @@
 
 <script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
 
-
 <!-- <link  href="{{ url('select2.css') }}" rel="stylesheet" />-->
 <script src="{{ url('select2.js') }}"></script> 
 
@@ -573,7 +581,7 @@
 
  
 <script type="text/javascript">
-
+ 
 
 (function($) {
   $(document).ready(function() {
@@ -713,10 +721,15 @@ jQuery(document).delegate('a.delete-record', 'click', function(e) {
  
     
 $(document).ready(function() {
+   
 
 
-    
-    
+   
+
+
+
+
+     
     function isNumeric(val) {
         return /^-?\d+$/.test(val);
     }
@@ -1118,6 +1131,46 @@ $(document).ready(function() {
 </script>
 
 <style>
+
+.audio-progress {
+  height: .5rem;
+  width: 100%;
+  background-color: #C0C0C0;
+}
+.audio-progress .bar {
+  height: 100%;
+  background-color: #E95F74;
+}
+
+#audio-progress-handle {
+  display: block;
+  position:absolute;
+  z-index: 1;
+  margin-top: -5px;
+  margin-left: -10px;
+  width: 10px;
+  height: 10px;
+  border: 4px solid #D3D5DF;
+  border-top-color: #D3D5DF;
+  border-right-color: #D3D5DF;
+  transform: rotate(45deg);
+  border-radius: 100%;
+  background-color: #fff;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+  cursor:pointer;
+}
+
+.draggable {
+  float: left; margin: 0 10px 10px 0;
+}
+
+
+
+
+
+
+
+
    .select2-container-multi .select2-choices {
         min-height: 100px;
     }

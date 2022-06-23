@@ -49,7 +49,8 @@ class ControlOfQualityObjectivesController extends AppBaseController
         foreach($users as $key => $value) {
             $filledArray[$value->name] = $value->name;
         }
-        return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
+        //return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
+        return view('control_of_quality_objectives.test', compact('controlOfQualityObjectives', 'user','users'));
 
     }
 

@@ -136,6 +136,7 @@ class UserController extends AppBaseController
     public function update($id, UpdateUserRequest $request)
     {
 
+        dd($request);
       $users = $this->userRepository->updateUser($id,$request);
       DB::table('model_has_roles')->where('model_id',$id)->delete();
       $user = User::find($id);
