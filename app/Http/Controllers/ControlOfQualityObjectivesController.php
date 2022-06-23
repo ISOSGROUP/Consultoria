@@ -80,7 +80,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $month_list["Noviembre"] = [0,0,0];
         $month_list["Diciembre"] = [0,0,0];
 
-        $activities = "";
+        $activities = "{}";
 
         return view('control_of_quality_objectives.create', compact('users','responsible','responsible_for_providing_data','month_list','activities'));
 
@@ -462,7 +462,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $controlOfQualityObjectives->status_to_date = $percent_complete.'%';
         $activities = $controlOfQualityObjectives->activities;
 
-        //dd($sss);
+        //dd($activities);
 
         if (empty($controlOfQualityObjectives)) {
             Flash::error('Control Of Quality Objectives not found');

@@ -120,10 +120,22 @@
         jQuery('#execution_time').datetimepicker({
             timepicker: false
             
-            });
+        });
+        jQuery('.plazo-w').datetimepicker({
+            timepicker: false
+            
+        });
 
-        
+
+
+        $('.datepick').each(function(){
+            $(this).datetimepicker();
+        });
+
     });
+
+     
+ 
 </script>
 
 

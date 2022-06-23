@@ -448,11 +448,10 @@
 </div>
 
 <!-- Activities Field -->
-
 <div class="well clearfix">
         <a class="btn btn-primary pull-right add-record" data-added="0"><i class="glyphicon glyphicon-plus"></i> Add Row</a>
       </div>
-    {!! Form::label('effectiveness_verification', 'Planificación de actividades para logro de objetivos:') !!}
+    {!! Form::label('effectiveness_verification', 'Planificación de actividades para el logro de objetivos:') !!}
       
 
 <div class="form-group col-sm-12 tbl_posts">
@@ -461,24 +460,20 @@
      {!! Form::text('activities', null, ['class' => 'form-control',"readonly"=>"readonly","style"=>"display:none","id"=>"activities"]) !!}
 
 
+          <!-- <div id="www" ></div> -->
 
     <div style="display:none;">
         <table id="sample_table">
         <tr id="" class="custom-row" style="height:2px;">
-        <td  style="min-width:5px;padding:5px;"><span class="sn"></span>.</td>
+        <td  style="max-width:1px;padding:5px;"><span class="sn"></span>.</td>
         <td class="actividades" style="max-width:30px;padding:5px;" contenteditable>test</td>
         <td class="recursos" style="max-width:30px;padding:5px;" contenteditable>test</td>
-        <td class="responsable" style="max-width:20px;padding:5px;"  >
-        
-
- 
-          <div id="www" ></div>
-         
-    
-        </td>
-        <td class="plazo" style="max-width:30px;padding:5px;" contenteditable>test</td>
+        <td class="responsable" style="max-width:20px;padding:5px;" contenteditable >test</td>
+        <!-- <td class="plazo " style="max-width:30px;padding:5px;"contenteditable><input type="text" class="datepick" id="1"/></td> -->
+        <td class="plazo " style="max-width:30px;padding:5px;"contenteditable>test</td>
         <td class="verificacion" style="max-width:20px;min-height:30px;padding:5px;" contenteditable>test</td>
 
+       
         <td >
             <div class="input-group-prepend">
                 <!-- <a class="btn btn-xs " data-id="0"> <i class="fa fa-edit fa-lg"></i></a> -->
@@ -495,14 +490,14 @@
     <table class="table table-striped " id="tbl_posts" style="min-width:1100px;" >
      
         <thead>
-            <th style="max-width:5px;">#</th>
-            <th id="actividades"  class="cell" style="min-width:30px;overflow-y: auto;height:40px;">Actividades</th>
-            <th id="recursos"  class="cell" style="min-width:30px;">Recursos</th>
-            <th id="responsable"  class="cell" style="width:25px;">Responsable</th>
-            <th id="plazo"  class="cell" style="min-width:30px;">Plazo</th>
-            <th id="verificacion"  class="cell" style="min-width:30px;">Verificacion </th>
-            <th id="action"  style="width:10px"style="min-width:30px;">Action</th>
-
+            <th style="min-width:1px;">#</th>
+            <th class="actividades"   style="min-width:30px;overflow-y: auto;height:40px;">Actividades</th>
+            <th class="recursos"   style="min-width:30px;">Recursos</th>
+            <th class="responsable"   style="width:25px;">Responsable</th>
+            <th class="plazo"   style="min-width:30px;">Plazo</th>
+            <th class="verificacion"   style="min-width:30px;">Verificacion </th>
+            <th class="action"  style="width:10px"style="min-width:30px;">Action</th>
+           
         </thead>
 
         <tbody id="tbl_posts_body">
@@ -571,6 +566,7 @@
  
 <script type="text/javascript">
 
+/*
  
 $('#www').select2({
     width: '100%',
@@ -584,6 +580,7 @@ $('#www').select2({
           ]    
     });
 
+    */
 jQuery(document).delegate('a.add-record', 'click', function(e) {
      e.preventDefault();    
      var content = jQuery('#sample_table tr'),
@@ -623,14 +620,12 @@ $(document).ready(function() {
 
     
 
-
     function isNumeric(val) {
         return /^-?\d+$/.test(val);
     }
 
 
     $("#customform").submit(function(){
-
 
         var list = {};
 
@@ -645,7 +640,7 @@ $(document).ready(function() {
             var plazo = $(this).find("td.plazo").text();
             var verificacion = $(this).find("td.verificacion").text();
 
-
+            //alert(actividades);
             data.actividades = actividades;
             data.recursos = recursos;
             data.responsable = responsable;
@@ -659,6 +654,7 @@ $(document).ready(function() {
         //$("#activities").val((JSON.parse(JSON.stringify(list))) );
         $("#activities").val(JSON.stringify(list));
 
+       // console.log(list);
 
         //return false;
 
@@ -667,11 +663,11 @@ $(document).ready(function() {
 
     $("tr.custom-row").each(function() {
 
+
         var jsonData = '<?php echo $activities; ?>';
         var jsonData = JSON.parse(jsonData);
-        console.log(jsonData);
 
-    
+        
         for(var key in jsonData) {
 
             //alert(jsonData[key]["actividades"]);
@@ -722,7 +718,6 @@ $(document).ready(function() {
     //}
 
     function organizeTable(){
-
 
         var thead = "";
         var tbody = "";
@@ -785,6 +780,7 @@ $(document).ready(function() {
         $('#dataTable').append(tbody);
 
     }
+
     organizeTable();
 
     $("#formula").change(function () {
