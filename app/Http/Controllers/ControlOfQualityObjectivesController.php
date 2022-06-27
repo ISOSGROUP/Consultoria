@@ -12,6 +12,7 @@ use Response;
 use DB;
 use Carbon\Carbon;
 use DateTime;
+use PDF;
 
 class ControlOfQualityObjectivesController extends AppBaseController
 {
@@ -607,4 +608,30 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
         return redirect(route('controlOfQualityObjectives.index'));
     }
+
+    public function createPDF() {
+
+        $controlOfQualityObjectives = $this->controlOfQualityObjectivesRepository->all();
+        $user = DB::table('foda_users')
+        ->where('id', 3)
+        ->select('foda_users.id','foda_users.name','foda_users.date')
+        ->get();
+
+        $users = DB::table('users')
+        ->select('users.id','users.name')
+        ->get();
+
+        $filledArray;
+            foreach($users as $key => $value) {
+            $filledArray[$value->name] = $value->name;
+        }
+        $pdf = PDF::loadView('control_of_quality_objectives.pdf', compact('controlOfQualityObjectives', 'user','users'))->setOptions(['defaultFont' => 'sans-serif']);
+        //$pdf = PDF::loadView('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'))->setOptions(['defaultFont' => 'sans-serif']);
+
+        return $pdf->download('pdf_file.pdf');
+
+ 
+
+    }
+
 }

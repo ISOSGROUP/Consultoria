@@ -8,7 +8,15 @@
         <div class="animated fadeIn">
              @include('flash::message')
              <div class="row">
+
+                        
+
                  <div class="col-lg-12">
+
+                        <div class="d-flex justify-content-end mb-4">
+                            <a class="btn btn-primary" href="{{ route('downloadPdf') }}">Export to PDF</a>
+                        </div>
+
                      <div class="card">
                          <div class="card-header">
                              <i class="fa fa-align-justify"></i>

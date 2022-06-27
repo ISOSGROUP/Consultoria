@@ -62,6 +62,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/userConcernedParties', [App\Http\Controllers\ConcernedPartiesController::class, 'saveUserConcernedParties'])->name('userConcernedParties.save');;
     Route::resource('controlOfQualityObjectives', App\Http\Controllers\ControlOfQualityObjectivesController::class);
 
+    Route::get('/downloadPDF',[App\Http\Controllers\ControlOfQualityObjectivesController::class, 'createPDF'])->name('downloadPdf');
+
+
 });
 
 

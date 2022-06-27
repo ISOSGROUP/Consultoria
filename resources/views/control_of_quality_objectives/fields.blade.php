@@ -1009,19 +1009,18 @@ $(document).ready(function() {
 
         var monthlist = '<?php echo json_encode($month_list); ?>';
         var monthlist = JSON.parse(monthlist);
+        var flat = false;
 
         month_list.map((value,index) => {
 
-            //alert(value.toString().includes(month));
+            (value.toString().includes(month) ? flat = true: null);
 
             tbody += '<tr class="item">'+
                                 '<td>' + value + '</td>'+
                                 '<td>' + '<input type="Number"'+
                                             'name="values['+value+',data_1]"'+
                                             'class="form-control data_1"'+ 
-
-                                            //(value.toString().includes(month) ? "readonly":"")
-                                            
+                                            ( flat == true ? "readonly ":"")+
                                             'value="'+ ((monthlist[value] != undefined)? monthlist[value].toString().split(',')[0]:0)+'">'+
                                 '</td>'+
                                 
