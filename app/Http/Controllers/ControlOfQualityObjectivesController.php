@@ -50,7 +50,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
             $filledArray[$value->name] = $value->name;
         }
         //return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
-        return view('control_of_quality_objectives.test3', compact('controlOfQualityObjectives', 'user','users'));
+        return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
 
     }
 
@@ -82,8 +82,8 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $month_list["Diciembre"] = [0,0,0];
 
         $activities = "{}";
-
-        return view('control_of_quality_objectives.create', compact('users','responsible','responsible_for_providing_data','month_list','activities'));
+        $id_formula = "";
+        return view('control_of_quality_objectives.create', compact('users','responsible','responsible_for_providing_data','month_list','activities','id_formula'));
 
     }
 
@@ -462,6 +462,11 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
         $controlOfQualityObjectives->status_to_date = $percent_complete.'%';
         $activities = $controlOfQualityObjectives->activities;
+        $id_formula = $controlOfQualityObjectives->formula;
+        $bueno = $controlOfQualityObjectives->bueno;
+        $regular_1 = $controlOfQualityObjectives->regular_1;
+        $regular_2 = $controlOfQualityObjectives->regular_2;
+        $malo = $controlOfQualityObjectives->malo;
 
         //dd($activities);
 
@@ -475,7 +480,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
         ->select('users.id','users.name')
         ->get();
 
-        return view('control_of_quality_objectives.edit', compact('users','controlOfQualityObjectives','responsible','responsible_for_providing_data','month_list','activities'));
+        return view('control_of_quality_objectives.edit', compact('users','controlOfQualityObjectives','responsible','responsible_for_providing_data','month_list','activities','id_formula','bueno','regular_1','regular_2','malo'));
 
     }
 

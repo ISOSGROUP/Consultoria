@@ -1,10 +1,9 @@
 @php
-    $measurement_frequency = ["1"=>"Mensual","2"=>"Bimestral","3"=>"Trimestral","4"=>"cuatrimestre","6"=>"Semestral","12"=>"Anual"];
-    $formula = ["1"=>"(N eventos ejecutados * 100) / N eventos programados ","2"=>"Conteo de N eventos"];
+    $measurement_frequency = ["1"=> "Mensual","2"=>"Bimestral","3"=>"Trimestral","4"=>"cuatrimestre","6"=>"Semestral","12"=>"Anual"];
+    $formula = ["1"=> " ⬆ (N eventos ejecutados * 100) / N eventos programados ","2"=>" ⬇ (N eventos ejecutados * 100) / N eventos programados","3"=>" ⬆ Conteo de N eventos","4"=>" ⬇ Conteo de N eventos"];
 
 @endphp
-
-<!-- Quality Politics Field -->
+<!-- Quality Politics Field ` -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('quality_politics', 'Política de Calidad:') !!}
     {!! Form::textarea('quality_politics', null, ['class' => 'form-control']) !!}
@@ -30,18 +29,34 @@
 </div>
 
 
-<div class="parent">
-     <div id="area" class="area"></div>
-     <div class="area cover"></div>
-</div>
-
+ 
 
 
 
 <!-- Formula Field -->
 <div class="form-group col-lg-5">
     {!! Form::label('formula', 'Formula:') !!}
-    {!! Form::select('formula', $formula, null, ['class' => 'form-control','id'=>'formula']) !!}
+     {!! Form::select('formula', $formula, null, ['class' => 'form-control','id'=>'formula','onchange'=>"val()"]) !!} 
+ 
+<!--
+    <select name="formula"   class="form-control" id="formula">
+        
+        @foreach($formula as $key => $value)
+
+            @if($id_formula == $key)
+
+                <option value="{{ $key }}" selected>⬆  &nbsp; {{ $value }}</option>
+
+            @else
+                <option value="{{ $key }}">{{ $value }}</option>
+            @endif
+
+
+        @endforeach 
+
+    </select> 
+-->
+
 </div>
 
 <!-- Measurement Frequency Field -->
@@ -382,6 +397,47 @@
         <i class="fa fa-info-circle fa-lg tool-tip" style="color: #eb3526 " id="info_rango" ></i>
     </div>
 
+<div class="wrapper">
+        <div class="limit-1">
+            <input type="text" readonly style="width:100px" class="form-control" id="number-min" value="0">
+        </div>
+
+        <div class="container">
+            <div class="slider-track"></div>
+            <input type="range" min="0" max="100" value="20" id="slider-1" oninput="slideOne()">
+            <input type="range" min="0" max="100" value="40" id="slider-2" oninput="slideTwo()">
+
+            <div class="box-1">
+                <div class="number-1">50</div>
+            </div>
+
+            <div class="box-2">
+                <div class="number-2">50</div>
+            </div>
+
+        </div>
+
+        <div class="limit-2">    
+            <input type="number"  onKeyUp="val()" id="number-max"style="width:100px" class="form-control" value="100">
+        </div>
+
+    </div>
+
+    {!! Form::Number('bueno', null, ['class' => 'form-control',"style"=>"width:100px;","id"=>"bueno"]) !!}
+    {!! Form::Number('regular_1', null, ['class' => 'form-control',"style"=>"width:100px;","id"=>"regular_1"]) !!}
+    {!! Form::Number('regular_2', null, ['class' => 'form-control',"style"=>"width:100px;","id"=>"regular_2"]) !!}
+
+    {!! Form::Number('malo', null, ['class' => 'form-control',"style"=>"width:100px;","id"=>"malo"]) !!}
+
+    
+
+    {{-- 
+
+    <div  class="form-inline">
+        <label > &nbsp;&nbsp; Cambios de rango &nbsp;</label>
+        <i class="fa fa-info-circle fa-lg tool-tip" style="color: #eb3526 " id="info_rango" ></i>
+    </div>
+
 
     <div class="form-inline col-sm-12">
             <div class="form-group">
@@ -391,6 +447,7 @@
             </div>
     </div>
 
+
     <div class="form-inline col-sm-12">
             <div class="form-group">
                 <label >Regular &nbsp;&nbsp;&nbsp;</label>
@@ -398,20 +455,18 @@
 
                 <label >&nbsp; > x > &nbsp;</label>
                 {!! Form::Number('regular_2', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
-
-
             </div>
     </div>
+
 
     <div class="form-inline col-sm-12">
             <div class="form-group">
                 <label >Malo <= &nbsp; &nbsp;</label>
                 {!! Form::Number('malo', null, ['class' => 'form-control',"style"=>"width:100px;"]) !!}
-
             </div>
     </div>
 
-
+    --}}
 </div>
 
 <br>
@@ -722,9 +777,23 @@ jQuery(document).delegate('a.delete-record', 'click', function(e) {
     
 $(document).ready(function() {
    
+    var good = '<?php echo $bueno; ?>';
+    var regular_1 = '<?php echo $regular_1; ?>';
+    var regular_2 = '<?php echo $regular_2; ?>';
+    var bad = '<?php echo $malo; ?>';
+
+    var slider_1 = document.getElementById("slider-1");
+    var slider_2 = document.getElementById("slider-2");
+    var number_max = document.getElementById("number-max");
 
 
-   
+    slider_1.setAttribute("value",regular_1);
+    slider_2.setAttribute("value",regular_2);
+    slider_1.setAttribute("max",((good != 0) ? good: bad));
+    slider_2.setAttribute("max",((good != 0) ? good: bad));
+    number_max.setAttribute("value",((good != 0) ? good: bad));
+    document.querySelector(".number-1").innerHTML = regular_1;
+    document.querySelector(".number-2").innerHTML = regular_2;
 
 
 
@@ -762,7 +831,36 @@ $(document).ready(function() {
         //$("#activities").val((JSON.parse(JSON.stringify(list))) );
         $("#activities").val(JSON.stringify(list));
 
-       // console.log(list);
+
+        //$("#slider-1").css("max");
+        //$("#slider-1").css("value");
+        //$("#slider-2").css("value");
+
+
+
+        var number_max = document.getElementById("number-max");
+        var number_min = document.getElementById("number-min");
+
+        //var slider_1 = document.getElementById("slider-1");
+        //var slider_2 = document.getElementById("slider-2");
+
+        //slider_1 = slider_1.getAttribute("value");
+        //slider_2 = slider_2.getAttribute("value");
+
+
+
+
+        if($("#formula").val() == 1 || $("#formula").val() == 3 ){
+            $("#bueno").val(number_max.value);
+            $("#malo").val(0);
+
+        }else{
+            $("#bueno").val(0);
+            $("#malo").val(number_max.value);
+        }
+        //alert($(".number-1").html());
+        $("#regular_1").val($(".number-1").html());
+        $("#regular_2").val($(".number-2").html());
 
         //return false;
 
@@ -894,7 +992,7 @@ $(document).ready(function() {
                     '<tr>'+
                         '<th>Mes</th>'+
                         '<th>Events</th>'+
-                    ((formula == 1)? '<th>Events realizados</th>':"")
+                    ((formula == 1 ||  formula == 2)? '<th>Events realizados</th>':"")
                     '</tr>'+
                 '</thead>';
 
@@ -914,7 +1012,7 @@ $(document).ready(function() {
                                             'value="'+ ((monthlist[value] != undefined)? monthlist[value].toString().split(',')[0]:0)+'">'+
                                 '</td>'+
 
-                                ((formula == 1)? '<td>' +'<input type="Number"'+
+                                ((formula == 1 ||  formula == 2 )? '<td>' +'<input type="Number"'+
                                             'name="values['+value+',data_2]"'+
                                         'class="form-control data_2"'+ 
                                         'value="'+ ((monthlist[value] != undefined)? monthlist[value].toString().split(',')[1]:0)+'">'+
@@ -1130,6 +1228,139 @@ $(document).ready(function() {
 
 </script>
 
+
+<script  type="text/javascript">
+
+    window.onload = function(){
+
+
+        
+        slideOne();
+        slideTwo();
+    }
+
+    let formula = document.getElementById("formula");
+    let sliderOne = document.getElementById("slider-1");
+    let sliderTwo = document.getElementById("slider-2");
+    let minGap = 0;
+    let sliderTrack = document.querySelector(".slider-track");
+    let sliderMaxValue = document.getElementById("slider-1").max;
+    let box_1 = document.querySelector(".box-1");
+    let number_1 = document.querySelector(".number-1");
+
+    let box_2 = document.querySelector(".box-2");
+    let number_2 = document.querySelector(".number-2");
+    let number_max = document.getElementById("number-max");
+
+    var red = "#c8422d";
+    var green = "#0ea70e";
+    var percent1 = 0;
+    var percent2 = 0;
+
+
+    function slideOne(){
+        if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap){
+            sliderOne.value = parseInt(sliderTwo.value) - minGap;
+        }
+        fillColor();
+    }
+    function slideTwo(){
+        if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap){
+            sliderTwo.value = parseInt(sliderOne.value) + minGap;
+        }
+        fillColor();
+    }
+    function fillColor(){
+        
+        
+        //alert();
+        var is_percentage = false;
+        var r = ((formula.value == 1 ) ? customize_bar_values(red,green,is_percentage = true): "")
+        var r = ((formula.value == 2 ) ? customize_bar_values(green,red,is_percentage = true): "")
+        var r = ((formula.value == 3 ) ? customize_bar_values(red,green,is_percentage = false): "")
+        var r = ((formula.value == 4 ) ? customize_bar_values(green,red,is_percentage = false): "")
+
+        //((id_formula == 3 || id_formula == 4 ) ? sliderMaxValue = 100: "")
+
+        //percent1 = (sliderOne.value / sliderMaxValue) * 100;
+        //percent2 = (sliderTwo.value / sliderMaxValue) * 100;
+        //sliderTrack.style.background = `linear-gradient(to right, #c8422d ${percent1}% , #ceca40 ${percent1}% , #ceca40 ${percent2}%, #0ea70e ${percent2}%)`;
+
+        //box_1.style.left = (Math.trunc(percent1) - 2)+ '%';
+        //number_1.textContent = Math.trunc(percent1);
+
+        //box_2.style.left = (Math.trunc(percent2) - 4)+ '%';
+        //number_2.textContent = Math.trunc(percent2);
+
+    }
+
+    function customize_bar_values(data_1,data_2,is_percentage){
+
+       var sliderMaxValue = document.getElementById("slider-1").max;
+       var sliderOne = document.getElementById("slider-1");
+       var sliderTwo = document.getElementById("slider-2");
+
+        if(is_percentage){
+
+            number_max.setAttribute("readonly", "readonly");
+            number_max.value = "100";
+
+
+            sliderOne.setAttribute("max", number_max.value);
+            sliderTwo.setAttribute("max", number_max.value);
+
+
+            sliderMaxValue = number_max.value;
+            percent1 = (sliderOne.value / sliderMaxValue) * 100;
+            percent2 = (sliderTwo.value / sliderMaxValue) * 100;
+
+            box_1.style.left = (Math.trunc(percent1) - 2)+ '%';
+            number_1.textContent = Math.trunc(percent1);
+
+            box_2.style.left = (Math.trunc(percent2) - 4)+ '%';
+            number_2.textContent = Math.trunc(percent2);
+
+        }else{
+
+            number_max.removeAttribute("readonly");
+
+            sliderMaxValue = number_max.value;
+            percent1 = (sliderOne.value / sliderMaxValue) * 100;
+            percent2 = (sliderTwo.value / sliderMaxValue) * 100;
+
+            box_1.style.left = (Math.trunc(percent1) - 2)+ '%';
+            //number_1.textContent = String(Math.trunc(percent1)).slice(0, 1);
+            number_1.textContent = sliderOne.value;
+
+
+            box_2.style.left = (Math.trunc(percent2) - 4)+ '%';
+            //number_2.textContent = String(Math.trunc(percent2)).slice(0, 1);
+            number_2.textContent = sliderTwo.value;
+
+        }
+        //sliderMaxValue = number_max.value;
+        //percent1 = (sliderOne.value / sliderMaxValue) * 100;
+        //percent2 = (sliderTwo.value / sliderMaxValue) * 100;
+        sliderTrack.style.background = `linear-gradient(to right, ${data_1} ${percent1}% , #ceca40 ${percent1}% , #ceca40 ${percent2}%, ${data_2} ${percent2}%)`;
+      
+    }
+    function val() {
+        var d = document.getElementById("formula").value;
+
+        var number_max = document.getElementById("number-max");
+        
+
+        var sliderMaxValue = document.getElementById("slider-1").max;
+        var sliderOne = document.getElementById("slider-1");
+        var sliderTwo = document.getElementById("slider-2");
+        sliderOne.setAttribute("max", number_max.value);
+        sliderTwo.setAttribute("max", number_max.value);
+        sliderOne.value = 0;
+        sliderTwo.value = number_max.value;
+        fillColor()
+    }
+
+</script>
 <style>
 
 .audio-progress {
@@ -1195,7 +1426,7 @@ $(document).ready(function() {
 
     #info_rango[title]:hover:after {
 
-        content: "el rango se indenficara en la grafica con lo siguiente: bueno -> verde; regular -> amarillo; malo -> rojo;";
+        content: "el rango se identificará en el gráfico mediante lo siguiente: bueno -> verde; regular -> amarillo; malo -> rojo;";
         position: absolute;
         border-radius:5px;
         padding: 6px;
@@ -1240,6 +1471,171 @@ $(document).ready(function() {
 
 
 
+
+    
+     
+    .wrapper{
+        position: relative;
+        width: 95vmin;
+        background-color: #ffffff;
+        padding: 50px 40px 20px 40px;
+        border-radius: 10px;
+    }
+    .container{
+        position: relative;
+        width: 100%;
+        height: 100px;
+        margin-top: 30px;
+    }
+    input[type="range"]{
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 100%;
+        outline: none;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        background-color: transparent;
+        pointer-events: none;
+    }
+    .slider-track{
+        width: 100%;
+        height: 5px;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        border-radius: 5px;
+    }
+    input[type="range"]::-webkit-slider-runnable-track{
+        -webkit-appearance: none;
+        height: 5px;
+    }
+    input[type="range"]::-moz-range-track{
+        -moz-appearance: none;
+        height: 5px;
+    }
+    input[type="range"]::-ms-track{
+        appearance: none;
+        height: 5px;
+    }
+    input[type="range"]::-webkit-slider-thumb{
+        -webkit-appearance: none;
+        height: 1.7em;
+        width: 1.7em;
+        background-color: #3264fe;
+        cursor: pointer;
+        margin-top: -9px;
+        pointer-events: auto;
+        border-radius: 50%;
+    }
+    input[type="range"]::-moz-range-thumb{
+        -webkit-appearance: none;
+        height: 1.7em;
+        width: 1.7em;
+        cursor: pointer;
+        border-radius: 50%;
+        background-color: #3264fe;
+        pointer-events: auto;
+    }
+    input[type="range"]::-ms-thumb{
+        appearance: none;
+        height: 1.7em;
+        width: 1.7em;
+        cursor: pointer;
+        border-radius: 50%;
+        background-color: #3264fe;
+        pointer-events: auto;
+    }
+    input[type="range"]:active::-webkit-slider-thumb{
+        background-color: #0ea70e;
+        border: 3px solid #21d8c0;
+    }
+    .values{
+        background-color: #3264fe;
+        width: 32%;
+        position: relative;
+        margin: auto;
+        padding: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: 500;
+        font-size: 25px;
+        color: #ffffff;
+    }
+    .values:before{
+        content: "";
+        position: absolute;
+        height: 0;
+        width: 0;
+        border-top: 15px solid #3264fe;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        margin: auto;
+        bottom: -14px;
+        left: 0;
+        right: 0;
+    }
+    .box-1 {
+        position:absolute;
+        top: -65px;
+        height: 50px;
+        width: 50px;
+        background-color: #3264fe;
+        box-shadow: 0px 0px 10px #ccc;
+        color: #ffffff;
+        border-radius: 50% 50% 0% 50%;
+        transform: rotateZ(45deg);
+    }
+    .box-1 .number-1{
+        transform: rotateZ(-45deg);
+        text-align: center;
+        line-height: 50px;
+        font-family: Verdana;
+
+    }
+
+    .box-2 {
+        position:absolute;
+        top: -65px;
+        height: 50px;
+        width: 50px;
+        background-color: #3264fe;
+        box-shadow: 0px 0px 10px #ccc;
+        color: #ffffff;
+        border-radius: 50% 50% 0% 50%;
+        transform: rotateZ(45deg);
+    }
+    .box-2 .number-2{
+        transform: rotateZ(-45deg);
+        text-align: center;
+        line-height: 50px;
+        font-family: Verdana;
+
+    }
+
+    .limit-1{
+
+        position:absolute;
+        top: 65px;
+        height: 50px;
+        width: 50px;
+        color: #ffffff;
+        
+    }
+    .limit-2{
+     
+        position:absolute;
+        top: 75px;
+        left: 575px;
+
+        height: 50px;
+        width: 50px;
+        color: #ffffff;
+
+    }
 
 
    
