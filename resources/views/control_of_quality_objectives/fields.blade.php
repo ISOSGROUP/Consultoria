@@ -418,16 +418,15 @@
         </div>
 
         <div class="limit-2">    
-            <input type="number"  onKeyUp="val()" id="number-max"style="width:100px" class="form-control" value="100">
+            <input type="text"  onKeyUp="val()" id="number-max"style="width:100px" class="form-control" value="100">
         </div>
 
     </div>
 
-    {!! Form::Number('bueno', null, ['class' => 'form-control',"style"=>"width:100px;","id"=>"bueno"]) !!}
-    {!! Form::Number('regular_1', null, ['class' => 'form-control',"style"=>"width:100px;","id"=>"regular_1"]) !!}
-    {!! Form::Number('regular_2', null, ['class' => 'form-control',"style"=>"width:100px;","id"=>"regular_2"]) !!}
-
-    {!! Form::Number('malo', null, ['class' => 'form-control',"style"=>"width:100px;","id"=>"malo"]) !!}
+    {!! Form::Number('bueno', null, ['class' => 'form-control',"style"=>"width:100px;display:none;","id"=>"bueno"]) !!}
+    {!! Form::Number('regular_1', null, ['class' => 'form-control',"style"=>"width:100px;display:none;","id"=>"regular_1"]) !!}
+    {!! Form::Number('regular_2', null, ['class' => 'form-control',"style"=>"width:100px;display:none;","id"=>"regular_2"]) !!}
+    {!! Form::Number('malo', null, ['class' => 'form-control',"style"=>"width:100px;display:none;","id"=>"malo"]) !!}
 
     
 
@@ -787,8 +786,8 @@ $(document).ready(function() {
     var number_max = document.getElementById("number-max");
 
 
-    slider_1.setAttribute("value",regular_1);
-    slider_2.setAttribute("value",regular_2);
+    slider_1.setAttribute("value",((regular_1 != "")? regular_1: 20));
+    slider_2.setAttribute("value",((regular_2 != "")? regular_2: 60));
     slider_1.setAttribute("max",((good != 0) ? good: bad));
     slider_2.setAttribute("max",((good != 0) ? good: bad));
     number_max.setAttribute("value",((good != 0) ? good: bad));
@@ -999,19 +998,33 @@ $(document).ready(function() {
         $('#dataTable').append(thead);
 
          
+
+        var today = new Date()
+        var options = { month: 'long'};
+        var month = today.toLocaleDateString('es-ES', options);
+        month = month.charAt(0).toUpperCase()+ month.slice(1);
+
+        //alert(today);
+
+
         var monthlist = '<?php echo json_encode($month_list); ?>';
         var monthlist = JSON.parse(monthlist);
 
         month_list.map((value,index) => {
+
+            //alert(value.toString().includes(month));
 
             tbody += '<tr class="item">'+
                                 '<td>' + value + '</td>'+
                                 '<td>' + '<input type="Number"'+
                                             'name="values['+value+',data_1]"'+
                                             'class="form-control data_1"'+ 
+
+                                            //(value.toString().includes(month) ? "readonly":"")
+                                            
                                             'value="'+ ((monthlist[value] != undefined)? monthlist[value].toString().split(',')[0]:0)+'">'+
                                 '</td>'+
-
+                                
                                 ((formula == 1 ||  formula == 2 )? '<td>' +'<input type="Number"'+
                                             'name="values['+value+',data_2]"'+
                                         'class="form-control data_2"'+ 

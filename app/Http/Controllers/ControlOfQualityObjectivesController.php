@@ -50,7 +50,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
             $filledArray[$value->name] = $value->name;
         }
         //return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
-        return view('control_of_quality_objectives.test', compact('controlOfQualityObjectives', 'user','users'));
+        return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
 
     }
 
@@ -83,7 +83,15 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
         $activities = "{}";
         $id_formula = "";
-        return view('control_of_quality_objectives.create', compact('users','responsible','responsible_for_providing_data','month_list','activities','id_formula'));
+
+
+        $bueno = "";
+        $regular_1 = "";
+        $regular_2 = "";
+        $malo = "";
+
+
+        return view('control_of_quality_objectives.create', compact('users','responsible','responsible_for_providing_data','month_list','activities','id_formula','bueno','regular_1','regular_2','malo'));
 
     }
 
@@ -191,9 +199,9 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
         $value2 = "";
         (($id == 1) ? (($data_1 != 0)? $value2 = round(($data_2 *100)/$data_1, 0): $value2 = 0): 0); 
-        (($id == 2) ? (($data_1 == 0)? $value2 = 100: $value2 = 0): 0); 
-        (($id == 3) ? (($data_1 != 0)? $value2 = round(($data_2 *100)/$data_1, 0): $value2 = 0): 0); 
-        (($id == 4) ? (($data_1 != 0)? $value2 = round(($data_2 *100)/$data_1, 0): $value2 = 0): 0); 
+        (($id == 2) ? (($data_1 != 0)? $value2 = round(($data_2 *100)/$data_1, 0): $value2 = 0): 0); 
+        (($id == 3) ? (($data_1 != 0)? $value2 = $data_1: $value2 = 0): 0); 
+        (($id == 4) ? (($data_1 != 0)? $value2 = $data_1: $value2 = 0): 0); 
 
 
         return $value2;
@@ -237,7 +245,9 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $list["events"] = [];
         $list["goal"] = [];
         $list["good"] = [];
-        $list["regular"] = [];
+        $list["regular_1"] = [];
+        $list["regular_2"] = [];
+
         $list["bad"] = [];
 
 
@@ -256,8 +266,9 @@ class ControlOfQualityObjectivesController extends AppBaseController
             $list["events"][$i] = $this->formula($controlOfQualityObjectives->formula,$value[0], (array_key_exists(1, $value) ? $value[1]: ""));
 
             $list["goals"][$i] = $controlOfQualityObjectives->goals;
-            $list["good"][$i] = 100;
-            $list["regular"][$i] = $controlOfQualityObjectives->regular_1;
+            $list["good"][$i] = $controlOfQualityObjectives->bueno;
+            $list["regular_1"][$i] = $controlOfQualityObjectives->regular_1;
+            $list["regular_2"][$i] = $controlOfQualityObjectives->regular_2;
             $list["bad"][$i] = $controlOfQualityObjectives->malo;
             $i += 1;
         }

@@ -98,6 +98,34 @@ $(document).ready(function() {
     var indicator = '<?php echo $controlOfQualityObjectives->indicator; ?>';
      
 
+    var line1 = '<?php echo json_encode($list["events"]); ?>';
+        line1 = JSON.parse(line1);
+
+        
+    //var MONTHS = ["Enero", "Febrero", "Marzo", "April", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+    var MONTHS = '<?php echo json_encode($list["meses"]); ?>';
+    MONTHS = JSON.parse(MONTHS);
+
+    var goals = '<?php echo json_encode($list["goals"]); ?>';
+    goals = JSON.parse(goals);
+
+    var good = '<?php echo json_encode($list["good"]); ?>';
+    good = JSON.parse(good);
+
+    var regular_1 = '<?php echo json_encode($list["regular_1"]); ?>';
+    var regular_2 = '<?php echo json_encode($list["regular_2"]); ?>';
+
+    regular_1 = JSON.parse(regular_1);
+    regular_2 = JSON.parse(regular_2);
+
+
+    var bad = '<?php echo json_encode($list["bad"]); ?>';
+    bad = JSON.parse(bad);
+    //((good[0] == 100) ? good[0] : bad[0]) 
+    var max = ((good[0] == 0) ? bad[0] : good[0]) 
+    var number_max = parseInt(max);
+
+/*
     gradientChartOptionsConfigurationWithTooltipPurple = {
             maintainAspectRatio: false,
             legend: {
@@ -146,7 +174,7 @@ $(document).ready(function() {
             }
         };
 
-
+*/
         var options2 =  {
                 responsive: true,
                     title:{
@@ -176,7 +204,7 @@ $(document).ready(function() {
                     },
                     ticks: {
                         beginAtZero: true,
-                        max: 100
+                        max: number_max
                     },
                 }]
                 }
@@ -192,33 +220,8 @@ $(document).ready(function() {
         grey: 'rgb(231,233,237)'
         };
 
-        var randomScalingFactor = function() {
-        return (Math.random() > 0.5 ? 1.0 : 1.0) * Math.round(Math.random() * 100);
-        };
 
-        //var number_of_scheduled_trainings = 6;
-        //var number_of_workouts_done = 3;
-        
-        //var line1 = [ (number_of_workouts_done * 100)/number_of_scheduled_trainings, randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()];
-        var line1 = '<?php echo json_encode($list["events"]); ?>';
-        line1 = JSON.parse(line1);
-
-        
-        //var MONTHS = ["Enero", "Febrero", "Marzo", "April", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
-        var MONTHS = '<?php echo json_encode($list["meses"]); ?>';
-        MONTHS = JSON.parse(MONTHS);
-
-        var goals = '<?php echo json_encode($list["goals"]); ?>';
-        goals = JSON.parse(goals);
-
-        var good = '<?php echo json_encode($list["good"]); ?>';
-        good = JSON.parse(good);
-
-        var regular = '<?php echo json_encode($list["regular"]); ?>';
-        regular = JSON.parse(regular);
-
-        var bad = '<?php echo json_encode($list["bad"]); ?>';
-        bad = JSON.parse(bad);
+       
 
         var config = {
         type: 'bar',
@@ -286,7 +289,7 @@ $(document).ready(function() {
                     },
                     ticks: {
                         beginAtZero: true,
-                        max: 100
+                        max: number_max
                     },
                 }]
                 }
@@ -302,21 +305,21 @@ $(document).ready(function() {
             datasets: [
                         {
                             type: 'line',
-                            label: "malo",
-                            backgroundColor: "#e84747  ",
-                            data: bad
+                            label: ((bad[0] == 0) ? "malo" : "bueno")  ,
+                            backgroundColor: ((bad[0] == 0) ? "#e84747" : "#5fe14b"),
+                            data: regular_1
                         },
                         {
                             type: 'line',
                             label: "regular",
                             backgroundColor: "#efea5c",
-                            data: regular
+                            data: regular_2
                         },
                         {
                             type: 'line',
-                            label: "bueno",
-                            backgroundColor: "#5fe14b",
-                            data: good
+                            label:  ((good[0] == 0) ? "malo" : "bueno"),
+                            backgroundColor: ((good[0] == 0) ? "#e84747" : "#5fe14b"),
+                            data:  ((good[0] == 0) ? bad : good),
                         }  
                     ]
         },
