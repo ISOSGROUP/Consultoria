@@ -110,19 +110,6 @@
 
 <li class="nav-item nav-dropdown  " >
   <a class="nav-link nav-dropdown-toggle" href="#">
-    <i class="nav-icon fa fa-bars"></i>Gestion Documentaria</a>
-  <ul class="nav-dropdown-items">
-            <li class="nav-item ">
-                <a class="nav-link" href="#">
-                    <i class="nav-icon"></i>
-                    <span>Lista Maestra</span>
-                </a>
-            </li>
-  </ul>
-</li>
-
-<li class="nav-item nav-dropdown  " >
-  <a class="nav-link nav-dropdown-toggle" href="#">
     <i class="nav-icon fa fa-bars"></i>Gestion NC y AC</a>
   <ul class="nav-dropdown-items">
             <li class="nav-item ">

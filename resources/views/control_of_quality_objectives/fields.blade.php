@@ -555,7 +555,7 @@
             <th class="recursos"   style="min-width:30px;">Recursos</th>
             <th class="responsable"   style="width:25px;">Responsable</th>
             <th class="plazo"   style="min-width:30px;">Plazo</th>
-            <th class="verificacion"   style="min-width:30px;">Verificacion </th>
+            <th class="verificacion"   style="min-width:30px;">Verificación de eficacia </th>
             <th class="action"  style="width:10px"style="min-width:30px;">Action</th>
            
         </thead>
@@ -1010,11 +1010,37 @@ $(document).ready(function() {
         var monthlist = '<?php echo json_encode($month_list); ?>';
         var monthlist = JSON.parse(monthlist);
         var flat = false;
-
+        var flat2 = false;
+        var periodo = 0;
+        var data_1 = 0;
+        var data_2 = 0;
+        var pocentaje = 0;
         month_list.map((value,index) => {
 
             (value.toString().includes(month) ? flat = true: null);
 
+            if(flat && (!flat2)){
+                console.log(index-1);
+                flat2 = true;
+                periodo = index-1;
+                console.log(month_list[periodo]);
+                console.log(formula);
+                data_1 = ((monthlist[value] != undefined)? monthlist[month_list[periodo]].toString().split(',')[0]:"");
+                data_2 = ((monthlist[value] != undefined)? monthlist[month_list[periodo]].toString().split(',')[1]:"");
+
+
+                if(formula == 1 ||  formula == 2){
+
+                    pocentaje = ((data_2 * 100)/data_1);
+                    $('#status_to_date').val(pocentaje);
+
+                }else{
+                    pocentaje = data_1;
+                    $('#status_to_date').val(pocentaje);
+
+                }
+
+            }
             tbody += '<tr class="item">'+
                                 '<td>' + value + '</td>'+
                                 '<td>' + '<input type="Number"'+
@@ -1027,6 +1053,7 @@ $(document).ready(function() {
                                 ((formula == 1 ||  formula == 2 )? '<td>' +'<input type="Number"'+
                                             'name="values['+value+',data_2]"'+
                                         'class="form-control data_2"'+ 
+                                        ( flat == true ? "readonly ":"")+
                                         'value="'+ ((monthlist[value] != undefined)? monthlist[value].toString().split(',')[1]:0)+'">'+
 
                                 '</td>' :"")

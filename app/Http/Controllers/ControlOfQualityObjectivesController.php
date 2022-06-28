@@ -51,7 +51,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
             $filledArray[$value->name] = $value->name;
         }
         //return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
-        return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
+        return view('control_of_quality_objectives.test4', compact('controlOfQualityObjectives', 'user','users'));
 
     }
 
@@ -479,8 +479,6 @@ class ControlOfQualityObjectivesController extends AppBaseController
         $regular_1 = $controlOfQualityObjectives->regular_1;
         $regular_2 = $controlOfQualityObjectives->regular_2;
         $malo = $controlOfQualityObjectives->malo;
-
-        //dd($activities);
 
         if (empty($controlOfQualityObjectives)) {
             Flash::error('Control Of Quality Objectives not found');

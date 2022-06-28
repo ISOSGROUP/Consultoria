@@ -249,16 +249,8 @@ $(document).ready(function() {
             options:options2
         };
 
-        var ctx = document.getElementById("canvas").getContext("2d");
-        var myLine = new Chart(ctx, config);
-
-
-
-
-
-
-
-
+        //var ctx = document.getElementById("canvas").getContext("2d");
+        //var myLine = new Chart(ctx, config);
 
         var options3 =  {
                 responsive: true,
@@ -296,13 +288,27 @@ $(document).ready(function() {
             }
 
 
-        var line1 = [100];
+       // var line1 = [100];
 
         var config = {
         type: 'bar',
         data: {
             labels: MONTHS,
-            datasets: [
+            datasets: [{
+                            type: 'line',
+
+                            label: "Meta",
+                            backgroundColor: "#1f68a8",
+                            borderColor: "#1f68a8",
+
+                            data: goals,
+                            fill: false
+                        } ,{
+                            type: 'bar',
+                            label:  indicator,
+                            backgroundColor:  "#75b1e6"  ,
+                            data:  line1,
+                        },
                         {
                             type: 'line',
                             label: ((bad[0] == 0) ? "malo" : "bueno")  ,
@@ -320,7 +326,8 @@ $(document).ready(function() {
                             label:  ((good[0] == 0) ? "malo" : "bueno"),
                             backgroundColor: ((good[0] == 0) ? "#e84747" : "#5fe14b"),
                             data:  ((good[0] == 0) ? bad : good),
-                        }  
+                        }
+                             
                     ]
         },
             options:options3
