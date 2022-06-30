@@ -13,6 +13,7 @@ use DB;
 use Carbon\Carbon;
 use DateTime;
 use PDF;
+use Dompdf\Dompdf;
 
 class ControlOfQualityObjectivesController extends AppBaseController
 {
@@ -51,7 +52,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
             $filledArray[$value->name] = $value->name;
         }
         //return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
-        return view('control_of_quality_objectives.test4', compact('controlOfQualityObjectives', 'user','users'));
+        return view('control_of_quality_objectives.pdf', compact('controlOfQualityObjectives', 'user','users'));
 
     }
 
@@ -623,10 +624,25 @@ class ControlOfQualityObjectivesController extends AppBaseController
             foreach($users as $key => $value) {
             $filledArray[$value->name] = $value->name;
         }
+        //$pdf = PDF::setOptions(['isRemoteEnabled' => TRUE, 'enable_javascript' => TRUE]);
         $pdf = PDF::loadView('control_of_quality_objectives.pdf', compact('controlOfQualityObjectives', 'user','users'))->setOptions(['defaultFont' => 'sans-serif']);
+                                                                                                                                  // 'enable-javascript'=> true,
+                                                                                                                                    //'javascript-delay'=> 5000]);
         //$pdf = PDF::loadView('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'))->setOptions(['defaultFont' => 'sans-serif']);
-
+        
+        
         return $pdf->download('pdf_file.pdf');
+
+
+        //PDF::setOptions(['enable_javascript' => TRUE]);
+        //$dompdf = new Dompdf();
+        //$html = view('control_of_quality_objectives.pdf', compact('controlOfQualityObjectives', 'user','users'))->render();
+        //$dompdf->loadHtml($html);
+        //$dompdf->render();
+
+        //return $dompdf->download('card.pdf');
+
+
 
  
 
