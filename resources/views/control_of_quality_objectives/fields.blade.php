@@ -659,6 +659,10 @@
 
     $("#tbl_posts_body").on("click", "td.responsable", function() {
 
+        var data = $(this).html();
+        console.log(data);
+        data = (data) ? JSON.parse(data):"";
+
         if(!$(this).has("select").length) {
             // Populate select element
             var select = `<select style="width:104px" class="js-example-basic-multiple" name="states[]" multiple="multiple">`;
@@ -685,10 +689,9 @@
             $(this).children("select").select2();
 
 
-            var r = [1,2];
+            //var r = [1,2];
             //$(this).children("select").select2().select2('val',["isos"])
-
-            //$(this).children("select").select2();
+            $(this).children("select").select2('val',data);
 
 
            
@@ -916,8 +919,8 @@ $(document).ready(function() {
 
 
 
-            
-            element.find("td.responsable").append(responsable);
+            //console.log("responsable: "+JSON.stringify(responsable));
+            element.find("td.responsable").append(JSON.stringify(responsable));
             
 
 
