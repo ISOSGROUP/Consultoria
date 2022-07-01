@@ -12,8 +12,10 @@ use Response;
 use DB;
 use Carbon\Carbon;
 use DateTime;
-use PDF;
 use Dompdf\Dompdf;
+use Barryvdh\Snappy;
+use PDF;
+
 
 class ControlOfQualityObjectivesController extends AppBaseController
 {
@@ -52,7 +54,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
             $filledArray[$value->name] = $value->name;
         }
         //return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
-        return view('control_of_quality_objectives.pdf', compact('controlOfQualityObjectives', 'user','users'));
+        return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
 
     }
 
@@ -625,13 +627,38 @@ class ControlOfQualityObjectivesController extends AppBaseController
             $filledArray[$value->name] = $value->name;
         }
         //$pdf = PDF::setOptions(['isRemoteEnabled' => TRUE, 'enable_javascript' => TRUE]);
-        $pdf = PDF::loadView('control_of_quality_objectives.pdf', compact('controlOfQualityObjectives', 'user','users'))->setOptions(['defaultFont' => 'sans-serif']);
+        //$pdf = PDF::loadView('control_of_quality_objectives.pdf', compact('controlOfQualityObjectives', 'user','users'))->setOptions(['defaultFont' => 'sans-serif']);
                                                                                                                                   // 'enable-javascript'=> true,
                                                                                                                                     //'javascript-delay'=> 5000]);
         //$pdf = PDF::loadView('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'))->setOptions(['defaultFont' => 'sans-serif']);
         
         //return $pdf->stream('result.pdf', array('Attachment'=>0));              
-        return $pdf->download('pdf_file.pdf');
+        //return $pdf->download('pdf_file.pdf');
+
+       
+
+ 
+        //$pdf = \PDF::loadView('control_of_quality_objectives.pdf', array('controlOfQualityObjectives' => $controlOfQualityObjectives,'user' => $user,'users' => $users));
+        //$pdf = \PDF::loadView('control_of_quality_objectives.pdf', compact('controlOfQualityObjectives', 'user','users'));
+
+        //$pdf->setOption('margin-top' , 50);
+
+
+
+        //$html = view('control_of_quality_objectives.pdf', ['controlOfQualityObjectives' => $controlOfQualityObjectives, 'user' => $user, 'users' => $users])->render();
+        //$pdf = \App::make('snappy.pdfr');
+        //$pdf = \App::make('snappy.pdf.wrapper');
+        //$pdf = $pdf->loadHTML($html);
+
+        //$snappy = App::make('snappy.pdf');
+
+
+        //$pdf = \PDF::loadHTML($html,'exmple2.pdf');
+        //$pdf = PDF::loadView('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
+
+        //return $pdf->stream("example2.pdf");
+
+        //return $pdf->stream("example2.pdf");
 
 
         //PDF::setOptions(['enable_javascript' => TRUE]);
@@ -644,8 +671,16 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
 
 
- 
+        //$html = \View::make('control_of_quality_objectives.test')->render();
 
+        //$pdf = \PDF::loadView('control_of_quality_objectives.test',compact('controlOfQualityObjectives', 'user','users'))->setPaper('a4');
+        //$pdf = \PDF::loadHTML($html);
+        
+        $pdf = \PDF::loadView('control_of_quality_objectives.test',compact('user'));
+        //->inline('filename.pdf')
+        //$pdf->setOption('enable-javascript', true);
+        //$pdf->setOption('javascript-delay', 5000);
+        return $pdf->download('invoice.pdf');
     }
 
 }

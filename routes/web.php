@@ -17,6 +17,13 @@ use App\Http\Controllers\RoleController;
 
  
 Route::get('/', function () {
+
+    
+
+    //$snappy = App::make('snappy.pdf');
+    //$snappy->generateFromHtml('<h1>test</h1>','exmple.pdf');
+
+
     return view('auth.login');
 });
 

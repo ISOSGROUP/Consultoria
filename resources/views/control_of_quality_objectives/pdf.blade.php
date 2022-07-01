@@ -15,6 +15,15 @@
 
 <div class="form_wrapper">
 
+@php
+
+
+     
+    
+@endphp
+
+
+
                             <div class="form-control">
                                 <label for="">PERÍODO DE INFORMACIÓN: ANUAL</label>
                                 <br>
