@@ -178,6 +178,7 @@
                 if(formula == 1 ||  formula == 2){
 
                     pocentaje = ((data_2 * 100)/data_1);
+                    //console.log("pocentaje :"+pocentaje);
                     $('#status_to_date').val(pocentaje);
 
                 }else{
@@ -292,14 +293,48 @@
                                     <div class="form-group col-sm-6">
                                         {!! Form::label('goals', 'Meta:') !!}
                                         {!! Form::text('goals',$controlOfQualityObjectives->goals, ['class' => 'form-control']) !!}
+                                        <br>
+                                        <br>
+                                        
                                     </div>
 
 
                                     <div  class="form-inline">
                                     <label >Cambios de rango</label>
 
+                                    
 
 
+                                    <div class="form-inline col-sm-12">
+                                            <div class="form-group">
+                                                <label id="bueno-label-{{$key}}"></label>
+                                                <!-- <input type="Number" name="bueno"style="width:100px;" class="form-control"> -->
+                                                {!! Form::Number('bueno', null, ['class' => 'form-control',"style"=>"width:100px;","id"=>"bueno-".$key]) !!}
+                                            </div>
+                                    </div>
+
+
+                                    <div class="form-inline col-sm-12">
+                                            <div class="form-group">
+                                                <label >Regular &nbsp;&nbsp;&nbsp;</label>
+                                                {!! Form::Number('regular_1', null, ['class' => 'form-control',"style"=>"width:100px;","id"=>"regular_1-".$key]) !!}
+
+                                                <label >&nbsp; > x > &nbsp;</label>
+                                                {!! Form::Number('regular_2', null, ['class' => 'form-control',"style"=>"width:100px;","id"=>"regular_2-".$key]) !!}
+                                            </div>
+                                    </div>
+                                    <div class="form-inline col-sm-12">
+                                            <div class="form-group">
+                                                <label id="bad-label-{{$key}}"></label>
+                                                {!! Form::Number('malo', null, ['class' => 'form-control',"style"=>"width:100px;","id"=>"malo-".$key]) !!}
+                                            </div>
+                                    </div>
+
+
+
+
+ 
+                                    {{--
                                     <div class="wrapper">
                                         <div class="limit-1 limit-1-{{$key}}">
                                             <input type="text" readonly style="width:100px" class="form-control" id="number-min" value="0">
@@ -324,14 +359,47 @@
                                             <input type="text"  onKeyUp="val()" id="number-max-{{$key}}"style="width:100px" class="form-control" value="100">
                                         </div>
                                     </div>
-
+                                    --}}
 
 
                                     <script  type="text/javascript">
 
+
+
                                     var formula = '<?php echo $controlOfQualityObjectives->formula; ?>';
 
                                     var key = '<?php echo $key; ?>';
+
+                                    var bueno = '<?php echo $controlOfQualityObjectives->bueno; ?>';
+                                    var regular_1 = '<?php echo $controlOfQualityObjectives->regular_1; ?>';
+                                    var regular_2 = '<?php echo $controlOfQualityObjectives->regular_2; ?>';
+                                    var malo = '<?php echo $controlOfQualityObjectives->malo; ?>';
+
+                                    ((bueno == 0)? document.getElementById("bueno-"+key).value = regular_2:"");
+
+                                    if(bueno == 0){
+
+                                        document.getElementById("bueno-"+key).value = regular_1;
+                                        document.getElementById("bueno-label-"+key).innerHTML = " Bueno <=";
+                                        document.getElementById("malo-"+key).value = regular_2;
+                                        document.getElementById("bad-label-"+key).innerHTML = " Malo >=";
+
+
+                                    }else{
+
+                                        document.getElementById("bueno-"+key).value = regular_2;
+                                        document.getElementById("bueno-label-"+key).innerHTML = " Bueno >=";
+                                        document.getElementById("malo-"+key).value = regular_1;
+                                        document.getElementById("bad-label-"+key).innerHTML = "Malo <=";
+
+                                    }
+
+
+                                    //document.getElementById("bueno-"+key).value = bueno;
+                                    document.getElementById("regular_1-"+key).value = regular_1;
+                                    document.getElementById("regular_2-"+key).value = regular_2;
+                                    //document.getElementById("malo-"+key).value = malo;
+
 
                                     var sliderOne = document.getElementById("slider-1-"+key);
                                     var sliderTwo = document.getElementById("slider-2-"+key);
@@ -500,14 +568,14 @@
 
 
                                 <div style="display:none;">
-                                    <table id="sample_table-{{$key}}">
+                                    <table id="sample_table-{{$key}}" class="">
                                     <tr id="" class="custom-row" style="height:2px;">
                                     <td  style="max-width:1px;padding:5px;"><span class="sn"></span>.</td>
-                                    <td class="actividades" style="max-width:30px;padding:5px;" contenteditable>test</td>
-                                    <td class="recursos" style="max-width:30px;padding:5px;" contenteditable>test</td>
-                                    <td class="responsable volunteer " style="max-width:20px;padding:5px;" >
-                                    <td class="plazo" style="max-width:30px;padding:5px;"><input type="date" class="datepick" /></td>
-                                    <td class="verificacion" style="max-width:20px;min-height:30px;padding:5px;" contenteditable>test</td>
+                                    <td class="actividades custom-td" style="max-width:30px;padding:5px;" contenteditable>test</td>
+                                    <td class="recursos custom-td" style="max-width:30px;padding:5px;" contenteditable>test</td>
+                                    <td class="responsable volunteer custom-td" style="max-width:20px;padding:5px;" >
+                                    <td class="plazo custom-td" style="max-width:40px;padding:5px;"><input style="min-width:20px;"type="date" class="datepick" /></td>
+                                    <td class="verificacion custom-td" style="max-width:20px;min-height:30px;padding:5px;" contenteditable>test</td>
 
                                 
                                     
@@ -519,7 +587,7 @@
 
 
 
-                                <table class="table table-striped " id="tbl_posts" style="min-width:1100px;" >
+                                <table class="table table-striped " id="tbl_posts" style="min-width:900px;" >
                                 
                                     <thead>
                                         <th style="min-width:1px;">#</th>
@@ -580,7 +648,7 @@ for(var key in jsonData) {
     element.find("td.actividades").append(actividades);
     element.find("td.recursos").append(recursos);
     element.find("td.responsable").append(JSON.stringify(responsable));
-    element.find("td.plazo").append(`<input type="date" class="datepicks" />`);
+    element.find("td.plazo").append(`<input style="width:95px;" type="date" class="datepicks" />`);
     element.find("td.plazo").find("input").val(plazo); 
     element.find("td.verificacion").append(verificacion);
     element.attr('id', size);
@@ -837,6 +905,30 @@ label {
     }
 
 
+
+    .custom-table{
+        border: 2px solid #6d6d6f;
+        border-radius:10px;
+        width: 500px;
+        height: 250px;
+        padding:10px;
+        overflow-y: auto;
+    }
+    .tbl_posts{
+        border: 2px solid #6d6d6f;
+        border-radius:5px;
+        width: 900px;
+        height: 250px;
+        padding:5px;
+        overflow-y: auto;
+    }
+ 
+ 
+    .custom-td {
+        border: 1px solid black;
+        max-width: 60px;
+        word-wrap: break-word;
+    }
 
 
 

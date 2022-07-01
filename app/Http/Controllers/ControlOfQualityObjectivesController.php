@@ -630,7 +630,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
                                                                                                                                     //'javascript-delay'=> 5000]);
         //$pdf = PDF::loadView('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'))->setOptions(['defaultFont' => 'sans-serif']);
         
-        
+        //return $pdf->stream('result.pdf', array('Attachment'=>0));              
         return $pdf->download('pdf_file.pdf');
 
 
