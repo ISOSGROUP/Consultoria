@@ -523,12 +523,7 @@
         <td class="actividades" style="max-width:30px;padding:5px;" contenteditable>test</td>
         <td class="recursos" style="max-width:30px;padding:5px;" contenteditable>test</td>
          <td class="responsable volunteer " style="max-width:20px;padding:5px;" >
-         <!--
-            <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
-                <option value="AL">Alabama</option>
-                <option value="WY">Wyoming</option>
-                </select>
-            </td>-->
+          [""]
         <td class="plazo" style="max-width:30px;padding:5px;"><input type="date" class="datepick" /></td>
         <!-- <td class="plazo " style="max-width:30px;padding:5px;"contenteditable>test</td>-->
         <td class="verificacion" style="max-width:20px;min-height:30px;padding:5px;" contenteditable>test</td>
@@ -655,12 +650,15 @@
       }
     });
 
+     
+
+     
 
 
     $("#tbl_posts_body").on("click", "td.responsable", function() {
 
         var data = $(this).html();
-        console.log(data);
+        console.log("data: "+data);
         data = (data) ? JSON.parse(data):"";
 
         if(!$(this).has("select").length) {
@@ -674,7 +672,7 @@
                 
            // $(this).children("select").select2();
 
-            var users = ""
+            var users = "";
             users = '<?php echo $users; ?>';
             users = ((users != "") ? JSON.parse(users):[]);
 
@@ -818,6 +816,9 @@ $(document).ready(function() {
             var actividades = $(this).find("td.actividades").text();
             var recursos = $(this).find("td.recursos").text();
             var responsable = $(this).find("td.responsable").find("select").val();
+            //((responsable == undefined)?  responsable = $(this).find("td.responsable").text(): "");
+            //responsable = JSON.stringify(responsable);
+            console.log("responsablecustomform: "+responsable);
             var plazo = $(this).find("td.plazo").find("input").val();
             var verificacion = $(this).find("td.verificacion").text();
             data.actividades = actividades;
@@ -829,6 +830,7 @@ $(document).ready(function() {
             ((isNumeric(row) ? list[row] = data:""))
         
         });
+
 
         //$("#activities").val((JSON.parse(JSON.stringify(list))) );
         $("#activities").val(JSON.stringify(list));
@@ -864,7 +866,7 @@ $(document).ready(function() {
         $("#regular_1").val($(".number-1").html());
         $("#regular_2").val($(".number-2").html());
 
-        //return false;
+       // return false;
 
 
     });
@@ -919,7 +921,7 @@ $(document).ready(function() {
 
 
 
-            //console.log("responsable: "+JSON.stringify(responsable));
+            console.log("responsable: "+JSON.stringify(responsable));
             element.find("td.responsable").append(JSON.stringify(responsable));
             
 
@@ -938,7 +940,7 @@ $(document).ready(function() {
             element.appendTo('#tbl_posts_body');
             element.find('.sn').html(size);
 
-
+            $('#tbl_posts_body td.responsable').trigger('click');
 
             
 
@@ -993,7 +995,7 @@ $(document).ready(function() {
         thead += '<thead>'+
                     '<tr>'+
                         '<th>Mes</th>'+
-                        '<th>Events</th>'+
+                        '<th>Events programados</th>'+
                     ((formula == 1 ||  formula == 2)? '<th>Events realizados</th>':"")
                     '</tr>'+
                 '</thead>';
@@ -1006,8 +1008,6 @@ $(document).ready(function() {
         var options = { month: 'long'};
         var month = today.toLocaleDateString('es-ES', options);
         month = month.charAt(0).toUpperCase()+ month.slice(1);
-
-        //alert(today);
 
 
         var monthlist = '<?php echo json_encode($month_list); ?>';
@@ -1034,7 +1034,10 @@ $(document).ready(function() {
 
                 if(formula == 1 ||  formula == 2){
 
-                    pocentaje = ((data_2 * 100)/data_1);
+                    pocentaje = ((data_1 == 0) ? 0: ((data_2 * 100)/data_1));
+                    //pocentaje = ((data_2 * 100)/data_1);
+                    //console.log("data_1: "+data_1);
+                    //console.log("data_2: "+data_2);
                     $('#status_to_date').val(pocentaje);
 
                 }else{
@@ -1204,14 +1207,41 @@ $(document).ready(function() {
     $('input[type=Number]').on('input',function(e){
         var input = $(this);
         var val = input.val();
+        var pocentaje = 0;
+        var formula = $('#formula').val();
+        //alert("test");
         //console.log("lastval: "+input.data("lastval"));
 
-        var data_1 = $(this).parent().siblings("td").children(".data-1").val();
+        var data_1 = $(this).parent().siblings("td").children(".data_1").val();
+        var data_2 = $(this).parent().siblings("td").children(".data_2").val();
+        ((data_1 == undefined) ? data_1 = val: 0);
+        ((data_2 == undefined) ? data_2 = val: 0);
+        //var data_1 = $(this).siblings("td").children(" .data_1").val();
+        //var data_2 = $(this).siblings("td").children(" .data_2").val();
 
-        if(val > data_1){
+        if(data_2 > data_1){
 
             input.val(data_1)
         }
+        //console.log("value: "+$(this).parent().childrens());
+
+        console.log("data_1: "+data_1);
+        console.log("data_2: "+data_2);
+
+        if(formula == 1 ||  formula == 2){
+
+            pocentaje = ((data_1 == 0) ? 0: ((data_2 * 100)/data_1));
+            $('#status_to_date').val(pocentaje);
+
+        }else{
+            pocentaje = data_1;
+            $('#status_to_date').val(pocentaje);
+
+        }
+
+
+        //alert(val);
+
         //console.log(data_1);
         //if (input.data("lastval") != val) {
             //input.data("lastval", val);

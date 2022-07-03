@@ -54,7 +54,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
             $filledArray[$value->name] = $value->name;
         }
         //return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
-        return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
+        return view('control_of_quality_objectives.pdf', compact('controlOfQualityObjectives', 'user','users'));
 
     }
 
@@ -672,15 +672,35 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
 
         //$html = \View::make('control_of_quality_objectives.test')->render();
-
+        //$html = view('control_of_quality_objectives.test', compact('controlOfQualityObjectives'))->render();
+        //$html = view('control_of_quality_objectives.test', compact(['controlOfQualityObjectives']));
+        //$html = $this->render('control_of_quality_objectives.test');
         //$pdf = \PDF::loadView('control_of_quality_objectives.test',compact('controlOfQualityObjectives', 'user','users'))->setPaper('a4');
-        //$pdf = \PDF::loadHTML($html);
+        //$pdf = \PDF::loadHTML($html,'UTF-8');
         
-        $pdf = \PDF::loadView('control_of_quality_objectives.test',compact('user'));
+        //$pdf = \PDF::loadView('control_of_quality_objectives.test');
+        //return \PDF::loadFile('http://127.0.0.1:8000/riesgos')->stream('github.pdf'); 
         //->inline('filename.pdf')
         //$pdf->setOption('enable-javascript', true);
         //$pdf->setOption('javascript-delay', 5000);
-        return $pdf->download('invoice.pdf');
+        //return $pdf->download('invoice.pdf');
+
+
+
+        //$pdf = \PDF::loadView('control_of_quality_objectives.pdf',compact('controlOfQualityObjectives', 'user','users'));
+        $html = view('control_of_quality_objectives.pdf', compact('controlOfQualityObjectives', 'user','users'))->render();
+        $pdf = \PDF::loadHTML($html,'UTF-8');
+
+
+        //$pdf->setOption('enable-javascript', true);
+        //$pdf->setOption('javascript-delay', 5000);
+        //$pdf->setOption('no-stop-slow-scripts', true);
+
+
+        return $pdf->stream('pdf_file.pdf');
+
+
+
     }
 
 }
