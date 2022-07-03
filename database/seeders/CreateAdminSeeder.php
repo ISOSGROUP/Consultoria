@@ -38,11 +38,13 @@ class CreateAdminSeeder extends Seeder
         $listPermisos[0] = ['name' => 'Gestión-usuarios','guard_name' => 'web','type' => 'm'];
         $listPermisos[1] = ['name' => 'Gestión-roles','guard_name' => 'web','type' => 'm'];
         $listPermisos[2] = ['name' => 'Partes intesadas','guard_name' => 'web','type' => 'm'];
-        $listPermisos[3] = ['name' => 'Foda','guard_name' => 'web','type' => 'm'];
-        $listPermisos[4] = ['name' => 'cambiar fecha en apartado foda','guard_name' => 'web','type' => 'm'];
-        $listPermisos[5] = ['name' => 'cambiar fecha en apartado partes interesadas','guard_name' => 'web','type' => 'm'];
-        $listPermisos[6] = ['name' => 'cambiar fecha en apartado riesgo-oportunidad','guard_name' => 'web','type' => 'm'];
-        $listPermisos[7] = ['name' => 'cambiar fecha en apartado control-objetivos','guard_name' => 'web','type' => 'm'];
+        $listPermisos[3] = ['name' => 'Riesgos','guard_name' => 'web','type' => 'm'];
+        $listPermisos[4] = ['name' => 'Control de objetivos','guard_name' => 'web','type' => 'm'];
+        $listPermisos[5] = ['name' => 'Foda','guard_name' => 'web','type' => 'm'];
+        $listPermisos[6] = ['name' => 'cambiar fecha en apartado foda','guard_name' => 'web','type' => 'm'];
+        $listPermisos[7] = ['name' => 'cambiar fecha en apartado partes interesadas','guard_name' => 'web','type' => 'm'];
+        $listPermisos[8] = ['name' => 'cambiar fecha en apartado riesgo-oportunidad','guard_name' => 'web','type' => 'm'];
+        $listPermisos[9] = ['name' => 'cambiar fecha en apartado control-objetivos','guard_name' => 'web','type' => 'm'];
 
 
         foreach($listPermisos as $permission){

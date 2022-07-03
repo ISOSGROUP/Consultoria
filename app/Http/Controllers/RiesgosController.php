@@ -22,6 +22,8 @@ class RiesgosController extends AppBaseController
     public function __construct(RiesgosRepository $riesgosRepo)
     {
         $this->riesgosRepository = $riesgosRepo;
+        $this->middleware('permission:user-list|Riesgos', ['only' => ['index']]);
+        $this->middleware('permission:Riesgos', ['only' => ['show','create','edit','store','destroy']]);
     }
 
     /**

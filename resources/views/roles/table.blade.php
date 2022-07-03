@@ -5,7 +5,7 @@
 <table class="table table-striped" >
  <tr>
   
-   <th>Codigo</th>
+   <th>#</th>
    <th>Nombre</th>
    <th width="280px">acción</th>
  </tr>

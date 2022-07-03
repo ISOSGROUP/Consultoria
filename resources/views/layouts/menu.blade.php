@@ -61,20 +61,24 @@
 
   </ul>
 </li>
+@can('Riesgos')
 
-<li class="nav-item {{ Request::is('riesgos*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('riesgos.index') }}">
-        <i class="nav-icon fa fa-table"></i>
-        <span>Riesgos</span>
-    </a>
-</li>
+    <li class="nav-item {{ Request::is('riesgos*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('riesgos.index') }}">
+            <i class="nav-icon fa fa-table"></i>
+            <span>Riesgos</span>
+        </a>
+    </li>
+@endcan
 
-<li class="nav-item {{ Request::is('controlOfQualityObjectives*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('controlOfQualityObjectives.index') }}">
-        <i class="nav-icon fa fa-table"></i>
-        <span>Control de objetivos</span>
-    </a>
-</li>
+@can('Control de objetivos')
+    <li class="nav-item {{ Request::is('controlOfQualityObjectives*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('controlOfQualityObjectives.index') }}">
+            <i class="nav-icon fa fa-table"></i>
+            <span>Control de objetivos</span>
+        </a>
+    </li>
+@endcan
 
 <li class="nav-item nav-dropdown " >
   <a class="nav-link nav-dropdown-toggle" href="#">

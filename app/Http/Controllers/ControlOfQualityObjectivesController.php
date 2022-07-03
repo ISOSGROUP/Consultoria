@@ -26,6 +26,8 @@ class ControlOfQualityObjectivesController extends AppBaseController
     public function __construct(ControlOfQualityObjectivesRepository $controlOfQualityObjectivesRepo)
     {
         $this->controlOfQualityObjectivesRepository = $controlOfQualityObjectivesRepo;
+        $this->middleware('permission:user-list|Control de objetivos', ['only' => ['index']]);
+        $this->middleware('permission:Control de objetivos', ['only' => ['show','create','edit','store','destroy']]);
 
     }
 
