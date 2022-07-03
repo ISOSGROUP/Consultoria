@@ -22,15 +22,13 @@
 @endphp
 
 
-
+                                <br>
                             <div class="form-control">
                                 <label for="">PERÍODO DE INFORMACIÓN: ANUAL</label>
                                 <br>
                                 <label id="date"></label>
                                 <br>
                                 <label for="">MODULO: CONTROL DE OBJETIVOS</label>
-                                <br>
-                                <br> 
                                 <br>
                             </div>
 
@@ -47,7 +45,7 @@
                             
                                     @foreach($controlOfQualityObjectives as $key => $controlOfQualityObjectives)
                                     
-
+                                    <br>
                                     <div class="form-group col-sm-12 col-lg-12">
                                         {!! Form::label('quality_politics', 'Política de Calidad:') !!}
                                         <br>
@@ -375,7 +373,7 @@
 
 
 
-                                <table class="table table-striped " id="tbl_posts" style="width:700px;" >
+                                <table class="table table-striped tbl_posts" id="tbl_posts" style="width:700px;" >
                                 
                                     <thead>
                                         <th style="min-width:1px;">#</th>
@@ -486,12 +484,17 @@
 
                                 </div>
                                 <br>
-                                <br>
-                                <br>
-                                ------------------------END-----------------------
+                                <br> 
+                                <br>      
                                 <br>
                                 <br>      
+                                <br>
+
                                 @endforeach
+
+                                      
+     
+
 
   </div>
 </div>
@@ -566,12 +569,14 @@ label {
         overflow-y: auto;
     }
     .tbl_posts{
-        border: 2px solid #6d6d6f;
+       /*  border: 1px solid #6d6d6f; */
         border-radius:5px;
         width: 900px;
         height: 250px;
         padding:5px;
-        overflow-y: auto;
+        border-collapse: collapse;
+
+
     }
  
  

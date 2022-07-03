@@ -49,9 +49,8 @@ class RiesgosController extends AppBaseController
             $filledArray[$value->name] = $value->name;
         }
 
-        //dd($filledArray);
         //return view('riesgos.index')->with('riesgos', $riesgos)->with('user', $user);
-        return view('riesgos.index', compact('riesgos', 'user','users'));
+        return view('riesgos.pdf.pdf', compact('riesgos', 'user','users'));
 
     }
 
@@ -328,4 +327,37 @@ class RiesgosController extends AppBaseController
 
         return redirect(route('riesgos.index'));
     }
+
+
+    public function createPDF() {
+
+       
+       
+        $riesgos = $this->riesgosRepository->all();
+
+        $user = DB::table('foda_users')
+                    ->where('id', 2)
+                    ->select('foda_users.id','foda_users.name','foda_users.date')
+                    ->get();
+
+        $users = DB::table('users')
+                    ->select('users.id','users.name')
+                    ->get();
+
+        $filledArray;
+        foreach($users as $key => $value) {
+            $filledArray[$value->name] = $value->name;
+        }
+
+
+        $pdf = \PDF::loadView('riesgos.pdf.pdf',compact('riesgos', 'user','users'));
+        $pdf->setOptions([
+            'header-html'=> view('riesgos.pdf.header')
+        ]);
+        return $pdf->stream('pdf_file.pdf');
+
+
+
+    }
+
 }

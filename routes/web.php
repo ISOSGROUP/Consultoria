@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('controlOfQualityObjectives', App\Http\Controllers\ControlOfQualityObjectivesController::class);
 
     Route::get('/downloadPDF',[App\Http\Controllers\ControlOfQualityObjectivesController::class, 'createPDF'])->name('downloadPdf');
+    Route::get('/downloadPdfRiesgos',[App\Http\Controllers\RiesgosController::class, 'createPDF'])->name('downloadPdfRiesgos');
 
 
 });

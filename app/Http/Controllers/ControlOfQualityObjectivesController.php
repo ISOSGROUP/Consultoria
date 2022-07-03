@@ -54,7 +54,7 @@ class ControlOfQualityObjectivesController extends AppBaseController
             $filledArray[$value->name] = $value->name;
         }
         //return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
-        return view('control_of_quality_objectives.pdf', compact('controlOfQualityObjectives', 'user','users'));
+        return view('control_of_quality_objectives.index', compact('controlOfQualityObjectives', 'user','users'));
 
     }
 
@@ -687,9 +687,12 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
 
 
-        //$pdf = \PDF::loadView('control_of_quality_objectives.pdf',compact('controlOfQualityObjectives', 'user','users'));
-        $html = view('control_of_quality_objectives.pdf', compact('controlOfQualityObjectives', 'user','users'))->render();
-        $pdf = \PDF::loadHTML($html,'UTF-8');
+        $pdf = \PDF::loadView('control_of_quality_objectives.pdf',compact('controlOfQualityObjectives', 'user','users'));
+        //$html = view('control_of_quality_objectives.pdf', compact('controlOfQualityObjectives', 'user','users'))->render();
+        //$pdf = \PDF::loadHTML($html,'UTF-8');
+        $pdf->setOptions([
+            'header-html'=> view('control_of_quality_objectives.pdf.header')
+        ]);
 
 
         //$pdf->setOption('enable-javascript', true);
