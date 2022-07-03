@@ -50,7 +50,7 @@ class RiesgosController extends AppBaseController
         }
 
         //return view('riesgos.index')->with('riesgos', $riesgos)->with('user', $user);
-        return view('riesgos.pdf.pdf', compact('riesgos', 'user','users'));
+        return view('riesgos.index', compact('riesgos', 'user','users'));
 
     }
 
