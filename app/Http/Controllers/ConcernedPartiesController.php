@@ -186,4 +186,36 @@ class ConcernedPartiesController extends AppBaseController
 
         return redirect(route('ConcernedParties.index'));
     }
+
+    public function createPDF() {
+
+       
+       
+        $concernedParties = $this->concernedPartiesRepository->all();
+
+        $user = DB::table('foda_users')
+                    ->where('id', 2)
+                    ->select('foda_users.id','foda_users.name','foda_users.date')
+                    ->get();
+
+        $users = DB::table('users')
+                    ->select('users.id','users.name')
+                    ->get();
+
+        $filledArray;
+        foreach($users as $key => $value) {
+            $filledArray[$value->name] = $value->name;
+        }
+
+
+        $pdf = \PDF::loadView('concerned_parties.pdf.pdf',compact('concernedParties', 'user','users'));
+        $pdf->setOptions([
+            'header-html'=> view('concerned_parties.pdf.header')
+        ]);
+        return $pdf->stream('pdf_file.pdf');
+
+
+
+    }
+
 }

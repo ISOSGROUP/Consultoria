@@ -301,4 +301,141 @@ class FodaController extends Controller
         
     }
 
+    public function createPDF() {
+
+       
+        $fodaRepository = $this->fodaRepository->all();
+
+
+        
+        $allFoda;
+        $weaknesses = DB::table('foda')
+                        ->join('foda_details', 'foda_details.foda_id', '=', 'foda.id')
+                        ->where('foda.name', '=', "weaknesses")
+                        ->pluck('foda_details.description')
+                        ->all();
+
+        $strengths = DB::table('foda')
+                        ->join('foda_details', 'foda_details.foda_id', '=', 'foda.id')
+                        ->where('foda.name', '=', "strengths")
+                        ->pluck('foda_details.description')
+                        ->all();
+
+        $opportunities = DB::table('foda')
+                        ->join('foda_details', 'foda_details.foda_id', '=', 'foda.id')
+                        ->where('foda.name', '=', "opportunities")
+                        ->pluck('foda_details.description')
+                        ->all();
+
+        $threats = DB::table('foda')
+                        ->join('foda_details', 'foda_details.foda_id', '=', 'foda.id')
+                        ->where('foda.name', '=', "threats")
+                        ->pluck('foda_details.description')
+                        ->all();
+
+
+        $allFoda["weaknesses"] = $weaknesses;
+        $allFoda["strengths"] = $strengths;
+        $allFoda["opportunities"] = $opportunities;
+        $allFoda["threats"] = $threats;
+
+
+
+
+
+
+        $weaknesses_opportunities = DB::table('foda_strategies')
+                        ->where('foda_strategies.foda_id_1', '=', "4")
+                        ->where('foda_strategies.foda_id_2', '=', "1")
+                        ->select('foda_strategies.id as id','foda_strategies.strategy','foda_strategies.responsible','foda_strategies.budget','foda_strategies.status','foda_strategies.description','foda_strategies.linked_strategy','foda_strategies.id as foda_strategies_details')
+                        ->get();
+
+        $weaknesses_threats = DB::table('foda_strategies')
+                        ->where('foda_id_1', '=', "3")
+                        ->where('foda_id_2', '=', "1")
+                        ->select('foda_strategies.id as id','foda_strategies.strategy','foda_strategies.responsible','foda_strategies.budget','foda_strategies.status','foda_strategies.description','foda_strategies.linked_strategy')
+                        ->get();
+
+        $strengths_opportunities = DB::table('foda_strategies')
+                        ->where('foda_id_1', '=', "4")
+                        ->where('foda_id_2', '=', "2")
+                        ->select('foda_strategies.id as id','foda_strategies.strategy','foda_strategies.responsible','foda_strategies.budget','foda_strategies.status','foda_strategies.description','foda_strategies.linked_strategy')
+                        ->get();
+
+        $strengths_threats = DB::table('foda_strategies')
+                        ->where('foda_id_1', '=', "3")
+                        ->where('foda_id_2', '=', "2")
+                        ->select('foda_strategies.id as id','foda_strategies.strategy','foda_strategies.responsible','foda_strategies.budget','foda_strategies.status','foda_strategies.description','foda_strategies.linked_strategy')
+                        ->get();
+
+
+
+        //----------------- get foda_strategies_details
+
+        foreach($weaknesses_opportunities as $key => $value) {
+
+            $foda_strategies_details = DB::table('foda_strategies_details')
+            ->join('foda_details', 'foda_details.id', '=', 'foda_strategies_details.foda_details_id')
+            ->join('foda', 'foda.id', '=', 'foda_details.foda_id')
+            ->where('foda_strategies_details.foda_strategies_id', '=', $value->id)
+            ->select('foda_strategies_details.id as id','foda_strategies_details.foda_details_id','foda.name','foda_details.description')
+            ->get();
+
+           $weaknesses_opportunities[$key]->foda_strategies_details = $foda_strategies_details;
+        }
+
+        foreach($weaknesses_threats as $key => $value) {
+
+            $foda_strategies_details = DB::table('foda_strategies_details')
+            ->join('foda_details', 'foda_details.id', '=', 'foda_strategies_details.foda_details_id')
+            ->join('foda', 'foda.id', '=', 'foda_details.foda_id')
+            ->where('foda_strategies_details.foda_strategies_id', '=', $value->id)
+            ->select('foda_strategies_details.id as id','foda_strategies_details.foda_details_id','foda.name','foda_details.description')
+            ->get();
+
+            
+           $weaknesses_threats[$key]->foda_strategies_details = $foda_strategies_details;
+        }
+
+        foreach($strengths_opportunities as $key => $value) {
+
+            $foda_strategies_details = DB::table('foda_strategies_details')
+            ->join('foda_details', 'foda_details.id', '=', 'foda_strategies_details.foda_details_id')
+            ->join('foda', 'foda.id', '=', 'foda_details.foda_id')
+            ->where('foda_strategies_details.foda_strategies_id', '=', $value->id)
+            ->select('foda_strategies_details.id as id','foda_strategies_details.foda_details_id','foda.name','foda_details.description')
+            ->get();
+
+            
+           $strengths_opportunities[$key]->foda_strategies_details = $foda_strategies_details;
+        }
+
+        foreach($strengths_threats as $key => $value) {
+
+            $foda_strategies_details = DB::table('foda_strategies_details')
+            ->join('foda_details', 'foda_details.id', '=', 'foda_strategies_details.foda_details_id')
+            ->join('foda', 'foda.id', '=', 'foda_details.foda_id')
+            ->where('foda_strategies_details.foda_strategies_id', '=', $value->id)
+            ->select('foda_strategies_details.id as id','foda_strategies_details.foda_details_id','foda.name','foda_details.description')
+            ->get();
+
+            
+           $strengths_threats[$key]->foda_strategies_details = $foda_strategies_details;
+        }
+
+
+        //dd($weaknesses_opportunities[0]->foda_strategies_details);
+
+        $pdf = \PDF::loadView('foda.pdf.pdf',compact('allFoda','weaknesses_opportunities','weaknesses_threats','strengths_opportunities','weaknesses_opportunities','strengths_threats'));
+        $pdf->setOptions([
+            'header-html'=> view('foda.pdf.header')
+        ]);
+        return $pdf->stream('pdf_file.pdf');
+
+
+
+    }
+
+
+
 }

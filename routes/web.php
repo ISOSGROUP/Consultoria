@@ -72,6 +72,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/downloadPDF',[App\Http\Controllers\ControlOfQualityObjectivesController::class, 'createPDF'])->name('downloadPdf');
     Route::get('/downloadPdfRiesgos',[App\Http\Controllers\RiesgosController::class, 'createPDF'])->name('downloadPdfRiesgos');
 
+    Route::get('/downloadPdfConcernedParties',[App\Http\Controllers\ConcernedPartiesController::class, 'createPDF'])->name('downloadPdfConcernedParties');
+    Route::get('/downloadPdfFoda',[App\Http\Controllers\FodaController::class, 'createPDF'])->name('downloadPdfFoda');
+
 
 });
 

@@ -11,7 +11,11 @@
         <div class="animated fadeIn">
              @include('flash::message')
 
-             
+             <div class="d-flex justify-content-end mb-4">
+                            <a class="btn btn-primary"  href="{{ route('downloadPdfFoda') }}">Export to PDF</a>
+            </div>
+
+
              <div class="box">
 
                 <div class="form-group test" >

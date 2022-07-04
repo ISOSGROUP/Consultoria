@@ -36,9 +36,10 @@
 </div>
 
 <style>
-.cell {
-  max-width: 5px; 
-  white-space : nowrap;
-  overflow : hidden;
-}
+    
+    .cell {
+    max-width: 5px; 
+    white-space : nowrap;
+    overflow : hidden;
+    }
 </style>

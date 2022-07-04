@@ -671,8 +671,6 @@ class ControlOfQualityObjectivesController extends AppBaseController
 
         //return $dompdf->download('card.pdf');
 
-
-
         //$html = \View::make('control_of_quality_objectives.test')->render();
         //$html = view('control_of_quality_objectives.test', compact('controlOfQualityObjectives'))->render();
         //$html = view('control_of_quality_objectives.test', compact(['controlOfQualityObjectives']));
