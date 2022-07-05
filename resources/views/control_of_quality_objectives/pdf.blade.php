@@ -90,7 +90,7 @@
 
 
                                     <div class="form-group custom-table">
-                                        <table class="table table-striped" id="dataTable-{{$key}}" >
+                                        <table class="table table-striped " id="dataTable-{{$key}}" >
                                         </table>
 
                                     </div>
@@ -373,7 +373,7 @@
 
 
 
-                                <table class="table table-striped tbl_posts" id="tbl_posts" style="width:700px;" >
+                                <table class="table table-striped tbl_posts mytable" id="tbl_posts" style="width:700px;" >
                                 
                                     <thead>
                                         <th style="min-width:1px;">#</th>
@@ -581,9 +581,39 @@ label {
  
  
     .custom-td {
-        border: 1px solid black;
+        /* border: 1px solid black; */
         max-width: 60px;
         word-wrap: break-word;
+    }
+
+    .mytable {
+        border-collapse: collapse;
+        margin: 10px 0;
+        font-size: 0.8em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .mytable thead tr {
+        background-color: #1d97c3;
+        color: #ffffff;
+        text-align: left;
+    }
+
+    .mytable th,
+    .mytable td {
+        padding: 12px 15px;
+
+    }
+
+    .mytable tbody tr {
+        border-bottom: 1px solid #dddddd;
+
+    }
+
+    .mytable tbody tr {
+        background-color: #f3f3f3;
     }
 
 

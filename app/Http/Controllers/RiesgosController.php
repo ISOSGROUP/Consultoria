@@ -389,9 +389,7 @@ class RiesgosController extends AppBaseController
             }
         }
 
-
-
-        //return view('riesgos.edit', compact('filledArray', 'allFoda','largest','foda_reference','riesgos','risk_chance_radio','is_effective','execution_time','users','interested_part','responsible','responsible_for_monitoring'));
+         //return view('riesgos.edit', compact('filledArray', 'allFoda','largest','foda_reference','riesgos','risk_chance_radio','is_effective','execution_time','users','interested_part','responsible','responsible_for_monitoring'));
 
         $pdf = \PDF::loadView('riesgos.pdf.pdf',compact('riesgos', 'user','users','filledArray', 'allFoda','largest'));
         $pdf->setOptions([

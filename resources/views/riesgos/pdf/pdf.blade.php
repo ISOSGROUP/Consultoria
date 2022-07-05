@@ -25,16 +25,19 @@
 
         <div class="form_container">
 
+
         
+
+
             @foreach($riesgos as $key => $riesgos)
 
             
-
-
                 @php
+
                     $probability = ["0"=>"Elevado","1"=>"Medio","2"=>"Bajo"];
                     $impact = ["0"=>"Bajo","1"=>"Medio","2"=>"Alto"];
                     $tracking_status = ["Abierto"=>"Abierto","Cerrado"=>"Cerrado"];
+
                 @endphp
 
                 <!-- Process Field -->
@@ -43,26 +46,34 @@
                 <div class="form-group col-sm-6">
                 
                     <div>
+                    
+                        <input type="radio" id="contactChoice1-{{$key}}"
+                        name="risk_chance_radio1" value="R" {{ ($riesgos->risk_chance_radio == "R") ? 'checked' : '' }}>
+                        <label for="contactChoice1">riesgos</label>
 
-
-                    <input type="radio" id="contactChoice1-{{$key}}"
-                        name="risk_chance_radio"  value="R" {{ ($riesgos->risk_chance_radi == "R") ? 'checked' : '' }}>
-                        <label for="contactChoice1">riesgo</label>
-
-                        <input type="radio" id="contactChoice2"
-                        name="risk_chance_radio" value="O" {{ ($riesgos->risk_chance_radi == "O") ? 'checked' : '' }}>
+                        <input type="radio" id="contactChoice2-{{$key}}"
+                        name="risk_chance_radio2" value="O" {{ ($riesgos->risk_chance_radio == "O") ? 'checked' : '' }}>
                         <label for="contactChoice2">oportunidad</label>
+
                     </div>
 
                     {!! Form::text('risk_chance_text', $riesgos->risk_chance_text, ['class' => 'form-control']) !!}
 
                 </div>
 
+                <script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
+
                 <script type="text/javascript">
+
+                $(document).ready(function() {
+
 
                     var key = '<?php echo $key; ?>';
 
-                    document.getElementById("contactChoice1-"+key).setAttribute("checked","true");
+                    //$("#contactChoice1-"+key).attr( 'checked', true )
+                    //$("#contactChoice22").attr( 'checked', true )
+                    
+                });
 
                 </script>
 
@@ -140,7 +151,6 @@
 
 
 
-<script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
 
 <script type="text/javascript">
 
@@ -274,11 +284,11 @@ $(document).ready(function() {
 
                     <div>
                         <input type="radio" id="is_effective_1"
-                        name="is_effective" value="SI" {{ ($riesgos->is_effective == "SI") ? 'checked' : '' }}>
+                        name="is_effective1" value="SI" {{ ($riesgos->is_effective == "SI") ? 'checked' : '' }}>
                         <label for="is_effective_1">SI</label>
 
                         <input type="radio" id="is_effective_2"
-                        name="is_effective" value="NO" {{ ($riesgos->is_effective == "NO") ? 'checked' : '' }}>
+                        name="is_effective2" value="NO" {{ ($riesgos->is_effective == "NO") ? 'checked' : '' }}>
                         <label for="is_effective_2">NO</label>
                     </div>
 

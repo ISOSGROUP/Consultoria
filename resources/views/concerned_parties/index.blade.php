@@ -49,9 +49,11 @@
                 <input type="text" style="display:none;"name="id" id="user_id" value="{{ $user[0]->id}}"class="form-control" placeholder="Name">
 
                 <select name="user" id="user" class="form-control">
+
                         @foreach($users as $key => $value)
 
                             @if($value->name == $user[0]->name)
+                            
                                 <option value="{{ $value->name }}" selected>{{ $value->name }}</option>
                             @else 
                                 <option value="{{ $value->name }}">{{ $value->name }}</option>

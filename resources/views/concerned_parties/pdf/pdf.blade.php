@@ -35,56 +35,36 @@
         <table class="table table-striped mytable" id="dataTable" >
 
             <thead>
-                            <th id="theadCol1" scope="col" width="1%">Tipo</th>
-                            <th id="theadCol2" scope="col" width="1%">Partes interesadas</th>
-                            <th id="theadCol1" scope="col" width="1%">Necesidades</th>
-                            <th id="theadCol2" scope="col" width="1%">Expectativas</th>
-                            <th id="theadCol2" scope="col" width="1%">Forma de cumplimiento</th>
-                            <th id="theadCol2" scope="col" width="1%">Requisitos legales vinculados</th>
+
+                <th id="theadCol1" scope="col" width="1%">Tipo</th>
+                <th id="theadCol2" scope="col" width="3%">Partes interesadas</th>
+                <th id="theadCol1" scope="col" width="3%">Necesidades</th>
+                <th id="theadCol2" scope="col" width="3%">Expectativas</th>
+                <th id="theadCol2" scope="col" width="3%">Forma de cumplimiento</th>
+                <th id="theadCol2" scope="col" width="3%">Requisitos legales vinculados</th>
 
             </thead>
 
             <tbody id="tbl_posts_body">
 
-            @foreach($concernedParties as $concernedParties)
+                @foreach($concernedParties as $concernedParties)
 
-                <tr>
-                    
-                    <td  sytle="max-width:10px">{{ (($concernedParties->type == "internal") ? "interno" : "externo") }}</td>
-                    <td class="cell">{{ $concernedParties->concerned_parties }}</td>
-                    <td class="cell">{{ $concernedParties->needs }}</td>
-                    <td class="cell">{{ $concernedParties->Expectations }}</td>
-                    <td class="cell">{{ $concernedParties->form_of_fulfillment }}</td>
-                    <td class="cell">{{ $concernedParties->related_legal_requirements }}</td>
-                
+                    <tr>
+                        
+                        <td style="">{{ (($concernedParties->type == "internal") ? "interno" : "externo") }}</td>
+                        <td class="cell">{{ $concernedParties->concerned_parties }}</td>
+                        <td class="cell">{{ $concernedParties->needs }}</td>
+                        <td class="cell">{{ $concernedParties->Expectations }}</td>
+                        <td class="cell">{{ $concernedParties->form_of_fulfillment }}</td>
+                        <td class="cell">{{ $concernedParties->related_legal_requirements }}</td>
 
-                </tr>
+                    </tr>
 
 
-            @endforeach
+                @endforeach
 
             </tbody>    
         </table>
-
-
-
-
-
-
-
-        
-
-
- 
-
-
-
-
-                                
-
-                                            
-            
-
 
         </div>
     </div>
@@ -181,12 +161,7 @@ label {
     }
  
  
-    .custom-td {
-        border: 1px solid black;
-        max-width: 60px;
-        word-wrap: break-word;
-    }
-
+     
 
     .mytable {
         border-collapse: collapse;
