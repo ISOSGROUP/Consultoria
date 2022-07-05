@@ -352,7 +352,48 @@ class RiesgosController extends AppBaseController
         }
 
 
-        $pdf = \PDF::loadView('riesgos.pdf.pdf',compact('riesgos', 'user','users'));
+
+
+
+        $weaknesses = Foda::select('foda.name', 'foda_details.description','foda_details.id')
+                    ->join('foda_details', 'foda.id', '=', 'foda_details.foda_id')
+                    ->where('foda.name', '=', "weaknesses")
+                    ->get();
+
+        $strengths = Foda::select('foda.name', 'foda_details.description','foda_details.id')
+                    ->join('foda_details', 'foda.id', '=', 'foda_details.foda_id')
+                    ->where('foda.name', '=', "strengths")
+                    ->get();
+
+        $opportunities = Foda::select('foda.name', 'foda_details.description','foda_details.id')
+                        ->join('foda_details', 'foda.id', '=', 'foda_details.foda_id')
+                        ->where('foda.name', '=', "opportunities")
+                        ->get();
+
+        $threats = Foda::select('foda.name', 'foda_details.description','foda_details.id')
+                    ->join('foda_details', 'foda.id', '=', 'foda_details.foda_id')
+                    ->where('foda.name', '=', "threats")
+                    ->get();
+        $allFoda;
+
+        $allFoda["weaknesses"] = $weaknesses;
+        $allFoda["strengths"] = $strengths;
+        $allFoda["opportunities"] = $opportunities;
+        $allFoda["threats"] = $threats;
+
+        $largest = 0;
+        foreach ($allFoda as $key => $value) {
+
+            if (sizeof($allFoda[$key]) > $largest) {
+                $largest = sizeof($allFoda[$key]);
+            }
+        }
+
+
+
+        //return view('riesgos.edit', compact('filledArray', 'allFoda','largest','foda_reference','riesgos','risk_chance_radio','is_effective','execution_time','users','interested_part','responsible','responsible_for_monitoring'));
+
+        $pdf = \PDF::loadView('riesgos.pdf.pdf',compact('riesgos', 'user','users','filledArray', 'allFoda','largest'));
         $pdf->setOptions([
             'header-html'=> view('riesgos.pdf.header')
         ]);

@@ -13,9 +13,6 @@
 
     <div class="form_wrapper">
 
-     
-
-
                                     <br>
                                 <div class="form-control">
                                     <label for="">PERÍODO DE INFORMACIÓN: ANUAL</label>
@@ -80,13 +77,9 @@
                 <div class="form-group col-sm-6">
                     
                     {!! Form::label('probability', 'Probabilidad:') !!}
-                    <i class="fa fa-info-circle fa-lg tool-tip" style="color: #eb3526 " id="info_probability" ></i>
                     {!! Form::text('probability', $probability[$riesgos->probability], ['class' => 'form-control','empty'=>'Seleccionar','autocomplete'=>'off','id'=>'probability']) !!}
                     
-                    <div class="form-group">
-                        <table id="mytable" class="mytable">
-                        </table>
-                    </div>
+                    
 
                 </div>
 
@@ -94,15 +87,10 @@
                 <div class="form-group col-sm-6">
 
                     {!! Form::label('impact', 'Impacto:') !!}
-                    <i class="fa fa-info-circle fa-lg tool-tip" style="color: #eb3526 " id="info_impact" ></i>
-
                     {!! Form::text('impact', $impact[$riesgos->impact], ['class' => 'form-control','empty'=>'Seleccionar','autocomplete'=>'off','id'=>'impact']) !!}
 
 
-                    <div class="form-group">
-                        <table id="impact-table" class="mytable">
-                        </table>
-                    </div>
+                     
                 </div>
 
                 <!-- Risk Level Field -->
@@ -121,18 +109,123 @@
                 <!-- Foda Reference Field -->
                 <div class="form-group col-sm-6">
                     {!! Form::label('foda_reference', 'Foda Referencia:') !!}
-                <!--  {!! Form::text('foda_reference', null, ['class' => 'form-control','id'=>'foda_reference']) !!} -->
 
-                    <table class="table table-striped" id="dataTable" >
+                <table class="table table-striped mytable" id="dataTable-{{$key}}" >
                         <thead>
                             <th id="theadCol1" scope="col" width="1%">Fortalezas</th>
                             <th id="theadCol2" scope="col" width="1%">Debilidades</th>
                             <th id="theadCol1" scope="col" width="1%">Oportunidades</th>
                             <th id="theadCol2" scope="col" width="1%">Amenazas</th>
                         </thead>
-                        
+                        <tbody id="tbl_posts_body">
+
+                            <tr style="display:none">
+                                <td  sytle="max-width:10px">   </td>
+                                <td class="cell">ww </td>
+                                <td class="cell"> ww</td>
+                                <td class="cell"> ww</td>
+                                <td class="cell"> ww</td>
+                                <td class="cell">ww</td>
+                        </tr>
+
+
+                        </tbody>    
+
+
                     </table>
-                                            
+                        
+                    
+
+
+
+
+
+<script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
+
+<script type="text/javascript">
+
+    
+$(document).ready(function() {
+    
+
+    var key = '<?php echo $key; ?>';
+
+    const myArray = {};
+    myArray.weaknesses = "debilidades";
+    myArray.opportunities = "oportunidades";
+    myArray.strengths = "fortalezas";
+    myArray.threats = "amenazas";
+
+    var weaknesses = '<?php echo $allFoda["weaknesses"]; ?>';
+    var strengths = '<?php echo json_encode($allFoda["strengths"]); ?>';
+    var opportunities = '<?php echo $allFoda["opportunities"]; ?>';
+    var threats = '<?php echo $allFoda["threats"]; ?>';
+
+    var largest = '<?php echo $largest; ?>';
+    var checkboxList = '<?php echo json_encode(unserialize($riesgos->foda_reference)); ?>';
+
+    for (i=0; i < largest; i++)  { 
+
+        addRow( ((typeof JSON.parse(strengths)[i] != 'undefined')? JSON.parse(strengths)[i]:null),
+                ((typeof JSON.parse(weaknesses)[i] != 'undefined')? JSON.parse(weaknesses)[i]:null),
+                ((typeof JSON.parse(opportunities)[i] != 'undefined')? JSON.parse(opportunities)[i]:null),
+                ((typeof JSON.parse(threats)[i] != 'undefined')? JSON.parse(threats)[i]:null)
+            ,i,checkboxList);
+    } 
+
+
+    function addRow(element_1,element_2,element_3,element_4,index,checkboxList){
+
+        var table = document.getElementById('dataTable-'+key);
+        var rowCount = table.rows.length;
+        var cellCount = 3; 
+        var row = table.insertRow(rowCount);
+
+        var json_arr = {};
+        json_arr[0] =  element_1;
+        json_arr[1] =  element_2;
+        json_arr[2] =  element_3;
+        json_arr[3] =  element_4;
+        console.log(element_3)
+        for(var i = 0; i <= cellCount; i++){
+
+            var htmlLabelInput = "";
+             
+            if((json_arr[i] != null)){
+                
+                    htmlLabelInput = '<label class="label-table">'+
+                                    '<input type="checkbox"  ischecked="'+((checkboxList.includes(parseInt(json_arr[i].id))) ? json_arr[i].id :"false")+'"'+
+                                    'name="foda_reference['+json_arr[i].id+']"'+
+                                    'class="customCheckBox"> '+myArray[json_arr[i].name].charAt(0).toUpperCase()+(index +1)+
+                                    '</label>';
+
+                    var cell = row.insertCell(i);
+                    cell.innerHTML = htmlLabelInput;
+                   $('[ischecked="'+json_arr[i].id+'"]').attr('checked', true);
+
+            }else{
+                row.insertCell(i);
+            }
+        }
+    }
+
+
+     
+
+
+
+     
+
+
+
+    
+});
+
+ 
+</script>
+
+
+
                 </div>
 
                 <!-- Action To Take Field -->
@@ -178,7 +271,6 @@
 
                 <div class="form-group col-sm-6">
                     {!! Form::label('Es_eficaz', 'Es eficaz:') !!}
-                    <i class="fa fa-info-circle fa-lg tool-tip" style="color: #eb3526 " id="info_is_effective" ></i>
 
                     <div>
                         <input type="radio" id="is_effective_1"
@@ -193,6 +285,8 @@
                     <br>
 
                     {!! Form::label('Expectations', 'Comentario eficacia:') !!}
+                    <br>
+
                     {!! Form::textarea('comment_on_effectiveness', $riesgos->comment_on_effectiveness, ['class' => 'form-control']) !!}
                 </div>
 
@@ -303,32 +397,45 @@ label {
 
   
 
-    .custom-table{
-        border: 2px solid #6d6d6f;
-        border-radius:10px;
-        width: 500px;
-        height: 250px;
-        padding:10px;
-        overflow-y: auto;
-    }
-    .tbl_posts{
-       /*  border: 1px solid #6d6d6f; */
-        border-radius:5px;
-        width: 900px;
-        height: 250px;
-        padding:5px;
-        border-collapse: collapse;
+     
 
 
-    }
- 
- 
-    .custom-td {
+  .custom-td {
         border: 1px solid black;
         max-width: 60px;
         word-wrap: break-word;
     }
 
+
+    .mytable {
+        border-collapse: collapse;
+        margin: 10px 0;
+        font-size: 0.8em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .mytable thead tr {
+        background-color: #1d97c3;
+        color: #ffffff;
+        text-align: left;
+    }
+
+    .mytable th,
+    .mytable td {
+        padding: 12px 15px;
+
+    }
+
+    .mytable tbody tr {
+        border-bottom: 1px solid #dddddd;
+
+    }
+
+    .mytable tbody tr {
+        background-color: #f3f3f3;
+    }
 
 
 </style>

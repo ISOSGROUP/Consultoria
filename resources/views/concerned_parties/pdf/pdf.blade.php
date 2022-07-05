@@ -29,53 +29,53 @@
         <div class="form_container">
 
         
-        @foreach($concernedParties as $concernedParties)
+ 
+
+
+        <table class="table table-striped mytable" id="dataTable" >
+
+            <thead>
+                            <th id="theadCol1" scope="col" width="1%">Tipo</th>
+                            <th id="theadCol2" scope="col" width="1%">Partes interesadas</th>
+                            <th id="theadCol1" scope="col" width="1%">Necesidades</th>
+                            <th id="theadCol2" scope="col" width="1%">Expectativas</th>
+                            <th id="theadCol2" scope="col" width="1%">Forma de cumplimiento</th>
+                            <th id="theadCol2" scope="col" width="1%">Requisitos legales vinculados</th>
+
+            </thead>
+
+            <tbody id="tbl_posts_body">
+
+            @foreach($concernedParties as $concernedParties)
+
+                <tr>
+                    
+                    <td  sytle="max-width:10px">{{ (($concernedParties->type == "internal") ? "interno" : "externo") }}</td>
+                    <td class="cell">{{ $concernedParties->concerned_parties }}</td>
+                    <td class="cell">{{ $concernedParties->needs }}</td>
+                    <td class="cell">{{ $concernedParties->Expectations }}</td>
+                    <td class="cell">{{ $concernedParties->form_of_fulfillment }}</td>
+                    <td class="cell">{{ $concernedParties->related_legal_requirements }}</td>
+                
+
+                </tr>
+
+
+            @endforeach
+
+            </tbody>    
+        </table>
 
 
 
-        <div class="form-group col-sm-2">
-            {!! Form::label('type', 'Tipo:') !!}
-
-            {!! Form::text('type', (($concernedParties->type == "internal")?"interno":"externo"), ['class' => 'form-control','empty'=>'Seleccionar']) !!}
-        </div>
-
-        <!-- Concerned Parties Field -->
-        <div class="form-group col-sm-12 col-lg-12">
-            {!! Form::label('concerned_parties', 'Partes interesadas:') !!}
-            {!! Form::text('concerned_parties', $concernedParties->concerned_parties, ['class' => 'form-control']) !!}
-        </div>
-
-        <!-- Needs Field -->
-        <div class="form-group col-sm-12 col-lg-12">
-            {!! Form::label('needs', 'Necesidades:') !!}
-            <br>
-            {!! Form::textarea('needs', $concernedParties->needs, ['class' => 'form-control']) !!}
-        </div>
-
-        <!-- Expectations Field -->
-        <div class="form-group col-sm-12 col-lg-12">
-            {!! Form::label('Expectations', 'Expectativas:') !!}
-            <br>
-            {!! Form::textarea('Expectations', $concernedParties->Expectations, ['class' => 'form-control']) !!}
-        </div>
-
-        <!-- Form Of Fulfillment Field -->
-        <div class="form-group col-sm-12 col-lg-12">
-            {!! Form::label('form_of_fulfillment', 'Forma de cumplimiento:') !!}
-            <br>
-            {!! Form::textarea('form_of_fulfillment', $concernedParties->form_of_fulfillment, ['class' => 'form-control']) !!}
-        </div>
-
-        <!-- Related Legal Requirements Field -->
-        <div class="form-group col-sm-12 col-lg-12">
-            {!! Form::label('related_legal_requirements', 'Requisitos legales vinculados:') !!}
-            <br>
-            {!! Form::textarea('related_legal_requirements', null, ['class' => 'form-control']) !!}
-        </div>
 
 
-        @endforeach
 
+
+        
+
+
+ 
 
 
 
@@ -185,6 +185,39 @@ label {
         border: 1px solid black;
         max-width: 60px;
         word-wrap: break-word;
+    }
+
+
+    .mytable {
+        border-collapse: collapse;
+        margin: 10px 0;
+        font-size: 0.8em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .mytable thead tr {
+        background-color: #1d97c3;
+        color: #ffffff;
+        text-align: left;
+    }
+
+    .mytable th,
+    .mytable td {
+        padding: 12px 15px;
+
+        max-width: 60px;
+        word-wrap: break-word;
+    }
+
+    .mytable tbody tr {
+        border-bottom: 1px solid #dddddd;
+
+    }
+
+    .mytable tbody tr {
+        background-color: #f3f3f3;
     }
 
 
