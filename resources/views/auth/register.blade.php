@@ -26,8 +26,8 @@
                 <div class="card-body p-4">
                     <form method="post" action="{{ url('/register') }}">
                         @csrf
-                        <h1>Register</h1>
-                        <p class="text-muted">Create your account</p>
+                        <h1>Registro</h1>
+                        <p class="text-muted">Crea tu cuenta</p>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                               <span class="input-group-text">
@@ -35,13 +35,56 @@
                               </span>
                             </div>
                             <input type="text" class="form-control {{ $errors->has('name')?'is-invalid':'' }}" name="name" value="{{ old('name') }}"
-                                   placeholder="Full Name">
+                                   placeholder="Nombre completo">
+
+                           
+
                             @if ($errors->has('name'))
                                 <span class="invalid-feedback">
                                     <strong>{{ $errors->first('name') }}</strong>
                                 </span>
                             @endif
                         </div>
+
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="icon-user"></i>
+                              </span>
+                            </div>
+                           
+                            <input type="text" class="form-control {{ $errors->has('surnames')?'is-invalid':'' }}" name="surnames" value="{{ old('surnames') }}"
+                            placeholder="Apellidos">
+
+
+                            @if ($errors->has('surnames'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('surnames') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="fa fa-phone"></i>
+                              </span>
+                            </div>
+                           
+                            <input type="text" class="form-control {{ $errors->has('phone')?'is-invalid':'' }}" name="phone" value="{{ old('phone') }}"
+                            placeholder="Telefono">
+
+
+                            @if ($errors->has('phone'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('phone') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">@</span>
@@ -80,8 +123,8 @@
                                </span>
                             @endif
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
-                        <a href="{{ url('/login') }}" class="text-center">I already have a membership</a>
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Registrarse</button>
+                        <a href="{{ url('/login') }}" class="text-center">ya tengo una membresia</a>
                     </form>
                 </div>
             </div>

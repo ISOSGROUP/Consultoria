@@ -78,6 +78,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 });
 
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'index'])->name('register.index');
 
 
 
