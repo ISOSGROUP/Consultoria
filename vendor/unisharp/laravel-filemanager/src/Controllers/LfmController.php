@@ -40,6 +40,21 @@ class LfmController extends Controller
       //  dd("test2");
 
 
+      $role = DB::table('model_has_roles')
+      ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+      ->where('model_has_roles.model_id', '=', auth()->user()->id)
+      //->where('model_has_roles.model_id', '=',  $user->id)
+      ->where( 'roles.name', '=', "Postulante" )
+      ->select('roles.name')
+      ->get();
+
+      if(count($role)>0){
+
+        return redirect(route('myperfil.index'));
+
+      }
+
+
       $permissions = DB::table('model_has_roles')
                     ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
                     ->join('folder_permissions', 'folder_permissions.role_id', '=', 'roles.id')

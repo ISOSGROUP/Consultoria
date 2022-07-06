@@ -17,7 +17,22 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/filemanager';
+
+
+    //$roles = $user->getRoleNames(); // Returns a collection
+    public const filemanager = '/filemanager';
+    public const postulante = '/myperfil';
+
+/*
+    public const role = DB::table('model_has_roles')
+    ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+    ->where('model_has_roles.model_id', '=', auth()->user()->id)
+    //->where('model_has_roles.model_id', '=',  $user->id)
+    ->where( 'roles.name', '=', "Postulante" )
+    ->select('roles.name')
+    ->get();
+*/
+
 
     /**
      * The controller namespace for the application.

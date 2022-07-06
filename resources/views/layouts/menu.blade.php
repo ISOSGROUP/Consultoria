@@ -1,3 +1,55 @@
+@hasrole('Postulante')
+   
+
+
+
+<li class="nav-item {{ Request::is('controlOfQualityObjectives*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('controlOfQualityObjectives.index') }}">
+            <i class="nav-icon fa fa-table"></i>
+            <span>Perfil</span>
+        </a>
+</li>
+
+<li class="nav-item {{ Request::is('controlOfQualityObjectives*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('controlOfQualityObjectives.index') }}">
+            <i class="nav-icon fa fa-table"></i>
+            <span>Mi currículum</span>
+        </a>
+</li>
+
+<li class="nav-item {{ Request::is('controlOfQualityObjectives*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('controlOfQualityObjectives.index') }}">
+            <i class="nav-icon fa fa-table"></i>
+            <span>Mis postulaciones</span>
+        </a>
+</li>
+
+
+
+<li class="nav-item {{ Request::is('controlOfQualityObjectives*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('controlOfQualityObjectives.index') }}">
+            <i class="nav-icon fa fa-table"></i>
+            <span>Alertas</span>
+        </a>
+</li>
+
+<li class="nav-item {{ Request::is('controlOfQualityObjectives*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('controlOfQualityObjectives.index') }}">
+            <i class="nav-icon fa fa-table"></i>
+            <span>Puestos de trabajo</span>
+        </a>
+</li>
+
+
+
+
+
+
+
+
+@else
+    
+
 <li class="nav-item nav-dropdown  {{ Request::is('categories*') ? 'active' : '' }}" >
   <a class="nav-link nav-dropdown-toggle" href="#">
     <i class="nav-icon fa fa-bars"></i>Gestión de Acceso</a>
@@ -79,7 +131,7 @@
         </a>
     </li>
 @endcan
-
+{{-- 
 <li class="nav-item nav-dropdown " >
   <a class="nav-link nav-dropdown-toggle" href="#">
     <i class="nav-icon fa fa-bars"></i>Procesos</a>
@@ -148,10 +200,21 @@
             </li>
   </ul>
 </li>
+--}}
 
- 
+<li class="nav-item nav-dropdown  " >
+  <a class="nav-link nav-dropdown-toggle" href="#">
+    <i class="nav-icon fa fa-bars"></i>Recursos humanos</a>
+  <ul class="nav-dropdown-items">
+            <li class="nav-item ">
+                <a class="nav-link" href="#">
+                    <i class="nav-icon"></i>
+                    <span>Revision por la direccion  </span>
+                </a>
+            </li>
+         
+  </ul>
+</li>
 
-
-
-
+@endhasrole
 
