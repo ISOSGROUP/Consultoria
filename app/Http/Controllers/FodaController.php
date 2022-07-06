@@ -445,7 +445,7 @@ class FodaController extends Controller
                     ->select('users.id','users.name')
                     ->get();
 
-        return view('foda.index')->with('foda', $foda)->with('users', $users);
+        return view('foda.test')->with('foda', $foda)->with('users', $users);
        // return view('layouts.test')->with('foda', $foda);
 
     }
