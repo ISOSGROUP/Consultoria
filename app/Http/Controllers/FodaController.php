@@ -436,6 +436,20 @@ class FodaController extends Controller
 
     }
 
+    public function index2(Request $request){
+
+        $foda = $this->fodaRepository->all();
+
+
+        $users = DB::table('users')
+                    ->select('users.id','users.name')
+                    ->get();
+
+        return view('foda.index')->with('foda', $foda)->with('users', $users);
+       // return view('layouts.test')->with('foda', $foda);
+
+    }
+
 
 
 }
