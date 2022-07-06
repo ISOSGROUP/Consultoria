@@ -13,6 +13,7 @@ use Hash;
 use Flash;
 use Response;
 use DB;
+use Auth;
 
 
 class UserController extends AppBaseController
@@ -136,7 +137,6 @@ class UserController extends AppBaseController
     public function update($id, UpdateUserRequest $request)
     {
 
-        dd($request);
       $users = $this->userRepository->updateUser($id,$request);
       DB::table('model_has_roles')->where('model_id',$id)->delete();
       $user = User::find($id);
@@ -161,4 +161,17 @@ class UserController extends AppBaseController
         Flash::success('Usuario eliminado con éxito');
         return redirect(route('users.index'));
     }
+
+
+    public function myPerfil(Request $request){
+
+
+        $user = $this->userRepository->find(auth()->user()->id);
+
+        $roles = Role::all();
+
+        return view('my_perfil.edit',compact('user','roles'));
+
+    }
+
 }

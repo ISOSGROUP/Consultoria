@@ -79,7 +79,7 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'index'])->name('register.index');
-Route::get('/myperfil', [App\Http\Controllers\FodaController::class, 'index2'])->name('myperfil.index');
+Route::get('/myperfil', [App\Http\Controllers\UserController::class, 'myPerfil'])->name('myperfil.index');
 
 
 
