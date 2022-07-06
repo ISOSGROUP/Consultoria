@@ -69,7 +69,7 @@
         <br>
 
 
-        <label id="threats">Strategia sobre oportunidades y fortalezas</label>
+        <label id="threats">Strategia oportunidades y fortalezas</label>
 
         <table class="table table-striped mytable" id="dataTable" > 
 
@@ -132,7 +132,7 @@
         <br>
         <br>
 
-        <label id="threats">Strategia sobre oportunidades y debilidades </label>
+        <label id="threats">Strategia oportunidades y debilidades </label>
 
         <table class="table table-striped mytable" id="dataTable" >
 
@@ -196,7 +196,7 @@
         <br>
 
 
-        <label id="threats">Strategia sobre amenazas y fortalezas</label>
+        <label id="threats">Strategia amenazas y fortalezas</label>
 
         <table class="table table-striped mytable" id="dataTable" >
 
@@ -243,7 +243,7 @@
         <br>
 
 
-        <label id="threats">Strategia sobre amenazas y debilidades</label>
+        <label id="threats">Strategia amenazas y debilidades</label>
 
         <table class="table table-striped mytable" id="dataTable" >
 
