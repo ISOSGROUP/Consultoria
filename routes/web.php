@@ -80,11 +80,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'index'])->name('register.index');
 Route::get('/myperfil', [App\Http\Controllers\UserController::class, 'myPerfil'])->name('myperfil.index');
+Route::PATCH('/updateMyPerfil', [App\Http\Controllers\UserController::class, 'updateMyPerfil'])->name('myPerfil.update');
+Route::resource('curricula', App\Http\Controllers\CurriculumController::class);
 
-
-
-
-
-
-
-
+Route::post('/upload-file',[App\Http\Controllers\CurriculumController::class, 'upload_file'])->name('upload_file');

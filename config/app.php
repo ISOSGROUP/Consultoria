@@ -240,7 +240,8 @@ return [
        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 
-
+       'Arr' => Illuminate\Support\Arr::class,
+       'Str' => Illuminate\Support\Str::class,
        
 
     ],

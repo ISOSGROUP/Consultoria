@@ -7,12 +7,13 @@
             </a>
     </li>
 
-    <li class="nav-item {{ Request::is('controlOfQualityObjectives*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('controlOfQualityObjectives.index') }}">
-                <i class="nav-icon fa fa-table"></i>
-                <span>Mi currículum</span>
-            </a>
+    <li class="nav-item {{ Request::is('curricula*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('curricula.index') }}">
+            <i class="nav-icon icon-cursor"></i>
+            <span>Mi currículum</span>
+        </a>
     </li>
+
 
     <li class="nav-item {{ Request::is('controlOfQualityObjectives*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('controlOfQualityObjectives.index') }}">
@@ -205,4 +206,5 @@
     </li>
 
 @endhasrole
+
 

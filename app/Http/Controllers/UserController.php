@@ -168,10 +168,26 @@ class UserController extends AppBaseController
 
         $user = $this->userRepository->find(auth()->user()->id);
 
-        $roles = Role::all();
 
-        return view('my_perfil.edit',compact('user','roles'));
+        return view('my_perfil.edit',compact('user'));
 
     }
+
+    public function updateMyPerfil(UpdateUserRequest $request){
+
+        $input = $request->all();
+
+        if(!empty($input['password'])){ 
+            $input['password'] = Hash::make($input['password']);
+        }else{
+            $input = \Arr::except($input,array('password'));    
+        }
+
+        $user =  $this->userRepository->find(auth()->user()->id);
+        $user->update($input);
+
+        return redirect()->route('myperfil.index');
+    }
+
 
 }

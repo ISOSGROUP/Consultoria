@@ -2,16 +2,11 @@
 
 @section('content')
  
-  @if (count($errors) > 0)
-  <div class="alert alert-danger">
-    <strong>¡Ups!</strong> Hubo algunos problemas con tu entrada.<br><br>
-    <ul>
-       @foreach ($errors->all() as $error)
-         <li>{{ $error }}</li>
-       @endforeach
-    </ul>
-  </div>
-@endif
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">Perfil</li>
+    </li>
+    <li class="breadcrumb-item active">Editar</li>
+</ol>
 
 
 <div class="container-fluid">
@@ -25,7 +20,7 @@
                             </div>
                             <div class="card-body">
 
-                              {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]) !!}
+                              {!! Form::model($user, ['method' => 'PATCH','route' => ['myPerfil.update', $user->id]]) !!}
 
                                 <div class="row">
 
@@ -92,8 +87,7 @@
                                 
                                </br>
 
-                                <button type="submit" class="btn btn-primary">Enviar</button>
-                                <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
                               </div>
                               </div>
                               {!! Form::close() !!}
