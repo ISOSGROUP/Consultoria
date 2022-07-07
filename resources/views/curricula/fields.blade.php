@@ -108,52 +108,39 @@
 
 
 
-{!! Form::text('activities', null, ['class' => 'form-control',"readonly"=>"readonly","style"=>"display:none","id"=>"activities"]) !!}
 
-
+<div>
 <!-- <div id="www" ></div> -->
 
 <div style="display:none;">
-<table id="sample_table">
-<tr id="" class="custom-row" style="height:2px;">
-<td  style="max-width:1px;padding:5px;"><span class="sn"></span>.</td>
-<td class="actividades" style="max-width:30px;padding:5px;" contenteditable>test</td>
-<td class="recursos" style="max-width:30px;padding:5px;" contenteditable>test</td>
-<td class="responsable volunteer " style="max-width:20px;padding:5px;" >
-[""]
-<td class="plazo" style="max-width:30px;padding:5px;"><input type="date" class="datepick" /></td>
-<!-- <td class="plazo " style="max-width:30px;padding:5px;"contenteditable>test</td>-->
-<td class="verificacion" style="max-width:20px;min-height:30px;padding:5px;" contenteditable>test</td>
-
-
-<td >
-  <div class="input-group-prepend">
-      <!-- <a class="btn btn-xs " data-id="0"> <i class="fa fa-edit fa-lg"></i></a> -->
-      <a class="btn btn-xs delete-record" data-id="0"> <i class="fa fa fa-trash fa-lg"></i></a>
-  </div>
-</td>
-  
-</tr>
-</table>
+    <table id="sample_table">
+        <tr id="" class="custom-row" style="height:2px;">
+            <td  style="max-width:1px;padding:5px;"><span class="sn"></span>.</td>
+            <td class="actividades" style="max-width:30px;padding:5px;" contenteditable>test</td>
+            <td class="recursos" style="max-width:30px;padding:5px;" contenteditable>test</td>
+            <td class="responsable volunteer " style="max-width:20px;padding:5px;" >
+            [""]
+            <td class="plazo" style="max-width:30px;padding:5px;"><input type="date" class="datepick" /></td>
+        </td>
+        
+        </tr>
+    </table>
 
 
 </div>
 
 <table class="table table-striped " id="tbl_posts" style="min-width:1100px;" >
 
-<thead>
-  <th style="min-width:1px;">#</th>
-  <th class="actividades"   style="min-width:30px;overflow-y: auto;height:40px;">Actividades</th>
-  <th class="recursos"   style="min-width:30px;">Recursos</th>
-  <th class="responsable"   style="width:25px;">Responsable</th>
-  <th class="plazo"   style="min-width:30px;">Plazo</th>
-  <th class="verificacion"   style="min-width:30px;">Verificación de eficacia </th>
-  <th class="action"  style="width:10px"style="min-width:30px;">Action</th>
- 
-</thead>
+    <thead>
+        <th style="min-width:1px;">#</th>
+        <th class="actividades"   style="min-width:30px;overflow-y: auto;height:40px;">w</th>
+        <th class="recursos"   style="min-width:30px;">ww</th>
+        <th class="responsable"   style="width:25px;">ww</th>
+        
+    </thead>
 
-<tbody id="tbl_posts_body">
-</tbody>
+    <tbody id="tbl_posts_body">
+    </tbody>
 
 </table>
 
